@@ -1,4 +1,14 @@
 <div class="bg-blue-500 text-white p-4 rounded-lg shadow-lg">
-  <h1>Response from Backend:</h1>
+  <h1>Response from Backend home route:</h1>
   <p>{{ response | json }}</p>
+</div>
+
+<div class="bg-blue-500 text-white p-4 rounded-lg shadow-lg">
+  <h1>Response from route - /api/estates:</h1>
+  <p>{{ first | json }}</p>
+</div>
+
+<div class="bg-blue-500 text-white p-4 rounded-lg shadow-lg">
+  <h1>Response from route - /api/estates/:id:</h1>
+  <p>{{ second | json }}</p>
 </div>

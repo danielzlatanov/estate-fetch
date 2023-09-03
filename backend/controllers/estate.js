@@ -1,11 +1,14 @@
-exports.getAllEstates = (req, res) => {
-	// logic to retrieve all estates
+const getAllEstates = (req, res) => {
+	console.log('receiving all');
+	res.json({ message: 'You have received all of the estates.' });
 };
 
-exports.getEstateById = (req, res) => {
-	// logic to retrieve an estate by ID
+const getEstateById = (req, res) => {
+	console.log('receiving one');
+	res.json({ message: 'You have received specific info regarding an estate.' });
 };
 
-exports.createEstate = (req, res) => {
-	// logic to create a new estate
+module.exports = {
+	getAllEstates,
+	getEstateById,
 };

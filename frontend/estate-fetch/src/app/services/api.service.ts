@@ -12,4 +12,12 @@ export class ApiService {
   testBackendConnection(): any {
     return this.http.get(this.baseUrl);
   }
+
+  testFirstRoute(): any {
+    return this.http.get(`${this.baseUrl}/api/estates`);
+  }
+  
+  testSecondRoute(): any {
+    return this.http.get(`${this.baseUrl}/api/estates/123`);
+  }
 }
