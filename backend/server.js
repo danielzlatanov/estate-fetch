@@ -11,7 +11,7 @@ async function start() {
 	expressConfig(app);
 
 	app.get('/', (req, res) => {
-		res.send('Welcome to the backend API!');
+		res.json({ message: 'Welcome to the backend API!' });
 	});
 
 	app.use('/api', estateRoutes);
