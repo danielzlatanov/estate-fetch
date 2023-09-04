@@ -3,18 +3,18 @@ const Estate = require('../models/Estate');
 
 const scrapeAndSaveEstateData = async (req, res) => {
 	try {
-		const realEstateData = await scraper.scrapeRealEstateData();
+		const realEstateData = await scraper.scrapeDataWithRetry();
 
 		if (realEstateData == null) {
 			throw new Error('Scraped data is not an array');
 		}
 
-		const savedEstates = await Promise.all(
-			realEstateData.map(async estateData => {
-				const estate = new Estate(estateData);
-				return await estate.save();
-			})
-		);
+		// const savedEstates = await Promise.all(
+		// 	realEstateData.map(async estateData => {
+		// 		const estate = new Estate(estateData);
+		// 		return await estate.save();
+		// 	})
+		// );
 
 		res.json({ message: 'Real estate data scraped and saved successfully.', savedEstates });
 	} catch (err) {

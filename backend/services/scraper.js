@@ -77,10 +77,35 @@ async function scrapeRealEstateData() {
 	}
 }
 
+async function scrapeDataWithRetry() {
+	const maxRetries = 3;
+	let retryCount = 0;
+
+	while (retryCount < maxRetries) {
+		try {
+			const realEstateData = await scrapeRealEstateData();
+
+			if (realEstateData) {
+				console.log(`Data scraped at Attempt ${++retryCount}`);
+				return realEstateData;
+			}
+		} catch (error) {
+			console.error(`Error scraping real estate data (Attempt ${retryCount + 1}):`, error);
+			retryCount++;
+
+			await delay(3000);
+		}
+	}
+
+	console.error('Max retries reached. Scraping failed.');
+	return null;
+}
+
 function delay(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 module.exports = {
 	scrapeRealEstateData,
+	scrapeDataWithRetry,
 };
