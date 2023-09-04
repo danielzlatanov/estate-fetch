@@ -13,10 +13,14 @@ export class ApiService {
     return this.http.get(this.baseUrl);
   }
 
+  testScrape(): any {
+    return this.http.get(`${this.baseUrl}/api/scrape`);
+  }
+
   testFirstRoute(): any {
     return this.http.get(`${this.baseUrl}/api/estates`);
   }
-  
+
   testSecondRoute(): any {
     return this.http.get(`${this.baseUrl}/api/estates/123`);
   }

@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const estateController = require('../controllers/estate');
 
+router.get('/scrape', estateController.scrapeAndSaveEstateData);
 router.get('/estates', estateController.getAllEstates);
 router.get('/estates/:id', estateController.getEstateById);
 

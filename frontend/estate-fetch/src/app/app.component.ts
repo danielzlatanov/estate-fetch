@@ -14,19 +14,22 @@ export class AppComponent implements OnInit {
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
-    this.testConn();
     this.testFirst();
     this.testSecond();
   }
 
-  testConn() {
-    this.apiService.testBackendConnection().subscribe(
+  startScraping() {
+    this.testScrape();
+  }
+
+  testScrape() {
+    this.apiService.testScrape().subscribe(
       (data: any) => {
         this.response = data;
       },
       (err: any) => {
         console.error('Error:', err);
-        this.response = 'Error connecting to the backend.';
+        this.response = 'Error while scraping.';
       }
     );
   }
