@@ -1,14 +1,2 @@
-<button
-  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-5"
-  (click)="startScraping()"
->
-  Scrape
-</button>
-
-<h1>Response from route - /api/estates:</h1>
-<p>{{ first | json }}</p>
-
-<br />
-
-<h1>Response from route - /api/estates/:id:</h1>
-<p>{{ second | json }}</p>
+<app-header></app-header>
+<router-outlet></router-outlet>
