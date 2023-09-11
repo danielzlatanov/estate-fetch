@@ -1,6 +1,6 @@
-<!--! hero section -->
-<div class="hero-section relative">
-  <!--! blob-top-left -->
+<!--! top blobs -->
+<div>
+  <!--? blob-top-left -->
   <svg
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"
@@ -8,7 +8,7 @@
     filter="blur(0px)"
     width="15%"
     id="blobSvgLeft"
-    class="absolute top-20 left-12"
+    class="absolute top-20 left-12 z-0"
   >
     <defs>
       <linearGradient id="gr1" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -25,14 +25,13 @@
       ></animate>
     </path>
   </svg>
-
-  <!--! blob-top-center -->
+  <!--? blob-top-center -->
   <svg
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 500 500"
     id="blobSvg"
-    class="absolute top-1 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:w-1/2 md:w-1/3"
+    class="absolute top-1 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:w-1/2 md:w-1/3 z-0"
     filter="blur(0px)"
   >
     <path id="blob" fill="url(#gr2)" style="opacity: 1">
@@ -64,15 +63,14 @@
       </linearGradient>
     </defs>
   </svg>
-
-  <!--! blob-top-right -->
+  <!--? blob-top-right -->
   <svg
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 500 500"
     width="20%"
     id="blobSvg"
-    class="absolute top-28 right-8"
+    class="absolute top-28 right-8 z-0"
     filter="blur(0px)"
   >
     <defs>
@@ -90,71 +88,68 @@
       ></animate>
     </path>
   </svg>
+</div>
 
-  <div class="relative isolate px-6 pt-14 lg:px-8">
-    <div class="flex">
-      <div class="flex-1 lg:ml-32 lg:mt-22">
-        <div class="mx-auto max-w-2xl pt-32 sm:pt-48 lg:pt-56">
-          <div class="bg-gray-50 rounded-lg p-8 shadow-xl">
-            <div class="text-center">
-              <h1 class="text-5xl font-bold sm:text-5xl">
-                Data at your Fingertips
-              </h1>
+<!--! hero section -->
+<section class="bg-white border-b">
+  <div class="container max-w-7xl mx-auto m-12 py-44 pb-0 md:pb-20">
+    <div class="flex flex-wrap">
+      <div class="w-full sm:w-1/2 p-6 z-50">
+        <div class="bg-gray-50 rounded-lg p-8 shadow-xl">
+          <div class="text-center">
+            <h1 class="text-5xl font-bold sm:text-5xl">
+              Data at your Fingertips
+            </h1>
 
-              <p class="mt-6 text-lg leading-8 text-gray-500">
-                Welcome to
-                <span class="text-blue-600 font-bold">Estate Fetch</span>, a
-                world full of limitless data.
-              </p>
-              <p class="my-4 text-lg leading-8 text-gray-500">
-                Our powerful web scraper brings valuable insights directly to
-                you.
-              </p>
-              <p class="my-4 mb-0 text-lg leading-8 text-gray-500">
-                Whether you're in search of market trends, research data, or
-                competitive analysis, we've got you covered.
-              </p>
+            <p class="mt-6 text-lg leading-8 text-gray-500">
+              Welcome to
+              <span class="text-blue-600 font-bold">Estate Fetch</span>, a world
+              full of limitless data.
+            </p>
+            <p class="my-4 text-lg leading-8 text-gray-500">
+              Our efficient scraper brings valuable insights directly to you.
+            </p>
+            <p class="my-4 mb-0 text-lg leading-8 text-gray-500">
+              Whether you're in search of market trends, research data, or
+              competitive analysis, we've got you covered.
+            </p>
 
-              <div class="mt-10 flex items-center justify-center gap-x-6">
-                <a
-                  href="#"
-                  class="rounded-xl bg-indigo-500 hover:bg-indigo-600 text-white px-5 py-3 text-lg font-semibold shadow-lg transform hover:scale-105 transition-transform duration-300 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
-                  Get Data
-                </a>
+            <div class="mt-10 flex items-center justify-center gap-x-6">
+              <a
+                href="#"
+                class="rounded-xl bg-indigo-500 hover:bg-indigo-600 text-white px-5 py-3 text-lg font-semibold shadow-lg transform hover:scale-105 transition-transform duration-300 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                Get Data
+              </a>
 
-                <a
-                  href="#"
-                  class="text-base font-semibold leading-6 text-gray-900 hover:text-blue-600 flex items-center"
-                  >Discover
-                  <span aria-hidden="true">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      height="1em"
-                      viewBox="0 0 448 512"
-                      class="ml-2"
-                    >
-                      <path
-                        d="M96 0C43 0 0 43 0 96V416c0 53 43 96 96 96H384h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V384c17.7 0 32-14.3 32-32V32c0-17.7-14.3-32-32-32H384 96zm0 384H352v64H96c-17.7 0-32-14.3-32-32s14.3-32 32-32zm32-240c0-8.8 7.2-16 16-16H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16zm16 48H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16s7.2-16 16-16z"
-                      />
-                    </svg>
-                  </span>
-                </a>
-              </div>
+              <a
+                href="#"
+                class="text-base font-semibold leading-6 text-gray-900 hover:text-blue-600 flex items-center"
+                >Discover
+                <span aria-hidden="true">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="1em"
+                    viewBox="0 0 448 512"
+                    class="ml-2"
+                  >
+                    <path
+                      d="M96 0C43 0 0 43 0 96V416c0 53 43 96 96 96H384h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V384c17.7 0 32-14.3 32-32V32c0-17.7-14.3-32-32-32H384 96zm0 384H352v64H96c-17.7 0-32-14.3-32-32s14.3-32 32-32zm32-240c0-8.8 7.2-16 16-16H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16zm16 48H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16s7.2-16 16-16z"
+                    />
+                  </svg>
+                </span>
+              </a>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="flex-1">
+      <div class="w-full sm:w-1/2 p-8 z-50 flex items-center justify-center">
         <svg
-          class="sm:hidden md:block mx-auto mt-32 w-9/12"
           data-name="Layer 1"
           xmlns="http://www.w3.org/2000/svg"
-          width="841.59024"
-          height="589"
-          viewBox="0 0 841.59024 589"
           xmlns:xlink="http://www.w3.org/1999/xlink"
+          viewBox="0 0 841.59024 589"
         >
           <polygon
             points="743.208 574.193 729.128 574.192 722.43 519.885 743.21 519.886 743.208 574.193"
@@ -370,12 +365,8 @@
         </svg>
       </div>
     </div>
-    <div
-      class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
-      aria-hidden="true"
-    ></div>
   </div>
-</div>
+</section>
 
 <!--! scraper overview section -->
 <section class="bg-white border-b py-8">
