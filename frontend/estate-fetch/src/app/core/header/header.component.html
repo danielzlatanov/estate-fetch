@@ -1,60 +1,68 @@
-<header class="absolute inset-x-0 top-0 z-50">
-  <nav
-    class="flex items-center justify-between p-4 lg:px-36"
-    aria-label="Global"
-  >
-    <div class="flex lg:flex-1">
-      <a href="#" class="-m-1.5 p-1.5">
-        <img class="h-24 w-auto" src="/assets/images/ef-logo.png" alt="ef-logo-header" />
-      </a>
+<header class="absolute inset-x-0 top-2 z-50">
+  <div class="container mx-auto">
+    <div class="w-full flex flex-col">
+      <nav class="flex items-center justify-between mx-4" aria-label="Global">
+        <div class="flex lg:flex-1">
+          <a href="#" class="-m-1.5 p-1.5">
+            <img
+              class="h-24 w-auto"
+              src="/assets/images/ef-logo.png"
+              alt="ef-logo-header"
+            />
+          </a>
+        </div>
+
+        <div class="flex lg:hidden">
+          <button
+            type="button"
+            class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+          >
+            <span class="sr-only">Open main menu</span>
+            <svg
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <div class="hidden lg:flex lg:gap-x-2">
+          <a
+            href="#"
+            class="font-medium rounded-md p-2 transition duration-100 hover:bg-gray-300"
+            >Home</a
+          >
+          <a
+            href="#"
+            class="font-medium rounded-md p-2 transition duration-100 hover:bg-gray-300"
+            >Features</a
+          >
+          <a
+            href="#"
+            class="font-medium rounded-md p-2 transition duration-100 hover:bg-gray-300"
+            >FAQ</a
+          >
+        </div>
+
+        <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+          <a
+            href="#"
+            class="rounded-md px-3 py-2 text-base font-medium border border-indigo-600 hover:text-white hover:bg-indigo-600 transition duration-100 ease-in-out"
+            >Start Searching <span aria-hidden="true">&rarr;</span></a
+          >
+        </div>
+      </nav>
     </div>
-    <div class="flex lg:hidden">
-      <button
-        type="button"
-        class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
-      >
-        <span class="sr-only">Open main menu</span>
-        <svg
-          class="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          aria-hidden="true"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-          />
-        </svg>
-      </button>
-    </div>
-    <div class="hidden lg:flex lg:gap-x-2">
-      <a
-        href="#"
-        class="font-medium rounded-md p-2 transition duration-100 hover:bg-gray-300"
-        >Home</a
-      >
-      <a
-        href="#"
-        class="font-medium rounded-md p-2 transition duration-100 hover:bg-gray-300"
-        >Features</a
-      >
-      <a
-        href="#"
-        class="font-medium rounded-md p-2 transition duration-100 hover:bg-gray-300"
-        >FAQ</a
-      >
-    </div>
-    <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-      <a
-        href="#"
-        class="rounded-md px-3 py-2 text-base font-medium border border-indigo-600 hover:text-white hover:bg-indigo-600 transition duration-100 ease-in-out"
-        >Start Searching <span aria-hidden="true">&rarr;</span></a
-      >
-    </div>
-  </nav>
+  </div>
 
   <!--! mobile menu -->
   <!-- <div class="lg:hidden" role="dialog" aria-modal="true">
