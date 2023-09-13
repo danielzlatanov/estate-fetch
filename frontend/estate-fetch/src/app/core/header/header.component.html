@@ -2,7 +2,7 @@
   <div class="container mx-auto">
     <div class="w-full flex flex-col">
       <nav class="flex items-center justify-between mx-4" aria-label="Global">
-        <div class="flex lg:flex-1">
+        <div *ngIf="!isMobileMenuOpen" class="flex lg:flex-1">
           <a href="#" class="-m-1.5 p-1.5">
             <img
               class="h-24 w-auto"
