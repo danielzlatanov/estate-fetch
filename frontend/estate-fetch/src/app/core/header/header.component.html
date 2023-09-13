@@ -54,7 +54,10 @@
           >
         </div>
 
-        <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+        <div
+          *ngIf="currentRoute !== '/estates/catalog'"
+          class="hidden lg:flex lg:flex-1 lg:justify-end"
+        >
           <a
             href="#"
             class="rounded-md px-3 py-2 text-base font-medium border border-indigo-600 hover:text-white hover:bg-indigo-600 transition duration-100 ease-in-out"
@@ -65,5 +68,9 @@
     </div>
   </div>
 
-  <app-mobile-menu *ngIf="isMobileMenuOpen" (isMobileMenuOpenChange)="handleCloseMobileMenu($event)"></app-mobile-menu>
+  <app-mobile-menu
+    *ngIf="isMobileMenuOpen"
+    [currentRoute]="currentRoute"
+    (isMobileMenuOpenChange)="handleCloseMobileMenu($event)"
+  ></app-mobile-menu>
 </header>

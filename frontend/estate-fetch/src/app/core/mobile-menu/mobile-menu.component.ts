@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-mobile-menu',
@@ -6,6 +6,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./mobile-menu.component.css'],
 })
 export class MobileMenuComponent {
+  @Input() currentRoute: string = '/';
   @Output() isMobileMenuOpenChange = new EventEmitter<boolean>();
 
   closeMobileMenu() {

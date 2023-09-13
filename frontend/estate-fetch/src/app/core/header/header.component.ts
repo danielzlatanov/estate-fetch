@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -7,6 +8,15 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
   isMobileMenuOpen: boolean = false;
+  currentRoute!: string;
+  @Output() currentRouteChange = new EventEmitter<string>();
+
+  constructor(private router: Router) {
+    this.router.events.subscribe(() => {
+      this.currentRoute = this.router.url;
+      this.currentRouteChange.emit(this.currentRoute);
+    });
+  }
 
   openMobileMenu() {
     this.isMobileMenuOpen = true;
