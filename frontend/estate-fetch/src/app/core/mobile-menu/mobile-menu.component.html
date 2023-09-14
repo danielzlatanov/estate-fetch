@@ -1,6 +1,6 @@
 <header>
   <div class="lg:hidden z-50" role="dialog" aria-modal="true">
-    <div class="fixed inset-0 z-50"></div>
+    <div (click)="handleOutsideClick($event)" class="fixed inset-0 z-50"></div>
     <div
       class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"
     >

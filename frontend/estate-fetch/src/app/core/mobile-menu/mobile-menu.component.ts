@@ -12,4 +12,8 @@ export class MobileMenuComponent {
   closeMobileMenu() {
     this.isMobileMenuOpenChange.emit(false);
   }
+
+  handleOutsideClick(event: any) {
+    this.closeMobileMenu();
+  }
 }
