@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { MobileMenuComponent } from './mobile-menu/mobile-menu.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,7 @@ import { MobileMenuComponent } from './mobile-menu/mobile-menu.component';
     FooterComponent,
     MobileMenuComponent,
   ],
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   exports: [
     HomeComponent,
     HeaderComponent,
