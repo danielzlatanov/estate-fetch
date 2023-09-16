@@ -56,7 +56,7 @@ async function scrapeRealEstateData() {
 					sqm = sqm.replace(/\(|\)/g, '');
 				}
 
-				const scrapedInfo = { title, sqm, image, phone, area, description };
+				const scrapedInfo = { title, sqm, image, phone, area, description, url };
 				console.log('Scraped Info:', scrapedInfo);
 
 				realEstateData.push(scrapedInfo);

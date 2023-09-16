@@ -9,6 +9,7 @@ const scrapeAndSaveEstateData = async (req, res) => {
 			throw new Error('Scraped data is not an array');
 		}
 
+		//! DB save
 		// const savedEstates = await Promise.all(
 		// 	realEstateData.map(async estateData => {
 		// 		const estate = new Estate(estateData);
