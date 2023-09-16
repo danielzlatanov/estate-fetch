@@ -25,6 +25,10 @@ const estateSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
+	url: {
+		type: String,
+		required: true,
+	},
 });
 
 const Estate = mongoose.model('Estate', estateSchema);
