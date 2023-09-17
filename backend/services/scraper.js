@@ -56,6 +56,14 @@ async function scrapeRealEstateData() {
 				let construction = (await page.$eval('.adParams div:nth-child(3)', el => el.textContent)).trim();
 				const description = (await page.$eval('#description_div', el => el.textContent)).trim();
 
+				if (construction.includes(':')) {
+					construction = construction.split(':')[1].trim();
+					if (construction.length <= 3) {
+						console.log('construction.length was less than 3, skipping...');
+						continue;
+					}
+				}
+
 				if (area.includes(':')) {
 					area = area.split(':')[1].trim();
 				}
