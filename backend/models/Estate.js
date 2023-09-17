@@ -5,6 +5,14 @@ const estateSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
+	location: {
+		type: String,
+		required: true,
+	},
+	price: {
+		type: String,
+		required: true,
+	},
 	sqm: {
 		type: String,
 		required: true,
@@ -18,6 +26,14 @@ const estateSchema = new mongoose.Schema({
 		required: true,
 	},
 	area: {
+		type: String,
+		required: true,
+	},
+	floor: {
+		type: String,
+		required: true,
+	},
+	construction: {
 		type: String,
 		required: true,
 	},
