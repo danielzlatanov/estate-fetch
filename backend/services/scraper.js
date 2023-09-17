@@ -4,9 +4,9 @@ async function scrapeRealEstateData() {
 	try {
 		console.log('started scraping...');
 		// const browser = await puppeteer.launch({ headless: false, slowMo: 250 });
-		// const browser = await puppeteer.launch({ headless: "new" });
+		// const browser = await puppeteer.launch();
 
-		const browser = await puppeteer.launch();
+		const browser = await puppeteer.launch({ headless: 'new' });
 		const page = await browser.newPage();
 
 		await page.goto('https://www.imot.bg/pcgi/imot.cgi');
@@ -35,33 +35,56 @@ async function scrapeRealEstateData() {
 				}
 
 				await page.waitForSelector('.title');
+				await page.waitForSelector('.location');
+				await page.waitForSelector('#cena');
 				await page.waitForSelector('#cenakv');
 				await page.waitForSelector('#bigPictureCarousel');
 				await page.waitForSelector('.phone');
 				await page.waitForSelector('.adParams div:first-child');
+				await page.waitForSelector('.adParams div:nth-child(2)');
+				await page.waitForSelector('.adParams div:nth-child(3)');
 				await page.waitForSelector('#description_div');
 
 				const title = (await page.$eval('.title', el => el.textContent)).trim();
+				const location = (await page.$eval('.location', el => el.textContent)).trim();
+				const price = (await page.$eval('#cena', el => el.textContent)).trim();
 				let sqm = (await page.$eval('#cenakv', el => el.textContent)).trim();
 				const image = (await page.$eval('#bigPictureCarousel', el => el.src)).trim();
 				const phone = (await page.$eval('.phone', el => el.textContent)).trim();
 				let area = (await page.$eval('.adParams div:first-child', el => el.textContent)).trim();
+				let floor = (await page.$eval('.adParams div:nth-child(2)', el => el.textContent)).trim();
+				let construction = (await page.$eval('.adParams div:nth-child(3)', el => el.textContent)).trim();
 				const description = (await page.$eval('#description_div', el => el.textContent)).trim();
 
 				if (area.includes(':')) {
 					area = area.split(':')[1].trim();
+				}
+				if (floor.includes(':')) {
+					floor = floor.split(':')[1].trim();
 				}
 
 				if (sqm.includes('(')) {
 					sqm = sqm.replace(/\(|\)/g, '');
 				}
 
-				const scrapedInfo = { title, sqm, image, phone, area, description, url };
+				const scrapedInfo = {
+					title,
+					location,
+					price,
+					sqm,
+					image,
+					phone,
+					area,
+					floor,
+					construction,
+					description,
+					url,
+				};
 				console.log('Scraped Info:', scrapedInfo);
 
 				realEstateData.push(scrapedInfo);
 			} catch (error) {
-				console.error(`Error scraping data for URL: ${url}`, error);
+				console.error(`Error scraping full data for listing: ${url}`, error);
 			}
 		}
 
@@ -88,6 +111,8 @@ async function scrapeDataWithRetry() {
 			if (realEstateData) {
 				console.log(`Data scraped at Attempt ${++retryCount}`);
 				return realEstateData;
+			} else {
+				retryCount++;
 			}
 		} catch (error) {
 			console.error(`Error scraping real estate data (Attempt ${retryCount + 1}):`, error);
