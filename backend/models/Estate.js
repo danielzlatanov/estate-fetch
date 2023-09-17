@@ -45,6 +45,18 @@ const estateSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
+	realtor: {
+		type: String,
+		required: true,
+	},
+	realtorLogo: {
+		type: String,
+		required: true,
+	},
+	realtorAddress: {
+		type: String,
+		required: true,
+	},
 });
 
 const Estate = mongoose.model('Estate', estateSchema);
