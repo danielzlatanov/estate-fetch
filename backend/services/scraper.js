@@ -44,6 +44,10 @@ async function scrapeRealEstateData() {
 				await page.waitForSelector('.adParams div:nth-child(2)');
 				await page.waitForSelector('.adParams div:nth-child(3)');
 				await page.waitForSelector('#description_div');
+				await page.waitForSelector('.AG');
+				await page.waitForSelector('.AG .name');
+				await page.waitForSelector('.AG .logo img');
+				await page.waitForSelector('.AG .adress');
 
 				const title = (await page.$eval('.title', el => el.textContent)).trim();
 				const location = (await page.$eval('.location', el => el.textContent)).trim();
@@ -55,6 +59,9 @@ async function scrapeRealEstateData() {
 				let floor = (await page.$eval('.adParams div:nth-child(2)', el => el.textContent)).trim();
 				let construction = (await page.$eval('.adParams div:nth-child(3)', el => el.textContent)).trim();
 				const description = (await page.$eval('#description_div', el => el.textContent)).trim();
+				const realtor = (await page.$eval('.AG .name', el => el.textContent)).trim();
+				const realtorLogo = (await page.$eval('.AG .logo img', el => el.src)).trim();
+				const realtorAddress = (await page.$eval('.AG .adress', el => el.textContent)).trim();
 
 				if (construction.includes(':')) {
 					construction = construction.split(':')[1].trim();
@@ -87,6 +94,9 @@ async function scrapeRealEstateData() {
 					construction,
 					description,
 					url,
+					realtor,
+					realtorLogo,
+					realtorAddress,
 				};
 				console.log('Scraped Info:', scrapedInfo);
 
