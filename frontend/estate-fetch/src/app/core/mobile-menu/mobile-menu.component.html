@@ -56,7 +56,13 @@
               >FAQ</a
             >
           </div>
-          <div *ngIf="currentRoute !== '/estates/catalog'" class="py-6">
+          <div
+            *ngIf="
+              currentRoute !== '/estates/catalog' &&
+              !currentRoute.includes('/estates/details')
+            "
+            class="py-6"
+          >
             <a
               routerLink="/estates/catalog"
               class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"

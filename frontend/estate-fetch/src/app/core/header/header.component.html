@@ -55,7 +55,10 @@
         </div>
 
         <div
-          *ngIf="currentRoute !== '/estates/catalog'"
+          *ngIf="
+            currentRoute !== '/estates/catalog' &&
+            !currentRoute.includes('/estates/details')
+          "
           class="hidden lg:flex lg:flex-1 lg:justify-end"
         >
           <a
