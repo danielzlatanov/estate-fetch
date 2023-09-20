@@ -33,8 +33,19 @@ const getAllEstates = async (req, res) => {
 	}
 };
 
-const getEstateById = (req, res) => {
-	res.json({ message: 'You have received specific info regarding an estate.' });
+const getEstateById = async (req, res) => {
+	const estateId = req.params.id;
+
+	try {
+		const estate = await Estate.findById(estateId).lean();
+		if (!estate) {
+			res.status(404).json({ error: 'Estate not found' });
+		} else {
+			res.json(estate);
+		}
+	} catch (error) {
+		res.status(500).json({ error: 'Internal server error' });
+	}
 };
 
 module.exports = {
