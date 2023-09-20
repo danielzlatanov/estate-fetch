@@ -24,8 +24,13 @@ const scrapeAndSaveEstateData = async (req, res) => {
 	}
 };
 
-const getAllEstates = (req, res) => {
-	res.json({ message: 'You have received all of the estates.' });
+const getAllEstates = async (req, res) => {
+	try {
+		const estates = await Estate.find({}).lean();
+		res.json(estates);
+	} catch (error) {
+		res.status(500).json({ error: 'Internal server error' });
+	}
 };
 
 const getEstateById = (req, res) => {
