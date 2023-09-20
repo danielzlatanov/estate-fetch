@@ -46,13 +46,11 @@
 </div>
 
 <!--! estate cards -->
-<section
-  class="flex justify-center flex-wrap h-full my-16"
-  *ngIf="estates && estates.length > 0"
->
-  <ng-container *ngFor="let estate of estates">
+<section class="flex justify-center flex-wrap h-full my-16">
+  <ng-container *ngIf="estates && estates.length > 0; else noEstatesFound">
     <div
       class="max-w-sm mt-4 bg-white border border-gray-200 rounded-lg shadow mx-2"
+      *ngFor="let estate of estates"
     >
       <a routerLink="/estates/details/{{ estate._id }}" fragment="top">
         <img
@@ -126,4 +124,24 @@
       </div>
     </div>
   </ng-container>
+
+  <ng-template #noEstatesFound>
+    <div
+      class="text-center bg-gray-100 rounded-lg w-max sm:mx-20 text-gray-600 p-4 mb-96 mt-20"
+    >
+      <h2 class="text-2xl font-bold mb-4">Oops! 🏠</h2>
+      <p class="text-lg mb-2">
+        We searched high and low, but it seems like we haven't scraped enough
+        data from the digital real estate world just yet.
+      </p>
+      <p class="text-lg font-medium" *ngIf="!isSmallScreen">
+        Why not take a break, enjoy a cup of coffee ☕, and come back tomorrow?
+        Who knows what exciting listings we'll find then!
+      </p>
+
+      <p class="text-lg font-semibold" *ngIf="isSmallScreen">
+        Please come back tomorrow!
+      </p>
+    </div>
+  </ng-template>
 </section>
