@@ -1,4 +1,7 @@
-<div class="w-full md:w-11/12 container max-w-7xl mx-auto mt-36 mb-20">
+<div
+  class="w-full md:w-11/12 container max-w-7xl mx-auto mt-36 mb-20"
+  *ngIf="estate"
+>
   <header class="bg-blue-600 text-white py-4 text-center rounded-lg">
     <h1 class="text-2xl font-bold">Property Details</h1>
   </header>
@@ -6,9 +9,9 @@
     <div class="w-full sm:w-full lg:w-full py-6 px-3">
       <div class="bg-white shadow-xl rounded-lg overflow-hidden">
         <div>
-          <a href="#">
+          <a href="{{ estate.url }}" target="_blank">
             <img
-              src="https://cdn3.focus.bg/imot/photosimotbg/1/425/big1/1a169046210417425_4h.jpg"
+              src="{{ estate.image }}"
               alt="Property Image"
               class="bg-cover bg-center w-full h-full"
             />
@@ -16,16 +19,17 @@
         </div>
         <div class="p-4 flex flex-col">
           <p class="tracking-wide text-3xl font-semibold text-gray-700">
-            Продава 1-СТАЕН, град Бургас, Сарафово
+            {{ estate.title }}
           </p>
 
           <p class="text-green-700 mt-4 text-3xl font-semibold mb-4">
-            34 000 EUR
+            {{ estate.price }}
           </p>
 
           <div class="flex sm:justify-normal md:justify-end">
             <a
-              href="#"
+              href="{{ estate.url }}"
+              target="_blank"
               class="inline-flex items-center px-3 py-2 font-medium text-center text-blue-500 border-2 border-blue-500 rounded-lg hover:bg-blue-500 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300"
             >
               External listing
@@ -76,7 +80,7 @@
               Location
             </p>
             <p class="text-gray-700 text-lg ml-2">
-              град Бургас, Меден рудник - зона А
+              {{ estate.location }}
             </p>
           </div>
 
@@ -87,16 +91,7 @@
               Description
             </p>
             <p class="text-gray-700 text-lg ml-2">
-              Rinex Revolution предлага на вашето внимание едностаен апартамент
-              в Сарафово. Жилището се предлага на шпакловка и замазка, което
-              дава възможност на новите собственици, да създадат своя нов ДОМ,
-              придавайки му индивидуалност и стил чрез собствен почерк. Rinex
-              Revolution оказва съдействие при отпускане на кредит! За повече
-              информация и допълнителни въпроси, относно този имот, както и за
-              много други атрактивни предложения, не се колебайте да се свържете
-              с нас! Ще получите коректно отношение от екипа ни от
-              професионалисти! Нашата мисия е да превърнем закупуването на новия
-              Ви дом в едно приятно преживяване! Реф. ном: 301
+              {{ estate.description }}
             </p>
           </div>
         </div>
@@ -117,7 +112,9 @@
               <span class="bg-gray-100 rounded-lg w-max p-2 mr-2 md:mb-2">
                 Floor
               </span>
-              <span class="text-gray-900 font-bold ml-0.5">5-ти от 8</span>
+              <span class="text-gray-900 font-bold ml-0.5">{{
+                estate.floor
+              }}</span>
             </p>
           </div>
           <div class="flex-1 p-4 inline-flex md:flex items-center">
@@ -137,7 +134,9 @@
               <span class="bg-gray-100 rounded-lg w-max p-2 mr-2 md:mb-2">
                 Construction
               </span>
-              <span class="text-gray-900 font-bold ml-0.5">Тухла, 2024 г.</span>
+              <span class="text-gray-900 font-bold ml-0.5">{{
+                estate.construction
+              }}</span>
             </p>
           </div>
           <div class="flex-1 p-4 inline-flex md:flex items-center">
@@ -157,7 +156,9 @@
               <span class="bg-gray-100 rounded-lg w-max p-2 mr-2 md:mb-2">
                 Square Meters
               </span>
-              <span class="text-gray-900 font-bold ml-0.5">919 EUR/m2</span>
+              <span class="text-gray-900 font-bold ml-0.5">{{
+                estate.sqm
+              }}</span>
             </p>
           </div>
           <div class="flex-1 p-4 inline-flex md:flex items-center">
@@ -195,7 +196,9 @@
               <span class="bg-gray-100 rounded-lg w-max p-2 mr-2 md:mb-2">
                 Area
               </span>
-              <span class="text-gray-900 font-bold ml-0.5">38 m2</span>
+              <span class="text-gray-900 font-bold ml-0.5">{{
+                estate.area
+              }}</span>
             </p>
           </div>
         </div>
@@ -207,18 +210,18 @@
           <div class="flex items-center pt-2">
             <div class="">
               <img
-                src="https://www.imot.bg/images/logos/big/rinexburgas.pic"
+                src="{{ estate.realtorLogo }}"
                 alt="Realtor Logo"
                 class="bg-cover bg-center w-16 mr-14 sm:w-20 sm:mr-6 md:w-28 h-auto rounded-lg md:mr-6"
               />
             </div>
             <div>
               <p class="font-medium text-gray-800 text-lg mb-2">
-                РИНЕКС РЕВОЛЮШЪН ООД
+                {{ estate.realtor }}
               </p>
               <p class="text-lg mb-2 text-gray-800">+359 894 456 456</p>
               <p class="text-sm text-gray-700">
-                област Бургас, гр. Бургас, ул. Средика 2
+                {{ estate.realtorAddress }}
               </p>
             </div>
           </div>
