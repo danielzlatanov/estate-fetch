@@ -32,7 +32,6 @@ export class CatalogComponent implements OnInit {
     this.estateService.getData().subscribe({
       next: (data: IEstate[]) => {
         this.estates = data;
-        console.log('fetched all estates:', this.estates);
       },
       error: (error: any) => {
         console.error('An error occurred:', error);
