@@ -18,4 +18,8 @@ export class EstateService {
   getData(): Observable<IEstate[]> {
     return this.http.get<IEstate[]>(`${this.baseUrl}/api/estates`);
   }
+
+  getEstateById(id: string): Observable<IEstate> {
+    return this.http.get<IEstate>(`${this.baseUrl}/api/estates/${id}`);
+  }
 }
