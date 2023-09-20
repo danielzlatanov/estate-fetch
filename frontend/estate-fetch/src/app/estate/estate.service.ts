@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { IEstate } from '../shared/interfaces/estate';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,19 +11,11 @@ export class EstateService {
 
   constructor(private http: HttpClient) {}
 
-  testBackendConnection(): any {
-    return this.http.get(this.baseUrl);
-  }
-
-  testScrape(): any {
+  scrape(): any {
     return this.http.get(`${this.baseUrl}/api/scrape`);
   }
 
-  testFirstRoute(): any {
-    return this.http.get(`${this.baseUrl}/api/estates`);
-  }
-
-  testSecondRoute(): any {
-    return this.http.get(`${this.baseUrl}/api/estates/123`);
+  getData(): Observable<IEstate[]> {
+    return this.http.get<IEstate[]>(`${this.baseUrl}/api/estates`);
   }
 }
