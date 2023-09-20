@@ -1,5 +1,6 @@
 import { Component, EventEmitter, HostListener, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { scrollToTop } from 'src/app/shared/helpers/scrollToTop';
 
 @Component({
   selector: 'app-header',
@@ -7,6 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
+  scrollToTop = scrollToTop;
   isMobileMenuOpen: boolean = false;
   currentRoute!: string;
   showBackToTop: boolean = false;
@@ -35,9 +37,5 @@ export class HeaderComponent {
 
   handleCloseMobileMenu(value: boolean) {
     this.isMobileMenuOpen = value;
-  }
-
-  scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
