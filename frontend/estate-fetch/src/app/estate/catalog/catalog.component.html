@@ -63,10 +63,18 @@
       </a>
       <div class="p-5">
         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
-          {{ estate.title }}
+          {{ estate.title | slice : 0 : 50 }}
+          {{ estate.title.length > 50 ? "..." : "" }}
         </h5>
         <p class="mb-6 h-44 font-normal text-gray-700">
-          {{ estate.description }}
+          {{
+            isSmallScreen
+              ? (estate.description | slice : 0 : 180)
+              : (estate.description | slice : 0 : 220)
+          }}
+          {{
+            estate.description.length > (isSmallScreen ? 180 : 220) ? "..." : ""
+          }}
         </p>
 
         <div class="flex">
