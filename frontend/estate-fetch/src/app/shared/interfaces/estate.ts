@@ -4,7 +4,7 @@ export interface IEstate {
   location: string;
   price: string;
   sqm: string;
-  image: string;
+  images: string[];
   phone: string;
   area: string;
   floor: string;
