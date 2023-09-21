@@ -17,10 +17,7 @@ const estateSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	image: {
-		type: String,
-		required: true,
-	},
+	images: [{ type: String, required: true }],
 	phone: {
 		type: String,
 		required: true,
