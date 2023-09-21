@@ -34,6 +34,21 @@ async function scrapeRealEstateData() {
 					continue;
 				}
 
+				const images = [];
+
+				const hasMultipleImages = await page.evaluate(() => {
+					const divIm = document.querySelector('div.im');
+					return divIm !== null;
+				});
+
+				if (hasMultipleImages) {
+					const imageSelectors = await page.$$eval('div.im a', els => els.map(el => el.dataset.link));
+					images.push(...imageSelectors.map(imgUrl => imgUrl.trim()));
+				} else {
+					const imgUrl = (await page.$eval('#bigPictureCarousel', el => el.src)).trim();
+					images.push(imgUrl);
+				}
+
 				await page.waitForSelector('.title');
 				await page.waitForSelector('.location');
 				await page.waitForSelector('#cena');
@@ -53,7 +68,6 @@ async function scrapeRealEstateData() {
 				const location = (await page.$eval('.location', el => el.textContent)).trim();
 				const price = (await page.$eval('#cena', el => el.textContent)).trim();
 				let sqm = (await page.$eval('#cenakv', el => el.textContent)).trim();
-				const image = (await page.$eval('#bigPictureCarousel', el => el.src)).trim();
 				const phone = (await page.$eval('.phone', el => el.textContent)).trim();
 				let area = (await page.$eval('.adParams div:first-child', el => el.textContent)).trim();
 				let floor = (await page.$eval('.adParams div:nth-child(2)', el => el.textContent)).trim();
@@ -87,7 +101,7 @@ async function scrapeRealEstateData() {
 					location,
 					price,
 					sqm,
-					image,
+					images,
 					phone,
 					area,
 					floor,
