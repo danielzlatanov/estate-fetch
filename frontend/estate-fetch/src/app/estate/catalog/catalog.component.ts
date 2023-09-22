@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { EstateService } from '../estate.service';
 import { IEstate } from 'src/app/shared/interfaces/estate';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-catalog',
@@ -12,7 +13,11 @@ export class CatalogComponent implements OnInit {
   isSmallScreen: boolean = false;
   searchQuery: string = '';
 
-  constructor(private estateService: EstateService) {
+  constructor(
+    private estateService: EstateService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
     this.checkScreenSize();
   }
 
@@ -22,7 +27,18 @@ export class CatalogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fetchEstates();
+    this.route.queryParams.subscribe((params) => {
+      const searchQuery = params['keywords'];
+      if (searchQuery) {
+        this.estateService
+          .searchEstates(searchQuery)
+          .subscribe((data: IEstate[]) => {
+            this.estates = data;
+          });
+      } else {
+        this.fetchEstates();
+      }
+    });
   }
 
   private checkScreenSize(): void {
@@ -42,6 +58,12 @@ export class CatalogComponent implements OnInit {
 
   onSearch(): void {
     if (this.searchQuery.trim() !== '') {
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: { keywords: this.searchQuery },
+        queryParamsHandling: 'merge',
+      });
+
       this.estateService.searchEstates(this.searchQuery).subscribe({
         next: (data: IEstate[]) => {
           this.estates = data;
@@ -51,6 +73,12 @@ export class CatalogComponent implements OnInit {
         },
       });
     } else {
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: { keywords: null },
+        queryParamsHandling: 'merge',
+      });
+
       this.fetchEstates();
     }
   }
