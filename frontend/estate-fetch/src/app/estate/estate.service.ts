@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { IEstate } from '../shared/interfaces/estate';
 import { Observable } from 'rxjs';
 
@@ -17,6 +17,13 @@ export class EstateService {
 
   getData(): Observable<IEstate[]> {
     return this.http.get<IEstate[]>(`${this.baseUrl}/api/estates`);
+  }
+
+  searchEstates(query: string): Observable<IEstate[]> {
+    const params = new HttpParams().set('keywords', query);
+    return this.http.get<IEstate[]>(`${this.baseUrl}/api/estates/search`, {
+      params,
+    });
   }
 
   getEstateById(id: string): Observable<IEstate> {
