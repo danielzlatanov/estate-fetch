@@ -65,6 +65,8 @@ async function scrapeRealEstateData() {
 				await page.waitForSelector('.AG .adress');
 
 				const title = (await page.$eval('.title', el => el.textContent)).trim();
+				const titleNoPrice = extractTitleWithoutPrice(title);
+
 				const location = (await page.$eval('.location', el => el.textContent)).trim();
 				const price = (await page.$eval('#cena', el => el.textContent)).trim();
 				let sqm = (await page.$eval('#cenakv', el => el.textContent)).trim();
@@ -97,7 +99,7 @@ async function scrapeRealEstateData() {
 				}
 
 				const scrapedInfo = {
-					title,
+					title: titleNoPrice,
 					location,
 					price,
 					sqm,
@@ -156,6 +158,22 @@ async function scrapeDataWithRetry() {
 
 	console.error('Max retries reached. Scraping failed.');
 	return null;
+}
+
+function extractTitleWithoutPrice(title) {
+	const titleParts = title.split(' EUR');
+
+	if (titleParts.length >= 2) {
+		let titleWithoutPrice = titleParts.slice(1).join('').trim();
+
+		if (titleWithoutPrice.includes('кв.м')) {
+			titleWithoutPrice = titleWithoutPrice.replace('на кв.м', '').trim();
+		}
+
+		return titleWithoutPrice;
+	} else {
+		return title;
+	}
 }
 
 function delay(ms) {
