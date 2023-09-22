@@ -32,7 +32,6 @@ export class DetailsComponent implements OnInit {
       this.estateService.getEstateById(id).subscribe({
         next: (data: IEstate) => {
           this.estate = data;
-          console.log('data received', data);
         },
         error: (error: any) => {
           console.error('An error occurred:', error);
