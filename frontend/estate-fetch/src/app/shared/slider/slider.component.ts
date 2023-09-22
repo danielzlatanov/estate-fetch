@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import KeenSlider, { KeenSliderInstance } from 'keen-slider';
 
 @Component({
@@ -8,8 +8,9 @@ import KeenSlider, { KeenSliderInstance } from 'keen-slider';
 })
 export class SliderComponent {
   @ViewChild('sliderRef') sliderRef!: ElementRef<HTMLElement>;
+  @Input() images: string[] = [];
 
-  currentSlide: number = 1;
+  currentSlide: number = 0;
   dotHelper: Array<Number> = [];
   slider: KeenSliderInstance = null!;
 
