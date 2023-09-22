@@ -10,6 +10,7 @@ import { IEstate } from 'src/app/shared/interfaces/estate';
 export class CatalogComponent implements OnInit {
   estates: IEstate[] = [];
   isSmallScreen: boolean = false;
+  searchQuery: string = '';
 
   constructor(private estateService: EstateService) {
     this.checkScreenSize();
@@ -37,5 +38,20 @@ export class CatalogComponent implements OnInit {
         console.error('An error occurred:', error);
       },
     });
+  }
+
+  onSearch(): void {
+    if (this.searchQuery.trim() !== '') {
+      this.estateService.searchEstates(this.searchQuery).subscribe({
+        next: (data: IEstate[]) => {
+          this.estates = data;
+        },
+        error: (error: any) => {
+          console.error('An error occurred during search:', error);
+        },
+      });
+    } else {
+      this.fetchEstates();
+    }
   }
 }

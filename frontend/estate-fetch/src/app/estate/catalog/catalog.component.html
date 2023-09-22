@@ -1,6 +1,6 @@
 <!--! search bar -->
 <div class="flex justify-center items-center h-full">
-  <form class="mt-40 w-1/2">
+  <form class="mt-40 w-1/2" (submit)="onSearch()">
     <label
       for="default-search"
       class="mb-2 text-sm font-medium text-gray-900 sr-only"
@@ -34,6 +34,8 @@
           isSmallScreen ? 'search estates' : 'search estates by name...'
         "
         required
+        name="searchQuery"
+        [(ngModel)]="searchQuery"
       />
       <button
         type="submit"
