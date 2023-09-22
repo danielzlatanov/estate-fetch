@@ -26,12 +26,20 @@ const scrapeAndSaveEstateData = async (req, res) => {
 
 const getAllEstates = async (req, res) => {
 	try {
-		const estates = await Estate.find({}).lean();
+		const query = {};
+		const { keywords } = req.query;
+
+		if (keywords) {
+			query.title = new RegExp(keywords, 'i');
+		}
+
+		const estates = await Estate.find(query).lean();
 		res.json(estates);
 	} catch (error) {
 		res.status(500).json({ error: 'Internal server error' });
 	}
 };
+
 
 const getEstateById = async (req, res) => {
 	const estateId = req.params.id;
