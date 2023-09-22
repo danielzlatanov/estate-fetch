@@ -64,17 +64,20 @@
 
       <div class="p-5">
         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
-          {{ estate.title | slice : 0 : 50 }}
-          {{ estate.title.length > 50 ? "..." : "" }}
+          {{ estate.title | slice : 0 : 44 }}
+          {{ estate.title.length > 44 ? "..." : "" }}
         </h5>
+        <p class="mb-2 text-lg text-green-700 font-semibold">
+          {{ estate.price }}
+        </p>
         <p class="mb-6 h-44 font-normal text-gray-700">
           {{
             isSmallScreen
-              ? (estate.description | slice : 0 : 180)
-              : (estate.description | slice : 0 : 220)
+              ? (estate.description | slice : 0 : 160)
+              : (estate.description | slice : 0 : 200)
           }}
           {{
-            estate.description.length > (isSmallScreen ? 180 : 220) ? "..." : ""
+            estate.description.length > (isSmallScreen ? 160 : 200) ? "..." : ""
           }}
         </p>
 
