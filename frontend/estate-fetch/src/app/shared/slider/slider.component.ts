@@ -1,4 +1,10 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  Input,
+  ViewChild,
+} from '@angular/core';
 import KeenSlider, { KeenSliderInstance } from 'keen-slider';
 
 @Component({
@@ -13,6 +19,17 @@ export class SliderComponent {
   currentSlide: number = 0;
   dotHelper: Array<Number> = [];
   slider: KeenSliderInstance = null!;
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (this.slider) {
+      if (event.key === 'ArrowLeft') {
+        this.slider.prev();
+      } else if (event.key === 'ArrowRight') {
+        this.slider.next();
+      }
+    }
+  }
 
   ngAfterViewInit() {
     setTimeout(() => {
