@@ -58,8 +58,10 @@
 
         <div
           *ngIf="
+            currentRoute &&
             currentRoute !== '/estates/catalog' &&
-            !currentRoute.includes('/estates/details')
+            !currentRoute.includes('/estates/details') &&
+            !currentRoute.includes('/estates/catalog?keywords')
           "
           class="hidden lg:flex lg:flex-1 lg:justify-end"
         >
