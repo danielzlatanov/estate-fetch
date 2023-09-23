@@ -12,6 +12,7 @@ export class CatalogComponent implements OnInit {
   estates: IEstate[] = [];
   isSmallScreen: boolean = false;
   showEmptyState: boolean = false;
+  showNoMatchMsg: boolean = false;
   searchQuery: string = '';
 
   constructor(
@@ -35,6 +36,7 @@ export class CatalogComponent implements OnInit {
           .searchEstates(searchQuery)
           .subscribe((data: IEstate[]) => {
             this.estates = data;
+            this.showNoMatchMsg = data.length == 0;
           });
       } else {
         this.fetchEstates();
@@ -69,6 +71,7 @@ export class CatalogComponent implements OnInit {
       this.estateService.searchEstates(this.searchQuery).subscribe({
         next: (data: IEstate[]) => {
           this.estates = data;
+          this.showNoMatchMsg = data.length == 0;
         },
         error: (error: any) => {
           console.error('An error occurred during search:', error);
