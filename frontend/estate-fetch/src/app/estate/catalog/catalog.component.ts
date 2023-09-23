@@ -40,6 +40,7 @@ export class CatalogComponent implements OnInit {
           });
       } else {
         this.fetchEstates();
+        this.showNoMatchMsg = false;
       }
     });
   }
@@ -85,6 +86,7 @@ export class CatalogComponent implements OnInit {
       });
 
       this.fetchEstates();
+      this.showNoMatchMsg = false;
     }
   }
 }
