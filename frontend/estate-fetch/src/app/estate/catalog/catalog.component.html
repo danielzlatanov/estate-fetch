@@ -58,7 +58,7 @@
         *ngFor="let estate of estates; let i = index"
       >
         <div class="flex justify-center">
-          <a href="/estates/details/{{ estate._id }}">
+          <a routerLink="/estates/details/{{ estate._id }}">
             <img
               class="rounded-t-lg h-72 w-screen object-cover"
               src="{{ estate.images[0] }}"
