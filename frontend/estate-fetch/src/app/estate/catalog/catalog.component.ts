@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class CatalogComponent implements OnInit {
   estates: IEstate[] = [];
   isSmallScreen: boolean = false;
+  showEmptyState: boolean = false;
   searchQuery: string = '';
 
   constructor(
@@ -49,6 +50,7 @@ export class CatalogComponent implements OnInit {
     this.estateService.getData().subscribe({
       next: (data: IEstate[]) => {
         this.estates = data;
+        this.showEmptyState = this.estates.length === 0;
       },
       error: (error: any) => {
         console.error('An error occurred:', error);
