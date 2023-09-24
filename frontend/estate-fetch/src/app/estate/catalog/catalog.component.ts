@@ -14,6 +14,7 @@ export class CatalogComponent implements OnInit {
   showEmptyState: boolean = false;
   showNoMatchMsg: boolean = false;
   searchQuery: string = '';
+  isLoading: boolean = true;
 
   constructor(
     private estateService: EstateService,
@@ -29,6 +30,7 @@ export class CatalogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.route.queryParams.subscribe((params) => {
       const searchQuery = params['keywords'];
       if (searchQuery) {
@@ -54,8 +56,10 @@ export class CatalogComponent implements OnInit {
       next: (data: IEstate[]) => {
         this.estates = data;
         this.showEmptyState = this.estates.length === 0;
+        this.isLoading = false;
       },
       error: (error: any) => {
+        this.isLoading = false;
         console.error('An error occurred:', error);
       },
     });
