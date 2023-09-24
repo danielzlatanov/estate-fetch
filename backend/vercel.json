@@ -11,5 +11,11 @@
 			"src": "/(.*)",
 			"dest": "/"
 		}
-	]
+	],
+	"functions": {
+		"api/*": {
+			"handler": "server.js"
+		},
+		"/": "server.js"
+	}
 }
