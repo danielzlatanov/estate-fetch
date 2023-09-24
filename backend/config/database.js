@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const connectionString = 'mongodb://localhost:27017/estate-fetch';
+const connectionString = process.env.MONGODB_URL;
 
 module.exports = async (app) => {
   try {
