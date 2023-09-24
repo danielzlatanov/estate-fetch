@@ -11,6 +11,7 @@ import { EstateService } from '../estate.service';
 })
 export class DetailsComponent implements OnInit {
   estate: IEstate | undefined;
+  isLoading: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -18,6 +19,7 @@ export class DetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     const id = this.route.snapshot.paramMap.get('id');
 
     this.route.fragment.subscribe((fragment) => {
@@ -32,8 +34,10 @@ export class DetailsComponent implements OnInit {
       this.estateService.getEstateById(id).subscribe({
         next: (data: IEstate) => {
           this.estate = data;
+          this.isLoading = false;
         },
         error: (error: any) => {
+          this.isLoading = false;
           console.error('An error occurred:', error);
         },
       });
