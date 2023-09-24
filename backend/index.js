@@ -19,16 +19,9 @@ const app = express();
 
 	const port = process.env.PORT || 8000;
 
-	if (!process.env.AWS_LAMBDA_FUNCTION_VERSION) {
-		app.listen(port, () => {
-			console.log(`Server is running on port ${port}...`);
-		});
-	}
+	app.listen(port, () => {
+		console.log(`Server is running on http://localhost:${port}/`);
+	});
 })();
 
-exports.handler = async (event, context) => {
-	return {
-		statusCode: 200,
-		body: JSON.stringify({ message: 'Serverless function executed successfully' }),
-	};
-};
+module.exports = app;
