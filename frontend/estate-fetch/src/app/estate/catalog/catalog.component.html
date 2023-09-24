@@ -52,7 +52,7 @@
 <!--! estate cards -->
 <div class="container max-w-7xl mx-auto">
   <section class="flex justify-center items-center flex-wrap h-full my-16">
-    <ng-container *ngIf="isLoading; else estatesTemp">
+    <ng-container *ngIf="isLoading || isSearching; else estatesTemp">
       <app-spinner></app-spinner>
     </ng-container>
 
@@ -164,7 +164,10 @@
       </p>
     </div>
 
-    <div class="text-center sm:mx-20 p-4 mb-52" *ngIf="showNoMatchMsg">
+    <div
+      class="text-center sm:mx-20 p-4 mb-52"
+      *ngIf="!isLoading && !isSearching && showNoMatchMsg"
+    >
       <div class="flex justify-center mb-10">
         <svg
           xmlns="http://www.w3.org/2000/svg"
