@@ -1,27 +1,41 @@
 require('dotenv').config();
 
 const express = require('express');
-const expressConfig = require('./config/express');
-const dbConfig = require('./config/database');
-const estateRoutes = require('./routes/estateRoutes');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const app = express();
+const port = process.env.PORT || 8000;
+const connectionString = process.env.MONGODB_URL;
 
-(async () => {
-	await dbConfig(app);
-	expressConfig(app);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
 
-	app.get('/', (req, res) => {
-		res.json({ message: 'Welcome to the backend API!' });
+mongoose
+	.connect(connectionString, {
+		useUnifiedTopology: true,
+		useNewUrlParser: true,
+	})
+	.then(() => {
+		console.log('Database connection established.');
+	})
+	.catch(err => {
+		console.error('Error connecting to MongoDB Atlas:');
+		console.error(err.message);
+		process.exit(1);
 	});
 
-	app.use('/api', estateRoutes);
+app.get('/', (req, res) => {
+	res.json({ message: 'Welcome to the backend API!' });
+});
 
-	const port = process.env.PORT || 8000;
+const estateRoutes = require('./routes/estateRoutes.js');
+app.use('/api', estateRoutes);
 
-	app.listen(port, () => {
-		console.log(`Server is running on http://localhost:${port}/`);
-	});
-})();
+app.listen(port, () => {
+	console.log(`Server is running on http://localhost:${port}/`);
+});
 
 module.exports = app;
