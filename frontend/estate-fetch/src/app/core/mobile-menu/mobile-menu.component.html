@@ -6,14 +6,17 @@
     >
       <div class="flex items-center justify-between">
         <a routerLink="/" class="-m-1.5 p-1.5" (click)="closeMobileMenu()">
-          <img class="h-16 w-auto" src="/assets/images/ef-logo.png" alt="" />
+          <img
+            class="h-16 w-auto"
+            src="/assets/images/ef-logo.png"
+            alt="ef-logo-menu"
+          />
         </a>
-
         <button
           type="button"
-          data-drawer-hide="drawer-navigation"
-          aria-controls="drawer-navigation"
-          class="bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg w-8 h-8 absolute top-5.5 right-16 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white"
+          data-drawer-hide="drawer-example"
+          aria-controls="drawer-example"
+          class="bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-5.5 right-3 inline-flex items-center justify-center"
           (click)="closeMobileMenu()"
         >
           <svg
