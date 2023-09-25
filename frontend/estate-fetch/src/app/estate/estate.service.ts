@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class EstateService {
-  private baseUrl = 'http://localhost:8000';
+  private baseUrl = 'https://estate-fetch-api.vercel.app';
 
   constructor(private http: HttpClient) {}
 
