@@ -6,6 +6,7 @@ import { FooterComponent } from './footer/footer.component';
 import { MobileMenuComponent } from './mobile-menu/mobile-menu.component';
 import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { LoadingService } from '../shared/services/loading.service';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     PageNotFoundComponent,
   ],
   imports: [CommonModule, RouterModule],
+  providers: [LoadingService],
   exports: [
     HomeComponent,
     HeaderComponent,
