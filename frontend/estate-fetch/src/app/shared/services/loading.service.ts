@@ -4,8 +4,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class LoadingService {
-  private _isLoading: boolean = false;
-  private _isSearching: boolean = false;
+  private _isLoading = false;
+  private _isSearching = false;
 
   get isLoading(): boolean {
     return this._isLoading;

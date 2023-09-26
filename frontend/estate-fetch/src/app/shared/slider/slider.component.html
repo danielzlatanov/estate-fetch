@@ -14,7 +14,7 @@
     [ngClass]="
       'arrow arrow--left ' + (currentSlide === 0 ? 'arrow--disabled' : '')
     "
-    (click)="slider.prev()"
+    (click)="slider?.prev()"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
   >
@@ -39,8 +39,10 @@
 </div>
 <div class="dots">
   <button
-    (click)="slider.moveToIdx(i)"
+    (click)="slider?.moveToIdx(i)"
     *ngFor="let slide of dotHelper; let i = index"
     [class]="'dot ' + (i === currentSlide ? 'active' : '')"
-  ></button>
+  >
+    <span class="sr-only">Slide {{ i + 1 }}</span>
+  </button>
 </div>

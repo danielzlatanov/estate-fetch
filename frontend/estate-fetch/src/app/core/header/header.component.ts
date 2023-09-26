@@ -9,9 +9,9 @@ import { scrollToTop } from 'src/app/shared/helpers/scrollToTop';
 })
 export class HeaderComponent {
   scrollToTop = scrollToTop;
-  isMobileMenuOpen: boolean = false;
+  isMobileMenuOpen = false;
   currentRoute!: string;
-  showBackToTop: boolean = false;
+  showBackToTop = false;
   @Output() currentRouteChange = new EventEmitter<string>();
 
   @HostListener('window:scroll', [])

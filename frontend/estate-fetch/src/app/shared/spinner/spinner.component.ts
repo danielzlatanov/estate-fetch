@@ -6,8 +6,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./spinner.component.css'],
 })
 export class SpinnerComponent {
-  @Input() width: number = 16;
-  @Input() height: number = 16;
+  @Input() width = 16;
+  @Input() height = 16;
 
   get spinnerClasses(): string {
     return `

@@ -11,7 +11,7 @@ export class EstateService {
 
   constructor(private http: HttpClient) {}
 
-  scrape(): any {
+  scrape(): Observable<object> {
     return this.http.get(`${this.baseUrl}/api/scrape`);
   }
 

@@ -1,8 +1,10 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   HostListener,
   Input,
+  OnDestroy,
   ViewChild,
 } from '@angular/core';
 import KeenSlider, { KeenSliderInstance } from 'keen-slider';
@@ -12,13 +14,13 @@ import KeenSlider, { KeenSliderInstance } from 'keen-slider';
   templateUrl: './slider.component.html',
   styleUrls: ['./slider.component.css'],
 })
-export class SliderComponent {
+export class SliderComponent implements AfterViewInit, OnDestroy {
   @ViewChild('sliderRef') sliderRef!: ElementRef<HTMLElement>;
   @Input() images: string[] = [];
 
-  currentSlide: number = 0;
-  dotHelper: Array<Number> = [];
-  slider: KeenSliderInstance = null!;
+  currentSlide = 0;
+  dotHelper: Array<number> = [];
+  slider: KeenSliderInstance | null = null;
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {

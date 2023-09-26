@@ -11,7 +11,7 @@ import { EstateService } from '../estate.service';
 })
 export class DetailsComponent implements OnInit {
   estate: IEstate | undefined;
-  isLoading: boolean = true;
+  isLoading = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -36,7 +36,7 @@ export class DetailsComponent implements OnInit {
           this.estate = data;
           this.isLoading = false;
         },
-        error: (error: any) => {
+        error: (error: Error) => {
           this.isLoading = false;
           console.error('An error occurred:', error);
         },

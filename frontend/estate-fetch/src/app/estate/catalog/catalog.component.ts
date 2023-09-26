@@ -11,10 +11,10 @@ import { LoadingService } from 'src/app/shared/services/loading.service';
 })
 export class CatalogComponent implements OnInit {
   estates: IEstate[] = [];
-  isSmallScreen: boolean = false;
-  showEmptyState: boolean = false;
-  showNoMatchMsg: boolean = false;
-  searchQuery: string = '';
+  isSmallScreen = false;
+  showEmptyState = false;
+  showNoMatchMsg = false;
+  searchQuery = '';
 
   constructor(
     private estateService: EstateService,
@@ -26,7 +26,7 @@ export class CatalogComponent implements OnInit {
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event: Event): void {
+  onResize(): void {
     this.checkScreenSize();
   }
 
@@ -64,7 +64,7 @@ export class CatalogComponent implements OnInit {
         this.showEmptyState = this.estates.length === 0;
         this.loadingService.isLoading = false;
       },
-      error: (error: any) => {
+      error: (error: Error) => {
         this.loadingService.isLoading = false;
         console.error('An error occurred:', error);
       },
@@ -87,7 +87,7 @@ export class CatalogComponent implements OnInit {
           this.showNoMatchMsg = data.length == 0;
           this.loadingService.isSearching = false;
         },
-        error: (error: any) => {
+        error: (error: Error) => {
           this.loadingService.isSearching = false;
           console.error('An error occurred during search:', error);
         },
