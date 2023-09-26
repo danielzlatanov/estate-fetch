@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  Output,
+} from '@angular/core';
 
 @Component({
   selector: 'app-mobile-menu',
@@ -6,14 +12,17 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./mobile-menu.component.css'],
 })
 export class MobileMenuComponent {
-  @Input() currentRoute: string = '/';
+  @Input() currentRoute = '/';
   @Output() isMobileMenuOpenChange = new EventEmitter<boolean>();
+
+  @HostListener('document:keyup', ['$event'])
+  handleKeyUp(event: KeyboardEvent) {
+    if (event.key === 'Escape') {
+      this.closeMobileMenu();
+    }
+  }
 
   closeMobileMenu() {
     this.isMobileMenuOpenChange.emit(false);
-  }
-
-  handleOutsideClick(event: any) {
-    this.closeMobileMenu();
   }
 }
