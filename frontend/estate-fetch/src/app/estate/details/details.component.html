@@ -1,4 +1,4 @@
-<ng-container *ngIf="isLoading; else estateTemp">
+<ng-container *ngIf="this.loadingService.isLoading; else estateTemp">
   <section class="flex justify-center items-center my-72">
     <app-spinner></app-spinner>
   </section>

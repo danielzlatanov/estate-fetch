@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IEstate } from 'src/app/shared/interfaces/estate';
 import { EstateService } from '../estate.service';
+import { LoadingService } from 'src/app/shared/services/loading.service';
 
 @Component({
   selector: 'app-details',
@@ -11,15 +12,15 @@ import { EstateService } from '../estate.service';
 })
 export class DetailsComponent implements OnInit {
   estate: IEstate | undefined;
-  isLoading = true;
 
   constructor(
     private route: ActivatedRoute,
-    private estateService: EstateService
+    private estateService: EstateService,
+    public loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {
-    this.isLoading = true;
+    this.loadingService.isLoading = true;
     const id = this.route.snapshot.paramMap.get('id');
 
     this.route.fragment.subscribe((fragment) => {
@@ -34,10 +35,10 @@ export class DetailsComponent implements OnInit {
       this.estateService.getEstateById(id).subscribe({
         next: (data: IEstate) => {
           this.estate = data;
-          this.isLoading = false;
+          this.loadingService.isLoading = false;
         },
         error: (error: Error) => {
-          this.isLoading = false;
+          this.loadingService.isLoading = false;
           console.error('An error occurred:', error);
         },
       });
