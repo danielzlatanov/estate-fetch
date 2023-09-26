@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { EstateService } from '../estate.service';
 import { IEstate } from 'src/app/shared/interfaces/estate';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LoadingService } from 'src/app/shared/services/loading.service';
 
 @Component({
   selector: 'app-catalog',
@@ -14,13 +15,12 @@ export class CatalogComponent implements OnInit {
   showEmptyState: boolean = false;
   showNoMatchMsg: boolean = false;
   searchQuery: string = '';
-  isLoading: boolean = true;
-  isSearching: boolean = false;
 
   constructor(
     private estateService: EstateService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public loadingService: LoadingService
   ) {
     this.checkScreenSize();
   }
@@ -31,8 +31,8 @@ export class CatalogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isLoading = true;
-    this.isSearching = false;
+    this.loadingService.isLoading = true;
+    this.loadingService.isSearching = false;
 
     this.route.queryParams.subscribe((params) => {
       const searchQuery = params['keywords'];
@@ -43,10 +43,10 @@ export class CatalogComponent implements OnInit {
           .subscribe((data: IEstate[]) => {
             this.estates = data;
             this.showNoMatchMsg = data.length == 0;
-            this.isLoading = false;
+            this.loadingService.isLoading = false;
           });
       } else {
-        this.isLoading = true;
+        this.loadingService.isLoading = true;
         this.fetchEstates();
         this.showNoMatchMsg = false;
       }
@@ -62,17 +62,17 @@ export class CatalogComponent implements OnInit {
       next: (data: IEstate[]) => {
         this.estates = data;
         this.showEmptyState = this.estates.length === 0;
-        this.isLoading = false;
+        this.loadingService.isLoading = false;
       },
       error: (error: any) => {
-        this.isLoading = false;
+        this.loadingService.isLoading = false;
         console.error('An error occurred:', error);
       },
     });
   }
 
   onSearch(): void {
-    this.isSearching = true;
+    this.loadingService.isSearching = true;
 
     if (this.searchQuery.trim() !== '') {
       this.router.navigate([], {
@@ -85,10 +85,10 @@ export class CatalogComponent implements OnInit {
         next: (data: IEstate[]) => {
           this.estates = data;
           this.showNoMatchMsg = data.length == 0;
-          this.isSearching = false;
+          this.loadingService.isSearching = false;
         },
         error: (error: any) => {
-          this.isSearching = false;
+          this.loadingService.isSearching = false;
           console.error('An error occurred during search:', error);
         },
       });
@@ -101,7 +101,7 @@ export class CatalogComponent implements OnInit {
 
       this.fetchEstates();
       this.showNoMatchMsg = false;
-      this.isSearching = false;
+      this.loadingService.isSearching = false;
     }
   }
 }
