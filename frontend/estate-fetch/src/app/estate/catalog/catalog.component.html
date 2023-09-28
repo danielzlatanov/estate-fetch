@@ -1,6 +1,6 @@
 <!--! search bar -->
 <div
-  class="container max-w-7xl mx-auto flex justify-center items-center h-full"
+  class="container max-w-7xl mx-auto flex justify-center items-center h-full overflow-hidden"
 >
   <form class="mt-40 w-1/2" (submit)="onSearch()">
     <label
@@ -50,7 +50,7 @@
 </div>
 
 <!--! estate cards -->
-<div class="container max-w-7xl mx-auto">
+<div class="container max-w-7xl mx-auto overflow-hidden">
   <section class="flex justify-center items-center flex-wrap h-full my-16">
     <ng-container
       *ngIf="
