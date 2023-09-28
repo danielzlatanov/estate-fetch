@@ -8,21 +8,20 @@
       tabindex="0"
     ></div>
     <div
-      class="fixed inset-y-0 right-0 z-50 w-7/12 md:w-1/2 overflow-y-auto bg-white px-6 py-3 border-l border-blue-300 shadow-md"
+      class="fixed inset-y-0 top-0 right-0 z-50 w-full h-fit overflow-y-auto bg-white px-6 py-3 border-b border-blue-300 shadow-md"
     >
       <div class="flex items-center justify-between">
-        <a routerLink="/" (click)="closeMobileMenu()">
+        <a routerLink="/" class="mb-14" (click)="closeMobileMenu()">
           <img
-            class="h-16 w-auto"
+            class="absolute left-4 h-16 w-auto"
             src="/assets/images/ef-logo.png"
             alt="ef-logo-menu"
           />
         </a>
         <button
           type="button"
-          data-drawer-hide="drawer-example"
-          aria-controls="drawer-example"
-          class="bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-5.5 right-3 inline-flex items-center justify-center"
+          aria-controls="mobile-menu"
+          class="bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-md text-sm w-8 h-8 absolute top-6 right-3 inline-flex items-center justify-center"
           (click)="closeMobileMenu()"
         >
           <svg
@@ -80,7 +79,7 @@
               routerLink="/estates/catalog"
               class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
               (click)="closeMobileMenu()"
-              >Start Searching</a
+              >Explore Catalog</a
             >
           </div>
         </div>
