@@ -2,7 +2,7 @@
 <div
   class="container max-w-7xl mx-auto flex justify-center items-center h-full overflow-hidden"
 >
-  <form class="mt-40 w-1/2" (submit)="onSearch()">
+  <form class="mt-28 md:mt-40 w-1/2" (submit)="onSearch()">
     <label
       for="default-search"
       class="mb-2 text-sm font-medium text-gray-900 sr-only"
@@ -51,7 +51,7 @@
 
 <!--! estate cards -->
 <div class="container max-w-7xl mx-auto overflow-hidden">
-  <section class="flex justify-center items-center flex-wrap h-full my-16">
+  <section class="flex justify-center items-center flex-wrap h-full my-6">
     <ng-container
       *ngIf="
         this.loadingService.isLoading || this.loadingService.isSearching;
