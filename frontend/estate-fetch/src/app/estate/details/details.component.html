@@ -213,14 +213,21 @@
                 <img
                   src="{{ estate.realtorLogo }}"
                   alt="Realtor Logo"
-                  class="bg-cover bg-center w-16 mr-14 sm:w-20 sm:mr-6 md:w-28 h-auto rounded-lg md:mr-6"
+                  class="bg-cover bg-center w-16 mr-20 sm:w-20 sm:mr-6 md:w-28 h-auto rounded-lg md:mr-6"
                 />
               </div>
               <div>
                 <p class="font-medium text-gray-800 text-lg mb-2">
                   {{ estate.realtor }}
                 </p>
-                <p class="text-lg mb-2 text-gray-800">+359 894 456 456</p>
+
+                <a
+                  [href]="'tel:' + estate.phone"
+                  class="text-lg text-green-700 font-bold md:hover:underline md:hover:text-green-800"
+                >
+                  Call {{ estate.phone }}
+                </a>
+
                 <p class="text-sm text-gray-700">
                   {{ estate.realtorAddress }}
                 </p>
