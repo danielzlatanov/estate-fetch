@@ -96,29 +96,34 @@
     class="container max-w-7xl mx-auto m-12 py-44 pb-0 md:pb-20 pt-10 md:pt-44"
   >
     <div class="flex flex-wrap">
-      <div class="w-full sm:w-1/2 p-6 z-40">
+      <div class="w-full sm:w-1/2 p-6 mt-2 z-40">
         <div class="bg-gray-50 rounded-lg p-8 shadow-xl">
           <div class="text-center">
-            <h1 class="text-5xl font-bold sm:text-5xl">
+            <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold">
               Data at your Fingertips
             </h1>
 
-            <p class="mt-6 text-lg leading-8 text-gray-500">
-              Welcome to
+            <p class="mt-3 lg:mt-6 text-lg leading-8 text-gray-500">
               <span class="text-blue-600 font-bold">Estate Fetch</span>, a world
               full of limitless data.
             </p>
-            <p class="sm:hidden lg:flex my-4 text-lg leading-8 text-gray-500">
-              Our efficient scraper brings valuable insights directly to you.
+            <p class="hidden md:block my-4 text-lg leading-8 text-gray-500">
+              Our scraper brings valuable insights directly to you.
             </p>
             <p
-              class="sm:hidden md:flex my-4 mb-0 text-lg leading-8 text-gray-500"
+              class="md:block lg:hidden my-4 mb-0 text-lg leading-8 text-gray-500"
+            >
+              Market trends, research or analysis, we've got you covered.
+            </p>
+
+            <p
+              class="hidden lg:block my-4 mb-0 text-lg leading-8 text-gray-500"
             >
               Whether you're in search of market trends, research data, or
               competitive analysis, we've got you covered.
             </p>
 
-            <div class="mt-10 flex items-center justify-center gap-x-6">
+            <div class="mt-4 lg:mt-10 flex items-center justify-center gap-x-6">
               <a
                 routerLink="/estates/catalog"
                 class="rounded-xl bg-indigo-500 hover:bg-indigo-600 text-white px-5 py-3 text-lg font-semibold shadow-lg transform hover:scale-105 transition-transform duration-300 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
