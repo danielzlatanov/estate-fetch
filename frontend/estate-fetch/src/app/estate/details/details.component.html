@@ -1,5 +1,7 @@
 <ng-container *ngIf="this.loadingService.isLoading; else estateTemp">
-  <app-spinner></app-spinner>
+  <section class="flex justify-center items-center my-72">
+    <app-spinner></app-spinner>
+  </section>
 </ng-container>
 
 <ng-template #estateTemp>
