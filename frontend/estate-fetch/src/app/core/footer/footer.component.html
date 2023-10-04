@@ -1,4 +1,5 @@
 <footer
+  *ngIf="showFooter"
   class="bg-white"
   [class.hidden]="
     this.loadingService.isLoading || this.loadingService.isSearching
