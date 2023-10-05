@@ -31,7 +31,7 @@
       <input
         type="search"
         id="default-search"
-        class="block w-full p-4 pl-10 text-sm text-gray-500 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+        class="block w-full p-4 pl-10 text-sm text-gray-500 border border-gray-300 rounded-md bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
         [placeholder]="
           isSmallScreen ? 'search estates' : 'search estates by name...'
         "
@@ -41,7 +41,7 @@
       />
       <button
         type="submit"
-        class="hidden lg:block text-white absolute right-2.5 bottom-2.5 bg-indigo-500 hover:bg-indigo-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2"
+        class="hidden lg:block text-white absolute right-2.5 bottom-2.5 bg-indigo-500 hover:bg-indigo-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-sm px-4 py-2"
         [style.display]="searchQuery.length > 45 ? 'none' : ''"
       >
         search
@@ -65,13 +65,13 @@
     <ng-template #estatesTemp>
       <ng-container *ngIf="estates && estates.length > 0">
         <div
-          class="max-w-sm mt-4 bg-white border border-gray-200 rounded-lg shadow-lg mx-2"
+          class="max-w-sm mt-4 bg-white border border-gray-200 rounded-md shadow-lg mx-2"
           *ngFor="let estate of estates; let i = index"
         >
           <div class="flex justify-center">
             <a routerLink="/estates/details/{{ estate._id }}">
               <img
-                class="rounded-t-lg h-72 w-screen object-cover"
+                class="rounded-t-md h-72 w-screen object-cover"
                 src="{{ estate.images[0] }}"
                 alt="Estate Image {{ i + 1 }}"
               />
@@ -103,7 +103,7 @@
               <a
                 routerLink="/estates/details/{{ estate._id }}"
                 fragment="top"
-                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300"
+                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300"
               >
                 View Details
                 <svg
@@ -152,7 +152,7 @@
     </ng-template>
 
     <div
-      class="text-center bg-gray-100 rounded-lg w-max sm:mx-20 text-gray-600 p-4 mb-96 mt-20"
+      class="text-center bg-gray-100 rounded-md w-max sm:mx-20 text-gray-600 p-4 mb-96 mt-20"
       *ngIf="showEmptyState"
     >
       <h2 class="text-2xl font-bold mb-4">Oops! 🏠</h2>

@@ -7,13 +7,13 @@
     class="w-full md:w-11/12 container max-w-7xl mx-auto mt-28 md:mt-36 mb-10 overflow-hidden"
     *ngIf="estate"
   >
-    <header class="bg-blue-600 text-white py-4 text-center md:rounded-lg">
+    <header class="bg-blue-600 text-white py-4 text-center md:rounded-md">
       <h1 class="text-2xl font-bold">Property Details</h1>
     </header>
 
     <div class="flex items-center justify-center">
       <div class="w-full sm:w-full lg:w-full py-6 px-3">
-        <div class="bg-white shadow-md rounded-lg overflow-hidden">
+        <div class="bg-white shadow-md rounded-md overflow-hidden">
           <app-slider [images]="estate.images"></app-slider>
 
           <div class="p-4 flex flex-col">
@@ -29,7 +29,7 @@
               <a
                 href="{{ estate.url }}"
                 target="_blank"
-                class="inline-flex items-center px-3 py-2 font-medium text-center text-blue-500 border-2 border-blue-500 rounded-lg hover:bg-blue-500 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300"
+                class="inline-flex items-center px-3 py-2 font-medium text-center text-blue-500 border-2 border-blue-500 rounded-md hover:bg-blue-500 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300"
               >
                 External listing
                 <svg
@@ -51,7 +51,7 @@
 
               <a
                 routerLink="/estates/catalog"
-                class="inline-flex items-center ml-2 px-3 py-2 font-medium text-center text-blue-500 border-2 border-blue-500 rounded-lg hover:bg-blue-500 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300"
+                class="inline-flex items-center ml-2 px-3 py-2 font-medium text-center text-blue-500 border-2 border-blue-500 rounded-md hover:bg-blue-500 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300"
               >
                 <svg
                   class="w-3 h-4 mr-2.5 mb-0.5"
@@ -74,7 +74,7 @@
 
             <div class="mt-4 border-t-2">
               <p
-                class="bg-gray-100 w-max rounded-lg p-2 mt-4 mb-2 font-medium text-xl"
+                class="bg-gray-100 w-max rounded-md p-2 mt-4 mb-2 font-medium text-xl"
               >
                 Location
               </p>
@@ -85,7 +85,7 @@
 
             <div class="mt-4 border-t-2">
               <p
-                class="bg-gray-100 w-max rounded-lg p-2 mt-4 mb-2 font-medium text-xl"
+                class="bg-gray-100 w-max rounded-md p-2 mt-4 mb-2 font-medium text-xl"
               >
                 Description
               </p>
@@ -108,7 +108,7 @@
               </svg>
 
               <p class="flex items-center md:flex-col md:items-start">
-                <span class="bg-gray-100 rounded-lg w-max p-2 mr-2 md:mb-2">
+                <span class="bg-gray-100 rounded-md w-max p-2 mr-2 md:mb-2">
                   Floor
                 </span>
                 <span class="text-gray-900 font-bold ml-0.5">{{
@@ -130,7 +130,7 @@
                 />
               </svg>
               <p class="flex items-center md:flex-col md:items-start">
-                <span class="bg-gray-100 rounded-lg w-max p-2 mr-2 md:mb-2">
+                <span class="bg-gray-100 rounded-md w-max p-2 mr-2 md:mb-2">
                   Construction
                 </span>
                 <span class="text-gray-900 font-bold ml-0.5">{{
@@ -152,7 +152,7 @@
                 />
               </svg>
               <p class="flex items-center md:flex-col md:items-start">
-                <span class="bg-gray-100 rounded-lg w-max p-2 mr-2 md:mb-2">
+                <span class="bg-gray-100 rounded-md w-max p-2 mr-2 md:mb-2">
                   Square Meters
                 </span>
                 <span class="text-gray-900 font-bold ml-0.5">{{
@@ -192,7 +192,7 @@
                 />
               </svg>
               <p class="flex items-center md:flex-col md:items-start">
-                <span class="bg-gray-100 rounded-lg w-max p-2 mr-2 md:mb-2">
+                <span class="bg-gray-100 rounded-md w-max p-2 mr-2 md:mb-2">
                   Area
                 </span>
                 <span class="text-gray-900 font-bold ml-0.5">{{
@@ -211,7 +211,7 @@
                 <img
                   src="{{ estate.realtorLogo }}"
                   alt="Realtor Logo"
-                  class="bg-cover bg-center w-16 mr-20 sm:w-20 sm:mr-6 md:w-28 h-auto rounded-lg md:mr-6"
+                  class="bg-cover bg-center w-16 mr-20 sm:w-20 sm:mr-6 md:w-28 h-auto rounded-md md:mr-6"
                 />
               </div>
               <div>
