@@ -206,16 +206,14 @@
             <div class="text-lg font-bold text-gray-600 tracking-wide">
               Realtor
             </div>
-            <div class="flex items-center pt-2">
-              <div class="">
-                <img
-                  src="{{ estate.realtorLogo }}"
-                  alt="Realtor Logo"
-                  class="bg-cover bg-center w-16 mr-20 sm:w-20 sm:mr-6 md:w-28 h-auto rounded-md md:mr-6"
-                />
-              </div>
+            <div class="flex flex-wrap sm:flex-nowrap items-center pt-2">
+              <img
+                src="{{ estate.realtorLogo }}"
+                alt="Realtor Logo"
+                class="bg-cover bg-center w-24 h-auto rounded-md mb-3 sm:mb-0 mr-4"
+              />
               <div>
-                <p class="font-medium text-gray-800 text-lg mb-2">
+                <p class="font-medium text-gray-800 text-lg">
                   {{ estate.realtor }}
                 </p>
 
