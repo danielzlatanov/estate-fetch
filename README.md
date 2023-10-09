@@ -4,10 +4,10 @@
 
 ## Table of Contents
 
--   [API Routes](#🌐-backend-api-routes)
--   [Features](#🔑-features)
--   [Tech Stack](#📦-tech-stack-and-tools)
--   [Known Limitations](#❗-known-limitations)
+-   [API Routes](#-backend-api-routes)
+-   [Features](#-features)
+-   [Tech Stack](#-tech-stack-and-tools)
+-   [Known Limitations](#-known-limitations)
 
 ## 🚀 Getting Started
 
