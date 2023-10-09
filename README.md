@@ -11,7 +11,9 @@
 
 ## 🚀 Getting Started
 
-To run the Estate Fetch application, follow these steps:
+**You can access the deployed application version by clicking here: [Estate Fetch](https://estate-fetch.vercel.app/)**
+
+_If you wish to run Estate Fetch **locally**, follow these steps:_
 
 ### Frontend (Angular)
 
