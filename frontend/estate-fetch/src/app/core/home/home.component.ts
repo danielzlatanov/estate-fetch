@@ -6,8 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent {
-  showAnswer: boolean[] = Array(8).fill(false);
-  faqItems = [
+  faqItemsLeft = [
     {
       question: 'What is Estate Fetch?',
       answer:
@@ -29,6 +28,8 @@ export class HomeComponent {
       answer:
         'Currently, it is capable of scraping data from imot.bg, one of the largest real estate websites in Bulgaria. We are actively working on expanding our sources.',
     },
+  ];
+  faqItemsRight = [
     {
       question: 'Does it handle errors and interruptions?',
       answer:
@@ -51,11 +52,14 @@ export class HomeComponent {
         'Yes, it is easy to use for both experienced users and beginners, thanks to its user-friendly design.',
     },
   ];
+  showAnswerLeft: boolean[] = Array(this.faqItemsLeft.length).fill(false);
+  showAnswerRight: boolean[] = Array(this.faqItemsRight.length).fill(false);
 
-  faqItemsLeft = this.faqItems.slice(0, this.faqItems.length / 2);
-  faqItemsRight = this.faqItems.slice(this.faqItems.length / 2);
-
-  toggleAnswer(index: number) {
-    this.showAnswer[index] = !this.showAnswer[index];
+  toggleAnswer(index: number, col: string) {
+    if (col === 'left') {
+      this.showAnswerLeft[index] = !this.showAnswerLeft[index];
+    } else if (col === 'right') {
+      this.showAnswerRight[index] = !this.showAnswerRight[index];
+    }
   }
 }
