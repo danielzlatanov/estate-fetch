@@ -1711,178 +1711,53 @@
 
     <div class="grid text-left md:gap-16 md:grid-cols-2">
       <div>
-        <div class="mb-10">
-          <h3 class="flex items-center mb-4 text-lg font-medium">
-            <svg
-              class="flex-shrink-0 mr-2 w-8 h-8 text-blue-600"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
-            What is Estate Fetch?
-          </h3>
-          <p class="text-gray-600">
-            A powerful web scraping tool designed to efficiently gather real
-            estate data from online sources and provide you with the saved data.
-          </p>
-        </div>
-        <div class="mb-10">
-          <h3 class="flex items-center mb-4 text-lg font-medium">
-            <svg
-              class="flex-shrink-0 mr-2 w-8 h-8 text-blue-600"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
-            How does it work?
-          </h3>
-          <p class="text-gray-600">
-            It uses advanced web scraping techniques to extract property
-            information from websites, giving you up-to-date data.
-          </p>
-        </div>
-        <div class="mb-10">
-          <h3 class="flex items-center mb-4 text-lg font-medium">
-            <svg
-              class="flex-shrink-0 mr-2 w-8 h-8 text-blue-600"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
-            What kind of real estate data can I access?
-          </h3>
-          <p class="text-gray-600">
-            Estate Fetch allows you to access a wide range of real estate data,
-            including property details, images, and more.
-          </p>
-        </div>
-        <div class="mb-10">
-          <h3 class="flex items-center mb-4 text-lg font-medium">
-            <svg
-              class="flex-shrink-0 mr-2 w-8 h-8 text-blue-600"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
-            What types of websites can Estate Fetch scrape data from?
-          </h3>
-          <p class="text-gray-600">
-            Currently, it is capable of scraping data from imot.bg, one of the
-            largest real estate websites in Bulgaria. We are actively working on
-            expanding our sources.
-          </p>
-        </div>
+        <ng-container *ngFor="let faq of faqItemsLeft; let i = index">
+          <div class="mb-10">
+            <h3 class="flex items-center mb-4 text-lg font-medium">
+              <svg
+                class="flex-shrink-0 mr-2 w-8 h-8 text-blue-600"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+              {{ faq.question }}
+            </h3>
+            <p class="text-gray-600">
+              {{ faq.answer }}
+            </p>
+          </div>
+        </ng-container>
       </div>
 
       <div>
-        <div class="mb-10">
-          <h3 class="flex items-center mb-4 text-lg font-medium">
-            <svg
-              class="flex-shrink-0 mr-2 w-8 h-8 text-blue-600"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
-            Does it handle errors and interruptions?
-          </h3>
-          <p class="text-gray-600">
-            Absolutely. Estate Fetch includes a reliable error handling system
-            and a retry mechanism to ensure uninterrupted data retrieval.
-          </p>
-        </div>
-        <div class="mb-10">
-          <h3 class="flex items-center mb-4 text-lg font-medium">
-            <svg
-              class="flex-shrink-0 mr-2 w-8 h-8 text-blue-600"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
-            How often is it updated to stay compatible with website changes?
-          </h3>
-          <p class="text-gray-600">
-            It is regularly updated to adapt to source changes, ensuring
-            consistent data extraction.
-          </p>
-        </div>
-        <div class="mb-10">
-          <h3 class="flex items-center mb-4 text-lg font-medium">
-            <svg
-              class="flex-shrink-0 mr-2 w-8 h-8 text-blue-600"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
-            Is it compatible with my browser and operating system?
-          </h3>
-          <p class="text-gray-600">
-            Is is designed to work seamlessly across different browsers and
-            operating systems for your ease.
-          </p>
-        </div>
-        <div class="mb-10">
-          <h3 class="flex items-center mb-4 text-lg font-medium">
-            <svg
-              class="flex-shrink-0 mr-2 w-8 h-8 text-blue-600"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
-            Is it suitable for professionals and beginners?
-          </h3>
-          <p class="text-gray-600">
-            Yes, it is easy to use for both experienced users and beginners,
-            thanks to its user-friendly design.
-          </p>
-        </div>
+        <ng-container *ngFor="let faq of faqItemsRight; let i = index">
+          <div class="mb-10">
+            <h3 class="flex items-center mb-4 text-lg font-medium">
+              <svg
+                class="flex-shrink-0 mr-2 w-8 h-8 text-blue-600"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+              {{ faq.question }}
+            </h3>
+            <p class="text-gray-600">
+              {{ faq.answer }}
+            </p>
+          </div>
+        </ng-container>
       </div>
     </div>
   </div>
