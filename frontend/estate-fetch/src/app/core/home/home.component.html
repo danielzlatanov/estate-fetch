@@ -1719,6 +1719,7 @@
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
+                (click)="toggleAnswer(i, 'left')"
               >
                 <path
                   fill-rule="evenodd"
@@ -1728,7 +1729,7 @@
               </svg>
               {{ faq.question }}
             </h3>
-            <p class="text-gray-600">
+            <p class="text-gray-600" [ngClass]="{ hidden: !showAnswerLeft[i] }">
               {{ faq.answer }}
             </p>
           </div>
@@ -1744,6 +1745,7 @@
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
+                (click)="toggleAnswer(i, 'right')"
               >
                 <path
                   fill-rule="evenodd"
@@ -1753,7 +1755,10 @@
               </svg>
               {{ faq.question }}
             </h3>
-            <p class="text-gray-600">
+            <p
+              class="text-gray-600"
+              [ngClass]="{ hidden: !showAnswerRight[i] }"
+            >
               {{ faq.answer }}
             </p>
           </div>
