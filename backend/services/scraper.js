@@ -31,9 +31,10 @@ async function scrapeRealEstateData() {
 			const pageLink = `https://www.imot.bg/pcgi/imot.cgi?act=3&slink=9u9dut&f1=${i}`;
 			pageLinks.push(pageLink);
 		}
-		let pageCount = 0;
-
 		console.log('page links constructed:', pageLinks);
+
+		let pageCount = 0;
+		const realEstateData = [];
 
 		for (const pageLink of pageLinks) {
 			pageCount++;
@@ -44,8 +45,6 @@ async function scrapeRealEstateData() {
 
 			const listingUrls = await page.$$eval('a.lnk3', links => links.map(link => link.href));
 			const validListingUrls = listingUrls.filter(url => !url.startsWith('javascript:'));
-
-			const realEstateData = [];
 
 			for (const url of validListingUrls) {
 				try {
