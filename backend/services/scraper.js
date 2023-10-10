@@ -17,6 +17,16 @@ async function scrapeRealEstateData() {
 
 		const listingUrls = await page.$$eval('a.lnk3', links => links.map(link => link.href));
 		const validListingUrls = listingUrls.filter(url => !url.startsWith('javascript:'));
+		await page.waitForSelector('.pageNumbersInfo');
+		const pagesInfo = (await page.$eval('.pageNumbersInfo', el => el.textContent)).trim();
+		let totalPages;
+
+		if (pagesInfo.includes('от')) {
+			totalPages = Number(pagesInfo.split('от')[1].trim());
+			console.log(`${totalPages} total pages will be scraped:`);
+		} else {
+			console.error("Total pages weren't retrieved");
+		}
 
 		const realEstateData = [];
 
