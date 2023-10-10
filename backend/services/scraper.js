@@ -29,10 +29,17 @@ async function scrapeRealEstateData() {
 		}
 
 		const realEstateData = [];
+		const pageLinks = [];
+		for (let i = 1; i <= totalPages; i++) {
+			const pageLink = `https://www.imot.bg/pcgi/imot.cgi?act=3&slink=9u9dut&f1=${i}`;
+			pageLinks.push(pageLink);
+		}
+		let pageCount = 0;
 
 		for (const url of validListingUrls) {
 			try {
 				await page.goto(url);
+		console.log('page links constructed:', pageLinks);
 
 				const isPriceUnavailable = await page.evaluate(() => {
 					const textToCheck = 'При запитване';
