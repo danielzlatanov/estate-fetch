@@ -123,8 +123,8 @@ async function scrapeRealEstateData() {
 
 					if (construction.includes(':')) {
 						construction = construction.split(':')[1].trim();
-						if (construction.length <= 3) {
-							console.log('construction.length was less than 3, skipping...');
+						if (construction.length <= 2) {
+							console.log(`construction unavailable, skipping...`);
 							continue;
 						}
 					}
@@ -134,6 +134,10 @@ async function scrapeRealEstateData() {
 					}
 					if (floor.includes(':')) {
 						floor = floor.split(':')[1].trim();
+						if (floor.length <= 2) {
+							console.log(`floor unavailable, skipping...`);
+							continue;
+						}
 					}
 
 					if (sqm.includes('(')) {
