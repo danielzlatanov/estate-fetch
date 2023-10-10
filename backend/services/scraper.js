@@ -58,6 +58,22 @@ async function scrapeRealEstateData() {
 
 					if (isPriceUnavailable) {
 						console.log(`price unavailable for URL: ${url}, skipping...`);
+				await Promise.all([
+					page.waitForSelector('.title', { timeout: 1000 }),
+					page.waitForSelector('.location', { timeout: 1000 }),
+					page.waitForSelector('#cena', { timeout: 1000 }),
+					page.waitForSelector('#cenakv', { timeout: 1000 }),
+					page.waitForSelector('#bigPictureCarousel', { timeout: 1000 }),
+					page.waitForSelector('.phone', { timeout: 1000 }),
+					page.waitForSelector('.adParams div:first-child', { timeout: 1000 }),
+					page.waitForSelector('.adParams div:nth-child(2)', { timeout: 1000 }),
+					page.waitForSelector('.adParams div:nth-child(3)', { timeout: 1000 }),
+					page.waitForSelector('#description_div', { timeout: 1000 }),
+					page.waitForSelector('.AG', { timeout: 1000 }),
+					page.waitForSelector('.AG .name', { timeout: 1000 }),
+					page.waitForSelector('.AG .logo img', { timeout: 1000 }),
+					page.waitForSelector('.AG .adress', { timeout: 1000 }),
+				]);
 						continue;
 					}
 
