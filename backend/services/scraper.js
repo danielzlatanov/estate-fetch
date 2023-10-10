@@ -1,19 +1,21 @@
 const puppeteer = require('puppeteer');
+const lowMs = 1000;
+const mediumMs = 3000;
+const highMs = 5000;
 
 async function scrapeRealEstateData() {
 	try {
 		console.log('started scraping...');
 		// const browser = await puppeteer.launch({ headless: false, slowMo: 250 });
-		// const browser = await puppeteer.launch();
 
-		const browser = await puppeteer.launch({ headless: 'new' });
+		const browser = await puppeteer.launch({ headless: 'true' });
 		const page = await browser.newPage();
 
 		await page.goto('https://www.imot.bg/pcgi/imot.cgi');
 		await page.click('.fc-button-label');
 		await page.click('.mapBtnProdajbi');
 		await page.click('input[type="button"][value="Т Ъ Р С И"]');
-		await delay(5000);
+		await delay(mediumMs);
 
 		await page.waitForSelector('.pageNumbersInfo');
 		const pagesInfo = (await page.$eval('.pageNumbersInfo', el => el.textContent)).trim();
@@ -40,8 +42,9 @@ async function scrapeRealEstateData() {
 			pageCount++;
 			console.log(`scraping page ${pageCount} of ${totalPages} with link: ${pageLink}...`);
 			await page.goto(pageLink);
-			await delay(3000);
-			await page.screenshot({ path: `page${pageCount}.png`, fullPage: true });
+			await delay(mediumMs);
+
+			// await page.screenshot({ path: `page${pageCount}.png`, fullPage: true });
 
 			const listingUrls = await page.$$eval('a.lnk3', links => links.map(link => link.href));
 			const validListingUrls = listingUrls.filter(url => !url.startsWith('javascript:'));
@@ -56,23 +59,7 @@ async function scrapeRealEstateData() {
 					});
 
 					if (isPriceUnavailable) {
-						console.log(`price unavailable for URL: ${url}, skipping...`);
-				await Promise.all([
-					page.waitForSelector('.title', { timeout: 1000 }),
-					page.waitForSelector('.location', { timeout: 1000 }),
-					page.waitForSelector('#cena', { timeout: 1000 }),
-					page.waitForSelector('#cenakv', { timeout: 1000 }),
-					page.waitForSelector('#bigPictureCarousel', { timeout: 1000 }),
-					page.waitForSelector('.phone', { timeout: 1000 }),
-					page.waitForSelector('.adParams div:first-child', { timeout: 1000 }),
-					page.waitForSelector('.adParams div:nth-child(2)', { timeout: 1000 }),
-					page.waitForSelector('.adParams div:nth-child(3)', { timeout: 1000 }),
-					page.waitForSelector('#description_div', { timeout: 1000 }),
-					page.waitForSelector('.AG', { timeout: 1000 }),
-					page.waitForSelector('.AG .name', { timeout: 1000 }),
-					page.waitForSelector('.AG .logo img', { timeout: 1000 }),
-					page.waitForSelector('.AG .adress', { timeout: 1000 }),
-				]);
+						console.log(`price unavailable, skipping...`);
 						continue;
 					}
 
@@ -91,20 +78,22 @@ async function scrapeRealEstateData() {
 						images.push(imgUrl);
 					}
 
-					await page.waitForSelector('.title');
-					await page.waitForSelector('.location');
-					await page.waitForSelector('#cena');
-					await page.waitForSelector('#cenakv');
-					await page.waitForSelector('#bigPictureCarousel');
-					await page.waitForSelector('.phone');
-					await page.waitForSelector('.adParams div:first-child');
-					await page.waitForSelector('.adParams div:nth-child(2)');
-					await page.waitForSelector('.adParams div:nth-child(3)');
-					await page.waitForSelector('#description_div');
-					await page.waitForSelector('.AG');
-					await page.waitForSelector('.AG .name');
-					await page.waitForSelector('.AG .logo img');
-					await page.waitForSelector('.AG .adress');
+					await Promise.all([
+						page.waitForSelector('.title', { timeout: lowMs }),
+						page.waitForSelector('.location', { timeout: lowMs }),
+						page.waitForSelector('#cena', { timeout: lowMs }),
+						page.waitForSelector('#cenakv', { timeout: lowMs }),
+						page.waitForSelector('#bigPictureCarousel', { timeout: highMs }),
+						page.waitForSelector('.phone', { timeout: lowMs }),
+						page.waitForSelector('.adParams div:first-child', { timeout: lowMs }),
+						page.waitForSelector('.adParams div:nth-child(2)', { timeout: lowMs }),
+						page.waitForSelector('.adParams div:nth-child(3)', { timeout: lowMs }),
+						page.waitForSelector('#description_div', { timeout: lowMs }),
+						page.waitForSelector('.AG', { timeout: lowMs }),
+						page.waitForSelector('.AG .name', { timeout: lowMs }),
+						page.waitForSelector('.AG .logo img', { timeout: mediumMs }),
+						page.waitForSelector('.AG .adress', { timeout: lowMs }),
+					]);
 
 					const title = (await page.$eval('.title', el => el.textContent)).trim();
 					const titleNoPrice = extractTitleWithoutPrice(title);
@@ -171,7 +160,6 @@ async function scrapeRealEstateData() {
 
 		await browser.close();
 		console.log('finished scraping!');
-
 		return realEstateData;
 	} catch (error) {
 		console.error('Error scraping real estate data:', error);
@@ -197,7 +185,7 @@ async function scrapeDataWithRetry() {
 			console.error(`error scraping real estate data (attempt ${retryCount + 1}):`, error);
 			retryCount++;
 
-			await delay(3000);
+			await delay(mediumMs);
 		}
 	}
 
