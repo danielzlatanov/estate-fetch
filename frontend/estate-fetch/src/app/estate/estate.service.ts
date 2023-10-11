@@ -9,6 +9,7 @@ import { ICatalogResponse } from '../shared/interfaces/catalogResponse';
 })
 export class EstateService {
   private baseUrl = 'https://estate-fetch-api.vercel.app';
+  // private baseUrl = 'http://localhost:8000';
 
   constructor(private http: HttpClient) {}
 

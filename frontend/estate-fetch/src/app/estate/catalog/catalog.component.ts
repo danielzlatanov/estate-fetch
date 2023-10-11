@@ -74,6 +74,30 @@ export class CatalogComponent implements OnInit {
     });
   }
 
+  onPrevClick() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updateRoute();
+      this.fetchEstates();
+    }
+  }
+
+  onNextClick() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updateRoute();
+      this.fetchEstates();
+    }
+  }
+
+  updateRoute() {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { page: this.currentPage },
+      queryParamsHandling: 'merge',
+    });
+  }
+
   onSearch(): void {
     this.loadingService.isSearching = true;
 

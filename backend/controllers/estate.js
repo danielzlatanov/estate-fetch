@@ -36,7 +36,6 @@ const getAllEstates = async (req, res) => {
 			query.$or = [{ title: new RegExp(keywords, 'i') }];
 
 			const estates = await Estate.find(query).lean();
-			console.log('estates filtered by query received:', estates);
 
 			return res.json(estates);
 		}
