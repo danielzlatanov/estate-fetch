@@ -17,6 +17,7 @@ export class CatalogComponent implements OnInit {
   showNoMatchMsg = false;
   searchQuery = '';
   currentPage = 1;
+  totalPages!: number;
 
   constructor(
     private estateService: EstateService,
@@ -64,8 +65,22 @@ export class CatalogComponent implements OnInit {
     this.estateService.getEstates(this.currentPage).subscribe({
       next: (data: ICatalogResponse) => {
         this.estates = data.estates;
+        this.totalPages = data.totalPages;
+
         this.showEmptyState = this.estates.length === 0;
         this.loadingService.isLoading = false;
+
+        if (
+          isNaN(this.currentPage) ||
+          this.currentPage < 1 ||
+          this.currentPage > this.totalPages
+        ) {
+          this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: { page: 1 },
+            queryParamsHandling: 'merge',
+          });
+        }
       },
       error: (error: Error) => {
         this.loadingService.isLoading = false;
