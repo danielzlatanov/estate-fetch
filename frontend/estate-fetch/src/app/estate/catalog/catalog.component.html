@@ -151,7 +151,11 @@
 
         <!--! pagination controls-->
         <nav class="mt-20">
-          <ul class="flex gap-2">
+          <span
+            class="text-md flex items-center justify-center mb-2 text-blue-600"
+            >Page {{ currentPage }} of {{ totalPages }}</span
+          >
+          <ul class="flex items-center gap-2">
             <li>
               <button
                 (click)="onPrevClick()"
