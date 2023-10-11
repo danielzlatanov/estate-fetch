@@ -27,19 +27,40 @@ const scrapeAndSaveEstateData = async (req, res) => {
 const getAllEstates = async (req, res) => {
 	try {
 		const query = {};
-		const { keywords } = req.query;
+
+		let { page = 1, perPage = 9, keywords } = req.query;
+		page = Number(page);
+		perPage = Number(perPage);
+
+		const totalEstates = await Estate.countDocuments(query);
+		const totalPages = Math.ceil(totalEstates / perPage);
+
+		if (isNaN(page) || page <= 0 || page > totalPages) {
+			page = 1;
+		}
+
+		if (perPage !== 9) {
+			perPage = 9;
+		}
 
 		if (keywords) {
 			query.title = new RegExp(keywords, 'i');
 		}
 
-		const estates = await Estate.find(query).lean();
-		res.json(estates);
+		const estates = await Estate.find(query)
+			.skip((page - 1) * perPage)
+			.limit(perPage)
+			.lean();
+
+		res.json({
+			estates,
+			page,
+			totalPages,
+		});
 	} catch (error) {
 		res.status(500).json({ error: 'Internal server error' });
 	}
 };
-
 
 const getEstateById = async (req, res) => {
 	const estateId = req.params.id;
