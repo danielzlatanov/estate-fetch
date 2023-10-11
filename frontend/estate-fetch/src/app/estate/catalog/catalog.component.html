@@ -160,6 +160,9 @@
               <button
                 (click)="onPrevClick()"
                 class="rounded-md px-3 py-1.5 text-md border-2 border-blue-600 hover:bg-blue-600 hover:text-white transition-all"
+                [ngClass]="{
+                  'pointer-events-none opacity-50': +currentPage === 1
+                }"
               >
                 Prev
               </button>
@@ -168,6 +171,9 @@
               <button
                 (click)="onNextClick()"
                 class="rounded-md px-3 py-1.5 text-md border-2 border-blue-600 hover:bg-blue-600 hover:text-white transition-all"
+                [ngClass]="{
+                  'pointer-events-none opacity-50': +currentPage === totalPages
+                }"
               >
                 Next
               </button>
