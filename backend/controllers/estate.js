@@ -32,6 +32,15 @@ const getAllEstates = async (req, res) => {
 		page = Number(page);
 		perPage = Number(perPage);
 
+		if (keywords) {
+			query.$or = [{ title: new RegExp(keywords, 'i') }];
+
+			const estates = await Estate.find(query).lean();
+			console.log('estates filtered by query received:', estates);
+
+			return res.json(estates);
+		}
+
 		const totalEstates = await Estate.countDocuments(query);
 		const totalPages = Math.ceil(totalEstates / perPage);
 
@@ -43,17 +52,13 @@ const getAllEstates = async (req, res) => {
 			perPage = 9;
 		}
 
-		if (keywords) {
-			query.title = new RegExp(keywords, 'i');
-		}
-
-		const estates = await Estate.find(query)
+		const paginatedEstates = await Estate.find({})
 			.skip((page - 1) * perPage)
 			.limit(perPage)
 			.lean();
 
 		res.json({
-			estates,
+			estates: paginatedEstates,
 			page,
 			totalPages,
 		});
