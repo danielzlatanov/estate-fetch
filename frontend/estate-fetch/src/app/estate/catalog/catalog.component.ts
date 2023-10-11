@@ -3,6 +3,7 @@ import { EstateService } from '../estate.service';
 import { IEstate } from 'src/app/shared/interfaces/estate';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingService } from 'src/app/shared/services/loading.service';
+import { ICatalogResponse } from 'src/app/shared/interfaces/catalogResponse';
 
 @Component({
   selector: 'app-catalog',
@@ -15,6 +16,7 @@ export class CatalogComponent implements OnInit {
   showEmptyState = false;
   showNoMatchMsg = false;
   searchQuery = '';
+  currentPage = 1;
 
   constructor(
     private estateService: EstateService,
@@ -46,6 +48,7 @@ export class CatalogComponent implements OnInit {
             this.loadingService.isLoading = false;
           });
       } else {
+        this.currentPage = params['page'] || 1;
         this.loadingService.isLoading = true;
         this.fetchEstates();
         this.showNoMatchMsg = false;
@@ -58,9 +61,9 @@ export class CatalogComponent implements OnInit {
   }
 
   private fetchEstates(): void {
-    this.estateService.getData().subscribe({
-      next: (data: IEstate[]) => {
-        this.estates = data;
+    this.estateService.getEstates(this.currentPage).subscribe({
+      next: (data: ICatalogResponse) => {
+        this.estates = data.estates;
         this.showEmptyState = this.estates.length === 0;
         this.loadingService.isLoading = false;
       },
