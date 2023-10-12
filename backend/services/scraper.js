@@ -79,7 +79,7 @@ async function scrapeRealEstateData() {
 					}
 
 					await Promise.all([
-						page.waitForSelector('.title', { timeout: lowMs }),
+						page.waitForSelector('.advHeader .title', { timeout: lowMs }),
 						page.waitForSelector('.location', { timeout: lowMs }),
 						page.waitForSelector('#cena', { timeout: lowMs }),
 						page.waitForSelector('#cenakv', { timeout: lowMs }),
@@ -95,9 +95,7 @@ async function scrapeRealEstateData() {
 						page.waitForSelector('.AG .adress', { timeout: lowMs }),
 					]);
 
-					const title = (await page.$eval('.title', el => el.textContent)).trim();
-					const titleNoPrice = extractTitleWithoutPrice(title);
-
+					const title = (await page.$eval('.advHeader .title', el => el.textContent)).trim();
 					const location = (await page.$eval('.location', el => el.textContent)).trim();
 					const price = (await page.$eval('#cena', el => el.textContent)).trim();
 					let sqm = (await page.$eval('#cenakv', el => el.textContent)).trim();
@@ -134,7 +132,7 @@ async function scrapeRealEstateData() {
 					}
 
 					const scrapedInfo = {
-						title: titleNoPrice,
+						title,
 						location,
 						price,
 						sqm,
@@ -191,22 +189,6 @@ async function scrapeDataWithRetry() {
 
 	console.error('max retries reached, scraping failed...');
 	return null;
-}
-
-function extractTitleWithoutPrice(title) {
-	const titleParts = title.split(' EUR');
-
-	if (titleParts.length >= 2) {
-		let titleWithoutPrice = titleParts.slice(1).join('').trim();
-
-		if (titleWithoutPrice.includes('кв.м')) {
-			titleWithoutPrice = titleWithoutPrice.replace('на кв.м', '').trim();
-		}
-
-		return titleWithoutPrice;
-	} else {
-		return title;
-	}
 }
 
 function delay(ms) {
