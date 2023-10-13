@@ -167,6 +167,18 @@
                 Prev
               </button>
             </li>
+            <li class="flex md:hidden">
+              <select
+                #pageSelect
+                class="rounded-md px-3 py-2 text-md border-2 border-blue-600 bg-white overflow-hidden"
+                [(ngModel)]="currentPage"
+                (change)="onPageClick(+pageSelect.value)"
+              >
+                <option *ngFor="let page of selectPageNums">
+                  {{ page }}
+                </option>
+              </select>
+            </li>
             <li class="hidden md:flex" *ngFor="let page of getPagesInRange()">
               <button
                 (click)="onPageClick(page)"
