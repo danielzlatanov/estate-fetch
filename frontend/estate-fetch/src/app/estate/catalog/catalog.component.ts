@@ -98,6 +98,14 @@ export class CatalogComponent implements OnInit {
     });
   }
 
+  getPagesInRange(): number[] {
+    const pages = [];
+    for (let i = this.startPage; i <= this.endPage; i++) {
+      pages.push(i);
+    }
+    return pages;
+  }
+
   calculatePageRange(currentPage: number, totalPages: number) {
     const half = Math.floor(this.pagesToShow / 2);
 
@@ -109,36 +117,17 @@ export class CatalogComponent implements OnInit {
     }
   }
 
-  onPageClick(page: number) {
-    if (page !== this.currentPage) {
-      this.currentPage = page;
-      this.updateRoute();
-      this.fetchEstates();
-    }
-  }
-
-  getPagesInRange(): number[] {
-    const pages = [];
-    for (let i = this.startPage; i <= this.endPage; i++) {
-      pages.push(i);
-    }
-    return pages;
-  }
-
-  onPrevClick() {
-    if (this.currentPage > 1) {
+  handlePageChange(pageOrAction: number | string) {
+    if (typeof pageOrAction === 'number' && pageOrAction !== this.currentPage) {
+      this.currentPage = pageOrAction;
+    } else if (pageOrAction === 'prev' && this.currentPage > 1) {
       this.currentPage--;
-      this.updateRoute();
-      this.fetchEstates();
-    }
-  }
-
-  onNextClick() {
-    if (this.currentPage < this.totalPages) {
+    } else if (pageOrAction === 'next' && this.currentPage < this.totalPages) {
       this.currentPage++;
-      this.updateRoute();
-      this.fetchEstates();
     }
+
+    this.updateRoute();
+    this.fetchEstates();
   }
 
   updateRoute() {

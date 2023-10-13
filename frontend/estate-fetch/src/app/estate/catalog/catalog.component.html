@@ -158,7 +158,7 @@
           <ul class="flex items-center justify-center gap-2">
             <li>
               <button
-                (click)="onPrevClick()"
+                (click)="handlePageChange('prev')"
                 class="rounded-md px-3 py-1.5 text-md border-2 border-blue-600 hover:bg-blue-600 hover:text-white transition-all"
                 [ngClass]="{
                   'pointer-events-none opacity-50': +currentPage === 1
@@ -172,7 +172,7 @@
                 #pageSelect
                 class="rounded-md px-3 py-2 text-md border-2 border-blue-600 bg-white overflow-hidden"
                 [(ngModel)]="currentPage"
-                (change)="onPageClick(+pageSelect.value)"
+                (change)="handlePageChange(+pageSelect.value)"
               >
                 <option *ngFor="let page of selectPageNums">
                   {{ page }}
@@ -181,7 +181,7 @@
             </li>
             <li class="hidden md:flex" *ngFor="let page of getPagesInRange()">
               <button
-                (click)="onPageClick(page)"
+                (click)="handlePageChange(page)"
                 class="rounded-md px-3 py-1.5 text-md border-2 border-blue-600 hover:bg-blue-600 hover:text-white transition-all"
                 [ngClass]="{ 'bg-blue-600 text-white': page === +currentPage }"
               >
@@ -190,7 +190,7 @@
             </li>
             <li>
               <button
-                (click)="onNextClick()"
+                (click)="handlePageChange('next')"
                 class="rounded-md px-3 py-1.5 text-md border-2 border-blue-600 hover:bg-blue-600 hover:text-white transition-all"
                 [ngClass]="{
                   'pointer-events-none opacity-50': +currentPage === totalPages
