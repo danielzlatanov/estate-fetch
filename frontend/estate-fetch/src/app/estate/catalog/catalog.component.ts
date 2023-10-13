@@ -18,6 +18,9 @@ export class CatalogComponent implements OnInit {
   searchQuery = '';
   currentPage = 1;
   totalPages!: number;
+  pagesToShow = 10;
+  startPage!: number;
+  endPage!: number;
 
   constructor(
     private estateService: EstateService,
@@ -66,6 +69,7 @@ export class CatalogComponent implements OnInit {
       next: (data: ICatalogResponse) => {
         this.estates = data.estates;
         this.totalPages = data.totalPages;
+        this.calculatePageRange(this.currentPage, this.totalPages);
 
         this.showEmptyState = this.estates.length === 0;
         this.loadingService.isLoading = false;
@@ -87,6 +91,33 @@ export class CatalogComponent implements OnInit {
         console.error('An error occurred:', error);
       },
     });
+  }
+
+  calculatePageRange(currentPage: number, totalPages: number) {
+    const half = Math.floor(this.pagesToShow / 2);
+
+    this.startPage = Math.max(1, currentPage - half);
+    this.endPage = Math.min(totalPages, this.startPage + this.pagesToShow - 1);
+
+    if (this.endPage - this.startPage + 1 < this.pagesToShow) {
+      this.startPage = Math.max(1, this.endPage - this.pagesToShow + 1);
+    }
+  }
+
+  onPageClick(page: number) {
+    if (page !== this.currentPage) {
+      this.currentPage = page;
+      this.updateRoute();
+      this.fetchEstates();
+    }
+  }
+
+  getPagesInRange(): number[] {
+    const pages = [];
+    for (let i = this.startPage; i <= this.endPage; i++) {
+      pages.push(i);
+    }
+    return pages;
   }
 
   onPrevClick() {
