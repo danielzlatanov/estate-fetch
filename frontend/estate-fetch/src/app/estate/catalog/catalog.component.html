@@ -167,6 +167,15 @@
                 Prev
               </button>
             </li>
+            <li class="hidden md:flex" *ngFor="let page of getPagesInRange()">
+              <button
+                (click)="onPageClick(page)"
+                class="rounded-md px-3 py-1.5 text-md border-2 border-blue-600 hover:bg-blue-600 hover:text-white transition-all"
+                [ngClass]="{ 'bg-blue-600 text-white': page === +currentPage }"
+              >
+                {{ page }}
+              </button>
+            </li>
             <li>
               <button
                 (click)="onNextClick()"
