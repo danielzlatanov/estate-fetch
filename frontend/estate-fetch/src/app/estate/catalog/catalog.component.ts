@@ -21,6 +21,7 @@ export class CatalogComponent implements OnInit {
   pagesToShow = 10;
   startPage!: number;
   endPage!: number;
+  selectPageNums!: number[];
 
   constructor(
     private estateService: EstateService,
@@ -69,6 +70,10 @@ export class CatalogComponent implements OnInit {
       next: (data: ICatalogResponse) => {
         this.estates = data.estates;
         this.totalPages = data.totalPages;
+        this.selectPageNums = Array.from(
+          { length: this.totalPages },
+          (x, index) => index + 1
+        );
         this.calculatePageRange(this.currentPage, this.totalPages);
 
         this.showEmptyState = this.estates.length === 0;
