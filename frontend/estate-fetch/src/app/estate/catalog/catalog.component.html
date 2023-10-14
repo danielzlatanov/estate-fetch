@@ -64,6 +64,21 @@
 
     <ng-template #estatesTemp>
       <ng-container *ngIf="estates && estates.length > 0">
+        <span
+          class="text-md flex w-full items-center justify-center mb-2 text-blue-600"
+          >Page
+          <select
+            #topPageSelect
+            class="rounded-md text-md border-2 mx-1 px-2 py-1 border-blue-600 bg-white appearance-none cursor-pointer text-rose-700 text-center"
+            [(ngModel)]="currentPage"
+            (change)="handlePageChange(+topPageSelect.value)"
+          >
+            <option *ngFor="let page of selectPageNums">
+              {{ page }}
+            </option>
+          </select>
+          of {{ totalPages }}</span
+        >
         <div
           class="max-w-sm mt-4 bg-white border border-gray-200 rounded-md shadow-lg mx-2"
           *ngFor="let estate of estates; let i = index"
@@ -151,10 +166,6 @@
 
         <!--! pagination controls-->
         <nav class="mt-20 w-full">
-          <span
-            class="text-md flex items-center justify-center mb-2 text-blue-600"
-            >Page {{ currentPage }} of {{ totalPages }}</span
-          >
           <ul class="flex items-center justify-center gap-2">
             <li>
               <button
@@ -170,7 +181,7 @@
             <li class="flex md:hidden">
               <select
                 #pageSelect
-                class="rounded-md text-md border-2 px-3 py-1.5 border-blue-600 bg-white overflow-hidden appearance-none"
+                class="rounded-md text-md border-2 px-3 py-1.5 border-blue-600 bg-white appearance-none cursor-pointer text-rose-700 text-center"
                 [(ngModel)]="currentPage"
                 (change)="handlePageChange(+pageSelect.value)"
               >
