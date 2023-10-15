@@ -33,11 +33,15 @@ const getAllEstates = async (req, res) => {
 		perPage = Number(perPage);
 
 		if (keywords) {
-			query.$or = [{ title: new RegExp(keywords, 'i') }];
 
 			const estates = await Estate.find(query).lean();
 
 			return res.json(estates);
+			query.$or = [
+				{ title: new RegExp(keywords, 'i') },
+				{ location: new RegExp(keywords, 'i') },
+				{ description: new RegExp(keywords, 'i') },
+			];
 		}
 
 		const totalEstates = await Estate.countDocuments(query);
