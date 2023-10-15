@@ -33,10 +33,6 @@ const getAllEstates = async (req, res) => {
 		perPage = Number(perPage);
 
 		if (keywords) {
-
-			const estates = await Estate.find(query).lean();
-
-			return res.json(estates);
 			query.$or = [
 				{ title: new RegExp(keywords, 'i') },
 				{ location: new RegExp(keywords, 'i') },
@@ -55,13 +51,13 @@ const getAllEstates = async (req, res) => {
 			perPage = 9;
 		}
 
-		const paginatedEstates = await Estate.find({})
+		const estates = await Estate.find(query)
 			.skip((page - 1) * perPage)
 			.limit(perPage)
 			.lean();
 
 		res.json({
-			estates: paginatedEstates,
+			estates,
 			page,
 			totalPages,
 		});
