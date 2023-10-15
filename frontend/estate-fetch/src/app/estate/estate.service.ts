@@ -18,21 +18,26 @@ export class EstateService {
   //   return this.http.get(`${this.baseUrl}/api/scrape`);
   // }
 
-  getEstates(page: number, perPage?: number): Observable<ICatalogResponse> {
+  getEstates(
+    page: number,
+    perPage?: number,
+    query?: string
+  ): Observable<ICatalogResponse> {
     let params = new HttpParams().set('page', page.toString());
 
     if (perPage) {
       params = params.set('perPage', perPage.toString());
     }
 
-    return this.http.get<ICatalogResponse>(`${this.baseUrl}/api/estates`, {
-      params,
-    });
-  }
+    if (query) {
+      params = params.set('keywords', query);
+    }
 
-  searchEstates(query: string): Observable<IEstate[]> {
-    const params = new HttpParams().set('keywords', query);
-    return this.http.get<IEstate[]>(`${this.baseUrl}/api/estates/search`, {
+    const url = query
+      ? `${this.baseUrl}/api/estates/search`
+      : `${this.baseUrl}/api/estates`;
+
+    return this.http.get<ICatalogResponse>(url, {
       params,
     });
   }
