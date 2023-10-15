@@ -42,19 +42,26 @@ export class CatalogComponent implements OnInit {
     this.loadingService.isSearching = false;
 
     this.route.queryParams.subscribe((params) => {
-      const searchQuery = params['keywords'];
+      this.searchQuery = params['keywords'] || '';
+      this.currentPage = params['page'] || 1;
 
-      if (searchQuery) {
+      if (this.searchQuery) {
         this.estateService
-          .searchEstates(searchQuery)
-          .subscribe((data: IEstate[]) => {
-            this.estates = data;
-            this.showNoMatchMsg = data.length == 0;
+          .getEstates(this.currentPage, undefined, this.searchQuery)
+          .subscribe((data: ICatalogResponse) => {
+            this.estates = data.estates;
+            this.totalPages = data.totalPages;
+            this.selectPageNums = Array.from(
+              { length: this.totalPages },
+              (x, index) => index + 1
+            );
+
+            this.calculatePageRange(this.currentPage, this.totalPages);
+
+            this.showNoMatchMsg = data.estates.length == 0;
             this.loadingService.isLoading = false;
           });
       } else {
-        this.currentPage = params['page'] || 1;
-        this.loadingService.isLoading = true;
         this.fetchEstates();
         this.showNoMatchMsg = false;
       }
@@ -66,6 +73,8 @@ export class CatalogComponent implements OnInit {
   }
 
   private fetchEstates(): void {
+    this.loadingService.isLoading = true;
+
     this.estateService.getEstates(this.currentPage).subscribe({
       next: (data: ICatalogResponse) => {
         this.estates = data.estates;
@@ -127,7 +136,11 @@ export class CatalogComponent implements OnInit {
     }
 
     this.updateRoute();
-    this.fetchEstates();
+    if (this.searchQuery) {
+      this.onSearch();
+    } else {
+      this.fetchEstates();
+    }
   }
 
   updateRoute() {
@@ -144,25 +157,33 @@ export class CatalogComponent implements OnInit {
     if (this.searchQuery.trim() !== '') {
       this.router.navigate([], {
         relativeTo: this.route,
-        queryParams: { keywords: this.searchQuery },
+        queryParams: { page: 1, keywords: this.searchQuery },
         queryParamsHandling: 'merge',
       });
 
-      this.estateService.searchEstates(this.searchQuery).subscribe({
-        next: (data: IEstate[]) => {
-          this.estates = data;
-          this.showNoMatchMsg = data.length == 0;
-          this.loadingService.isSearching = false;
-        },
-        error: (error: Error) => {
-          this.loadingService.isSearching = false;
-          console.error('An error occurred during search:', error);
-        },
-      });
+      this.estateService
+        .getEstates(this.currentPage, undefined, this.searchQuery)
+        .subscribe({
+          next: (data: ICatalogResponse) => {
+            this.estates = data.estates;
+            this.totalPages = data.totalPages;
+            this.selectPageNums = Array.from(
+              { length: this.totalPages },
+              (x, index) => index + 1
+            );
+            this.calculatePageRange(this.currentPage, this.totalPages);
+            this.showNoMatchMsg = data.estates.length == 0;
+            this.loadingService.isSearching = false;
+          },
+          error: (error: Error) => {
+            this.loadingService.isSearching = false;
+            console.error('An error occurred during search:', error);
+          },
+        });
     } else {
       this.router.navigate([], {
         relativeTo: this.route,
-        queryParams: { keywords: null },
+        queryParams: { page: 1, keywords: null },
         queryParamsHandling: 'merge',
       });
 
