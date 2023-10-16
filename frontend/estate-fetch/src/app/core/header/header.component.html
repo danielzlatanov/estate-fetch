@@ -60,9 +60,7 @@
         <div
           *ngIf="
             currentRoute &&
-            currentRoute !== '/estates/catalog' &&
-            !currentRoute.includes('/estates/details') &&
-            !currentRoute.includes('/estates/catalog?keywords')
+            (currentRoute === '/' || currentRoute.startsWith('/#'))
           "
           class="hidden lg:flex lg:flex-1 lg:justify-end"
         >
