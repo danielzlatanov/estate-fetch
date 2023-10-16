@@ -69,6 +69,8 @@ _If you wish to run Estate Fetch **locally**, follow these steps:_
 
 -   Currently using a free M0 512 MB cluster provided by MongoDB Atlas to host the database. This cluster offers a cost-effective solution for the project's needs.
 
+###### [Back to Top](#estate-fetch)
+
 ## 🌐 Backend API Routes
 
 Here are all of the available API routes for interacting with the backend server:
@@ -81,6 +83,8 @@ Here are all of the available API routes for interacting with the backend server
 | `/api/estates/search` | Search all estates                           | GET    | None             | None                      |
 | `/api/estates/:id`    | Get estate by ID                             | GET    | None             | None                      |
 
+###### [Back to Top](#estate-fetch)
+
 ## 🔑 Features
 
 ### Backend Functionality
@@ -91,7 +95,7 @@ Here are all of the available API routes for interacting with the backend server
 
 ### Frontend Functionality
 
--   Users can search through property titles to find listings matching their criteria.
+-   Users can perform partial searches by keywords that match the **title**, **location**, and **description** fields to find listings matching their criteria.
 -   The frontend displays property details, including keen-slider image carousel, title, price, location, description, floor, construction type, square meters price, area, and realtor information.
 -   Catalog page displays property previews, including thumbnails, prices, descriptions, and buttons for viewing details/accessing external listings.
 
@@ -105,6 +109,8 @@ Here are all of the available API routes for interacting with the backend server
 -   No registration or payment is required to access all features.
 -   The app is designed to be user-friendly and intuitive for quick real estate searches.
 -   It is fully responsive across all devices, thanks to Tailwind CSS.
+
+###### [Back to Top](#estate-fetch)
 
 ## 📦 Tech Stack and Tools
 
@@ -120,6 +126,8 @@ The app relies on the following technologies and libraries:
 -   **Data Storage:** MongoDB Atlas
 -   **Deployment Platform:** Vercel
 
+###### [Back to Top](#estate-fetch)
+
 ## ❗ Known Limitations
 
 1. **Monolithic Architecture:** The application follows a monolithic architecture where the frontend and backend are tightly coupled within the same repository.
@@ -128,6 +136,6 @@ The app relies on the following technologies and libraries:
 
 3. **Browser Compatibility:** Estate Fetch is optimized for modern web browsers. While it should work well in most browsers, some features may not function as expected in older or less common browsers.
 
-4. **Search Limitations:** Currently, the search functionality is limited to keyword searches within property titles.
+4. **User Profiles and Authentication:** User profiles and authentication features are not yet implemented in the application. Users can access all features without the need for registration.
 
-5. **User Profiles and Authentication:** User profiles and authentication features are not yet implemented in the application. Users can access all features without the need for registration.
+###### [Back to Top](#estate-fetch)
