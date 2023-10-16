@@ -59,8 +59,8 @@
 
         <div
           *ngIf="
-            currentRoute &&
-            (currentRoute === '/' || currentRoute.startsWith('/#'))
+            finalRoute &&
+            (finalRoute === '/' || finalRoute.startsWith('/#'))
           "
           class="hidden lg:flex lg:flex-1 lg:justify-end"
         >
@@ -76,7 +76,7 @@
 
   <app-mobile-menu
     *ngIf="isMobileMenuOpen"
-    [currentRoute]="currentRoute"
+    [finalRoute]="finalRoute"
     (isMobileMenuOpenChange)="handleCloseMobileMenu($event)"
   ></app-mobile-menu>
 

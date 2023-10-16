@@ -68,8 +68,8 @@
           </div>
           <div
             *ngIf="
-              currentRoute &&
-              (currentRoute === '/' || currentRoute.startsWith('/#'))
+              finalRoute &&
+              (finalRoute === '/' || finalRoute.startsWith('/#'))
             "
             class="py-6"
           >

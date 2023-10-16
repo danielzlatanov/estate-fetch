@@ -1,18 +1,26 @@
-import { Component, EventEmitter, HostListener, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { scrollToTop } from 'src/app/shared/helpers/scrollToTop';
+import { LoadingService } from 'src/app/shared/services/loading.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   scrollToTop = scrollToTop;
   isMobileMenuOpen = false;
-  currentRoute!: string;
+  finalRoute: string | null = null;
   showBackToTop = false;
-  @Output() currentRouteChange = new EventEmitter<string>();
+  showCta = false;
+  @Output() finalRouteChange = new EventEmitter<string>();
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
@@ -24,10 +32,14 @@ export class HeaderComponent {
     }
   }
 
-  constructor(private router: Router) {
-    this.router.events.subscribe(() => {
-      this.currentRoute = this.router.url;
-      this.currentRouteChange.emit(this.currentRoute);
+  constructor(private router: Router, public loadingService: LoadingService) {}
+
+  ngOnInit() {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.finalRoute = event.url;
+        this.finalRouteChange.emit(this.finalRoute);
+      }
     });
   }
 

@@ -12,7 +12,7 @@ import {
   styleUrls: ['./mobile-menu.component.css'],
 })
 export class MobileMenuComponent {
-  @Input() currentRoute = '/';
+  @Input() finalRoute: string | null = null;
   @Output() isMobileMenuOpenChange = new EventEmitter<boolean>();
 
   @HostListener('document:keyup', ['$event'])
