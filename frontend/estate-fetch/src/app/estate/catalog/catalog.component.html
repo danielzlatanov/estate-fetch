@@ -99,7 +99,9 @@
             <p class="mb-2 text-lg text-green-700 font-semibold">
               {{ estate.price }}
             </p>
-            <p class="mb-6 h-auto w-full md:h-28 lowercase font-normal text-gray-700">
+            <p
+              class="mb-6 h-auto w-full md:h-28 lowercase font-normal text-gray-700"
+            >
               {{ estate.description | slice : 0 : 140 }}
               {{ estate.description.length > 140 ? "..." : "" }}
             </p>
@@ -107,7 +109,6 @@
             <div class="flex">
               <a
                 routerLink="/estates/details/{{ estate._id }}"
-                fragment="top"
                 class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300"
               >
                 View Details

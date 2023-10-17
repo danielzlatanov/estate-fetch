@@ -1,4 +1,3 @@
-import { scrollToTop } from 'src/app/shared/helpers/scrollToTop';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IEstate } from 'src/app/shared/interfaces/estate';
@@ -22,14 +21,6 @@ export class DetailsComponent implements OnInit {
   ngOnInit(): void {
     this.loadingService.isLoading = true;
     const id = this.route.snapshot.paramMap.get('id');
-
-    this.route.fragment.subscribe((fragment) => {
-      if (fragment === 'top') {
-        setTimeout(() => {
-          scrollToTop();
-        }, 100);
-      }
-    });
 
     if (id) {
       this.estateService.getEstateById(id).subscribe({
