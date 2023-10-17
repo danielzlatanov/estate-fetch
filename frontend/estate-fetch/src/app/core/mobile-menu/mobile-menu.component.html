@@ -1,5 +1,5 @@
 <header>
-  <div class="lg:hidden z-50" role="dialog" aria-modal="true">
+  <div class="z-50" role="dialog" aria-modal="true">
     <div
       (click)="closeMobileMenu()"
       (keyup.tab)="closeMobileMenu()"
@@ -68,8 +68,7 @@
           </div>
           <div
             *ngIf="
-              finalRoute &&
-              (finalRoute === '/' || finalRoute.startsWith('/#'))
+              finalRoute && (finalRoute === '/' || finalRoute.startsWith('/#'))
             "
             class="py-6"
           >
