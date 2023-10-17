@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EstateService } from '../estate.service';
 import { IEstate } from 'src/app/shared/interfaces/estate';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,7 +12,6 @@ import { ICatalogResponse } from 'src/app/shared/interfaces/catalogResponse';
 })
 export class CatalogComponent implements OnInit {
   estates: IEstate[] = [];
-  isSmallScreen = false;
   showEmptyState = false;
   showNoMatchMsg = false;
   searchQuery = '';
@@ -28,14 +27,7 @@ export class CatalogComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     public loadingService: LoadingService
-  ) {
-    this.checkScreenSize();
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(): void {
-    this.checkScreenSize();
-  }
+  ) {}
 
   ngOnInit(): void {
     this.loadingService.isLoading = true;
@@ -66,10 +58,6 @@ export class CatalogComponent implements OnInit {
         this.showNoMatchMsg = false;
       }
     });
-  }
-
-  private checkScreenSize(): void {
-    this.isSmallScreen = window.innerWidth <= 768;
   }
 
   private fetchEstates(): void {
