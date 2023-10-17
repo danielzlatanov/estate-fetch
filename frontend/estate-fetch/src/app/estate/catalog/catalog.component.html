@@ -99,17 +99,9 @@
             <p class="mb-2 text-lg text-green-700 font-semibold">
               {{ estate.price }}
             </p>
-            <p class="mb-6 h-44 font-normal text-gray-700">
-              {{
-                isSmallScreen
-                  ? (estate.description | slice : 0 : 160)
-                  : (estate.description | slice : 0 : 200)
-              }}
-              {{
-                estate.description.length > (isSmallScreen ? 160 : 200)
-                  ? "..."
-                  : ""
-              }}
+            <p class="mb-6 h-auto w-full md:h-28 lowercase font-normal text-gray-700">
+              {{ estate.description | slice : 0 : 140 }}
+              {{ estate.description.length > 140 ? "..." : "" }}
             </p>
 
             <div class="flex">
