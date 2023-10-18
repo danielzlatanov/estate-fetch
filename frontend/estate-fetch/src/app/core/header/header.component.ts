@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit {
   isMobileMenuOpen = false;
   finalRoute: string | null = null;
   showBackToTop = false;
+  showBurgerBtn = false;
   showCta = false;
   @Output() finalRouteChange = new EventEmitter<string>();
 
@@ -27,8 +28,10 @@ export class HeaderComponent implements OnInit {
     const scrollY = window.scrollY;
     if (scrollY >= 300) {
       this.showBackToTop = true;
+      this.showBurgerBtn = true;
     } else {
       this.showBackToTop = false;
+      this.showBurgerBtn = false;
     }
   }
 
