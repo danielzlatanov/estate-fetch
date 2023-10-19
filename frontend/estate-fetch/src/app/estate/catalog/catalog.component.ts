@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { EstateService } from '../estate.service';
 import { IEstate } from 'src/app/shared/interfaces/estate';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -21,6 +21,7 @@ export class CatalogComponent implements OnInit {
   startPage!: number;
   endPage!: number;
   selectPageNums!: number[];
+  @ViewChild('searchInput') searchInput!: ElementRef;
 
   constructor(
     private estateService: EstateService,
@@ -141,6 +142,9 @@ export class CatalogComponent implements OnInit {
 
   onSearch(): void {
     this.loadingService.isSearching = true;
+    if (this.searchInput) {
+      this.searchInput.nativeElement.blur();
+    }
 
     if (this.searchQuery.trim() !== '') {
       this.router.navigate([], {

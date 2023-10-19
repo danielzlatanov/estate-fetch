@@ -1,8 +1,8 @@
-<!--! search bar -->
+<!--! search box -->
 <div
   class="container max-w-7xl mx-auto flex justify-center items-center h-full overflow-hidden"
 >
-  <form class="mt-28 md:mt-40 w-1/2" (submit)="onSearch()">
+  <form class="mt-28 md:mt-40 w-1/2" (ngSubmit)="onSearch()">
     <label
       for="default-search"
       class="mb-2 text-sm font-medium text-gray-900 sr-only"
@@ -31,6 +31,7 @@
       <input
         type="search"
         id="default-search"
+        #searchInput
         class="block w-full p-4 pl-10 text-sm text-gray-500 border border-gray-300 rounded-md bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
         placeholder="find estates"
         required
