@@ -38,7 +38,10 @@ export class CatalogComponent implements OnInit {
     });
   }
 
-  fetchEstates(): void {
+  fetchEstates(isSearchInit = false): void {
+    if (isSearchInit) {
+      this.currentPage = 1;
+    }
     if (!this.showEmptyState) {
       this.loadingService.isLoading = true;
     }
