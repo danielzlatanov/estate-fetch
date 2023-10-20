@@ -32,7 +32,7 @@ export class CatalogComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
-      this.searchQuery = params['keywords'] || '';
+      this.searchQuery = (params['keywords'] || '').trim();
       this.currentPage = params['page'] || 1;
       this.fetchEstates();
     });
