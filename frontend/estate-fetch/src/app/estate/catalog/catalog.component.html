@@ -2,7 +2,7 @@
 <div
   class="container max-w-7xl mx-auto flex justify-center items-center h-full overflow-hidden"
 >
-  <form class="mt-28 md:mt-40 w-1/2" (ngSubmit)="onSearch()">
+  <form class="mt-28 md:mt-40 w-1/2" (ngSubmit)="fetchEstates()">
     <label
       for="default-search"
       class="mb-2 text-sm font-medium text-gray-900 sr-only"
@@ -52,12 +52,7 @@
 <!--! estate cards -->
 <div class="container max-w-7xl mx-auto overflow-hidden">
   <section class="flex justify-center items-center flex-wrap h-full my-6">
-    <ng-container
-      *ngIf="
-        this.loadingService.isLoading || this.loadingService.isSearching;
-        else estatesTemp
-      "
-    >
+    <ng-container *ngIf="this.loadingService.isLoading; else estatesTemp">
       <app-spinner></app-spinner>
     </ng-container>
 
@@ -228,11 +223,7 @@
 
     <div
       class="text-center sm:mx-20 p-4 mb-52"
-      *ngIf="
-        !this.loadingService.isLoading &&
-        !this.loadingService.isSearching &&
-        showNoMatchMsg
-      "
+      *ngIf="!this.loadingService.isLoading && showNoMatchMsg"
     >
       <div class="flex justify-center mb-10">
         <svg

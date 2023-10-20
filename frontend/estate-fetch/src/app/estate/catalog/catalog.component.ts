@@ -16,8 +16,8 @@ export class CatalogComponent implements OnInit {
   showNoMatchMsg = false;
   searchQuery = '';
   currentPage = 1;
-  totalPages!: number;
   pagesToShow = 10;
+  totalPages!: number;
   startPage!: number;
   endPage!: number;
   selectPageNums!: number[];
@@ -31,77 +31,75 @@ export class CatalogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadingService.isLoading = true;
-    this.loadingService.isSearching = false;
-
     this.route.queryParams.subscribe((params) => {
       this.searchQuery = params['keywords'] || '';
       this.currentPage = params['page'] || 1;
-
-      if (this.searchQuery) {
-        this.estateService
-          .getEstates(this.currentPage, undefined, this.searchQuery)
-          .subscribe((data: ICatalogResponse) => {
-            this.estates = data.estates;
-            this.totalPages = data.totalPages;
-            this.selectPageNums = Array.from(
-              { length: this.totalPages },
-              (x, index) => index + 1
-            );
-
-            this.calculatePageRange(this.currentPage, this.totalPages);
-
-            this.showNoMatchMsg = data.estates.length == 0;
-            this.loadingService.isLoading = false;
-          });
-      } else {
-        this.fetchEstates();
-        this.showNoMatchMsg = false;
-      }
+      this.fetchEstates();
     });
   }
 
-  private fetchEstates(): void {
+  fetchEstates(): void {
     this.loadingService.isLoading = true;
+    this.updateRoute(this.currentPage, this.searchQuery);
+    this.searchInput?.nativeElement?.blur();
 
-    this.estateService.getEstates(this.currentPage).subscribe({
-      next: (data: ICatalogResponse) => {
-        this.estates = data.estates;
-        this.totalPages = data.totalPages;
-        this.selectPageNums = Array.from(
-          { length: this.totalPages },
-          (x, index) => index + 1
-        );
-        this.calculatePageRange(this.currentPage, this.totalPages);
+    this.estateService
+      .getEstates(this.currentPage, undefined, this.searchQuery)
+      .subscribe({
+        next: (data: ICatalogResponse) => {
+          this.estates = data.estates;
+          this.totalPages = data.totalPages;
+          this.selectPageNums = Array.from(
+            { length: this.totalPages },
+            (x, index) => index + 1
+          );
+          this.calculatePageRange(this.currentPage, this.totalPages);
 
-        this.showEmptyState = this.estates.length === 0;
-        this.loadingService.isLoading = false;
+          if (this.searchQuery && this.estates.length === 0) {
+            this.showNoMatchMsg = true;
+          } else {
+            this.showEmptyState = this.estates.length === 0;
+            this.showNoMatchMsg = false;
+          }
 
-        if (
-          isNaN(this.currentPage) ||
-          this.currentPage < 1 ||
-          this.currentPage > this.totalPages
-        ) {
-          this.router.navigate([], {
-            relativeTo: this.route,
-            queryParams: { page: 1 },
-            queryParamsHandling: 'merge',
-          });
-        }
+          if (
+            isNaN(this.currentPage) ||
+            this.currentPage < 1 ||
+            this.currentPage > this.totalPages
+          ) {
+            this.updateRoute(1, this.searchQuery);
+          }
+
+          this.loadingService.isLoading = false;
+        },
+        error: (error: Error) => {
+          this.loadingService.isLoading = false;
+          console.error('An error occurred:', error);
+        },
+      });
+  }
+
+  updateRoute(currentPage = 1, keywords = '') {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {
+        page: currentPage,
+        keywords: keywords.trim() !== '' ? keywords : null,
       },
-      error: (error: Error) => {
-        this.loadingService.isLoading = false;
-        console.error('An error occurred:', error);
-      },
+      queryParamsHandling: 'merge',
     });
   }
 
-  getPagesInRange(): number[] {
-    const pages = [];
-    for (let i = this.startPage; i <= this.endPage; i++) {
-      pages.push(i);
+  handlePageChange(pageOrAction: number | string) {
+    if (typeof pageOrAction === 'number' && pageOrAction !== this.currentPage) {
+      this.currentPage = pageOrAction;
+    } else if (pageOrAction === 'prev' && this.currentPage > 1) {
+      this.currentPage--;
+    } else if (pageOrAction === 'next' && this.currentPage < this.totalPages) {
+      this.currentPage++;
     }
-    return pages;
+
+    this.fetchEstates();
   }
 
   calculatePageRange(currentPage: number, totalPages: number) {
@@ -115,73 +113,11 @@ export class CatalogComponent implements OnInit {
     }
   }
 
-  handlePageChange(pageOrAction: number | string) {
-    if (typeof pageOrAction === 'number' && pageOrAction !== this.currentPage) {
-      this.currentPage = pageOrAction;
-    } else if (pageOrAction === 'prev' && this.currentPage > 1) {
-      this.currentPage--;
-    } else if (pageOrAction === 'next' && this.currentPage < this.totalPages) {
-      this.currentPage++;
+  getPagesInRange(): number[] {
+    const pages = [];
+    for (let i = this.startPage; i <= this.endPage; i++) {
+      pages.push(i);
     }
-
-    this.updateRoute();
-    if (this.searchQuery) {
-      this.onSearch();
-    } else {
-      this.fetchEstates();
-    }
-  }
-
-  updateRoute() {
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: { page: this.currentPage },
-      queryParamsHandling: 'merge',
-    });
-  }
-
-  onSearch(): void {
-    this.loadingService.isSearching = true;
-    if (this.searchInput) {
-      this.searchInput.nativeElement.blur();
-    }
-
-    if (this.searchQuery.trim() !== '') {
-      this.router.navigate([], {
-        relativeTo: this.route,
-        queryParams: { page: 1, keywords: this.searchQuery },
-        queryParamsHandling: 'merge',
-      });
-
-      this.estateService
-        .getEstates(this.currentPage, undefined, this.searchQuery)
-        .subscribe({
-          next: (data: ICatalogResponse) => {
-            this.estates = data.estates;
-            this.totalPages = data.totalPages;
-            this.selectPageNums = Array.from(
-              { length: this.totalPages },
-              (x, index) => index + 1
-            );
-            this.calculatePageRange(this.currentPage, this.totalPages);
-            this.showNoMatchMsg = data.estates.length == 0;
-            this.loadingService.isSearching = false;
-          },
-          error: (error: Error) => {
-            this.loadingService.isSearching = false;
-            console.error('An error occurred during search:', error);
-          },
-        });
-    } else {
-      this.router.navigate([], {
-        relativeTo: this.route,
-        queryParams: { page: 1, keywords: null },
-        queryParamsHandling: 'merge',
-      });
-
-      this.fetchEstates();
-      this.showNoMatchMsg = false;
-      this.loadingService.isSearching = false;
-    }
+    return pages;
   }
 }

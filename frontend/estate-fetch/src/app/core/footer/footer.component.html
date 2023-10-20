@@ -1,9 +1,7 @@
 <footer
   *ngIf="showFooter"
   class="bg-white mt-20"
-  [class.hidden]="
-    this.loadingService.isLoading || this.loadingService.isSearching
-  "
+  [class.hidden]="this.loadingService.isLoading"
 >
   <div class="container max-w-5xl mx-auto">
     <div class="flex w-full px-3 sm:px-6">
