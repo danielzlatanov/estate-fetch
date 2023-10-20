@@ -39,7 +39,9 @@ export class CatalogComponent implements OnInit {
   }
 
   fetchEstates(): void {
-    this.loadingService.isLoading = true;
+    if (!this.showEmptyState) {
+      this.loadingService.isLoading = true;
+    }
     this.updateRoute(this.currentPage, this.searchQuery);
     this.searchInput?.nativeElement?.blur();
 
