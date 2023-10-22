@@ -75,7 +75,18 @@ async function scrapeRealEstateData() {
 						images.push(...imageSelectors.map(imgUrl => imgUrl.trim()));
 					} else {
 						const imgUrl = (await page.$eval('#bigPictureCarousel', el => el.src)).trim();
-						images.push(imgUrl);
+
+						if (imgUrl !== '../images/picturess/nophoto_660x495.svg') {
+							images.push(imgUrl);
+						} else {
+							console.log('default no photo image, skipping...');
+							continue;
+						}
+					}
+
+					if (images.length == 0) {
+						console.log(`image/s unavailable, skipping...`);
+						continue;
 					}
 
 					await Promise.all([
