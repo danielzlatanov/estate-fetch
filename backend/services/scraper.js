@@ -30,7 +30,7 @@ async function scrapeRealEstateData() {
 
 		const pageLinks = [];
 		for (let i = 1; i <= totalPages; i++) {
-			const pageLink = `https://www.imot.bg/pcgi/imot.cgi?act=3&slink=9u9dut&f1=${i}`;
+			const pageLink = `https://www.imot.bg/pcgi/imot.cgi?act=3&slink=9vty6h&f1=${i}`;
 			pageLinks.push(pageLink);
 		}
 		console.log('page links constructed:', pageLinks);
@@ -114,10 +114,12 @@ async function scrapeRealEstateData() {
 					let area = (await page.$eval('.adParams div:first-child', el => el.textContent)).trim();
 					let floor = (await page.$eval('.adParams div:nth-child(2)', el => el.textContent)).trim();
 					let construction = (await page.$eval('.adParams div:nth-child(3)', el => el.textContent)).trim();
-					const description = (await page.$eval('#description_div', el => el.textContent)).trim();
+					let description = (await page.$eval('#description_div', el => el.textContent)).trim();
 					const realtor = (await page.$eval('.AG .name', el => el.textContent)).trim();
 					const realtorLogo = (await page.$eval('.AG .logo img', el => el.src)).trim();
 					const realtorAddress = (await page.$eval('.AG .adress', el => el.textContent)).trim();
+
+					description = description.replace('Виж по-малко... Виж повече', '').trim();
 
 					if (construction.includes(':')) {
 						construction = construction.split(':')[1].trim();
@@ -130,6 +132,7 @@ async function scrapeRealEstateData() {
 					if (area.includes(':')) {
 						area = area.split(':')[1].trim();
 					}
+
 					if (floor.includes(':')) {
 						floor = floor.split(':')[1].trim();
 						if (floor.length <= 2) {
