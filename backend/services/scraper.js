@@ -1,11 +1,14 @@
 const puppeteer = require('puppeteer');
+const { performance } = require('perf_hooks');
 const lowMs = 1000;
 const mediumMs = 3000;
 const highMs = 5000;
 
 async function scrapeRealEstateData() {
 	try {
+		const start = performance.now();
 		console.log('started scraping...');
+
 		// const browser = await puppeteer.launch({ headless: false, slowMo: 250 });
 		const browser = await puppeteer.launch({ headless: 'true' });
 		const page = await browser.newPage();
@@ -43,7 +46,14 @@ async function scrapeRealEstateData() {
 		}
 
 		await browser.close();
-		console.log('finished scraping!');
+		const end = performance.now();
+		const totalTimeInMinutes = Math.floor((end - start) / 60000);
+		const remainingSeconds = ((end - start) % 60000) / 1000;
+		
+		console.log(
+			`finished scraping:\nscraping took ${totalTimeInMinutes} minutes and ${remainingSeconds.toFixed(2)} seconds`
+		);
+
 		return realEstateData;
 	} catch (error) {
 		console.error('error scraping real estate data:', error);
