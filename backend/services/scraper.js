@@ -189,7 +189,7 @@ async function scrapeDataFromUrls(validListingUrls, page) {
 				sqm,
 				images,
 				phone,
-				area,
+				area: Number(area),
 				floor,
 				construction,
 				description,
