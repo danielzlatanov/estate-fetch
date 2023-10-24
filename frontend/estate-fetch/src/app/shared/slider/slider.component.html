@@ -4,10 +4,11 @@
     #sliderRef
   >
     <div
-      *ngFor="let image of images; let i = index"
+      *ngFor="let item of items; let i = index"
+      [lightbox]="i"
       class="keen-slider__slide number-slide{{ i + 1 }}"
     >
-      <img [src]="image" alt="Slider Image" />
+      <img [src]="item.data?.thumb" alt="Thumbnail Image" />
     </div>
   </div>
   <svg
