@@ -163,7 +163,11 @@ async function scrapeDataFromUrls(validListingUrls, page) {
 			}
 
 			if (area.includes(':')) {
-				area = area.split(':')[1].trim();
+				const areaParts = area.split(':');
+				if (areaParts.length >= 2) {
+					const numericPart = areaParts[1].trim().split(' ')[0];
+					area = numericPart;
+				}
 			}
 
 			if (floor.includes(':')) {
