@@ -154,6 +154,19 @@ async function scrapeDataFromUrls(validListingUrls, page) {
 			description = description.replace('Виж по-малко... Виж повече', '');
 			description = removeEmojis(description).trim();
 
+			const exchangeRate = 1.96;
+			let priceNoCurrency = Number(
+				price
+					.match(/[\d\s,.]+/)[0]
+					.replace(/\s/g, '')
+					.trim()
+			);
+			
+			if (price.includes('лв')) {
+				priceNoCurrency /= exchangeRate;
+				priceNoCurrency = Math.ceil(priceNoCurrency);
+			}
+
 			if (construction.includes(':')) {
 				construction = construction.split(':')[1].trim();
 				if (construction.length <= 2) {
@@ -185,7 +198,7 @@ async function scrapeDataFromUrls(validListingUrls, page) {
 			const scrapedInfo = {
 				title,
 				location,
-				price,
+				price: priceNoCurrency,
 				sqm,
 				images,
 				phone,
