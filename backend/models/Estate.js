@@ -10,11 +10,11 @@ const estateSchema = new mongoose.Schema({
 		required: true,
 	},
 	price: {
-		type: String,
+		type: Number,
 		required: true,
 	},
 	sqm: {
-		type: String,
+		type: Number,
 		required: true,
 	},
 	images: [{ type: String, required: true }],
