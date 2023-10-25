@@ -125,7 +125,6 @@ async function scrapeDataFromUrls(validListingUrls, page) {
 				page.waitForSelector('.advHeader .title', { timeout: lowMs }),
 				page.waitForSelector('.location', { timeout: lowMs }),
 				page.waitForSelector('#cena', { timeout: lowMs }),
-				page.waitForSelector('#cenakv', { timeout: lowMs }),
 				page.waitForSelector('#bigPictureCarousel', { timeout: highMs }),
 				page.waitForSelector('.phone', { timeout: lowMs }),
 				page.waitForSelector('.adParams div:first-child', { timeout: lowMs }),
@@ -141,7 +140,6 @@ async function scrapeDataFromUrls(validListingUrls, page) {
 			const title = (await page.$eval('.advHeader .title', el => el.textContent)).trim();
 			const location = (await page.$eval('.location', el => el.textContent)).trim();
 			const price = (await page.$eval('#cena', el => el.textContent)).trim();
-			let sqm = (await page.$eval('#cenakv', el => el.textContent)).trim();
 			const phone = (await page.$eval('.phone', el => el.textContent)).trim();
 			let area = (await page.$eval('.adParams div:first-child', el => el.textContent)).trim();
 			let floor = (await page.$eval('.adParams div:nth-child(2)', el => el.textContent)).trim();
@@ -179,7 +177,7 @@ async function scrapeDataFromUrls(validListingUrls, page) {
 				const areaParts = area.split(':');
 				if (areaParts.length >= 2) {
 					const numericPart = areaParts[1].trim().split(' ')[0];
-					area = numericPart;
+					area = Number(numericPart);
 				}
 			}
 
@@ -191,9 +189,7 @@ async function scrapeDataFromUrls(validListingUrls, page) {
 				}
 			}
 
-			if (sqm.includes('(')) {
-				sqm = sqm.replace(/\(|\)/g, '');
-			}
+			const sqm = Math.ceil(priceNoCurrency / area);
 
 			const scrapedInfo = {
 				title,
@@ -202,7 +198,7 @@ async function scrapeDataFromUrls(validListingUrls, page) {
 				sqm,
 				images,
 				phone,
-				area: Number(area),
+				area,
 				floor,
 				construction,
 				description,
