@@ -21,6 +21,7 @@ export class CatalogComponent implements OnInit {
   startPage!: number;
   endPage!: number;
   selectPageNums!: number[];
+  isFilterOpen = false;
   @ViewChild('searchInput') searchInput!: ElementRef;
 
   constructor(
@@ -38,6 +39,9 @@ export class CatalogComponent implements OnInit {
     });
   }
 
+  toggleFilter() {
+    this.isFilterOpen = !this.isFilterOpen;
+  }
   fetchEstates(isSearchInit = false): void {
     if (isSearchInit) {
       this.currentPage = 1;
