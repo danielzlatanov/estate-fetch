@@ -4,6 +4,7 @@ import { IEstate } from 'src/app/shared/interfaces/estate';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingService } from 'src/app/shared/services/loading.service';
 import { ICatalogResponse } from 'src/app/shared/interfaces/catalogResponse';
+import { IFilters } from 'src/app/shared/interfaces/filters';
 
 @Component({
   selector: 'app-catalog',
@@ -70,7 +71,7 @@ export class CatalogComponent implements OnInit {
     this.searchInput?.nativeElement?.blur();
 
     this.estateService
-      .getEstates(this.currentPage, undefined, this.searchQuery)
+      .getEstates(this.currentPage, undefined, this.searchQuery, this.filters)
       .subscribe({
         next: (data: ICatalogResponse) => {
           this.estates = data.estates;
