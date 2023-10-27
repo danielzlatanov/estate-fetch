@@ -43,6 +43,14 @@ export class CatalogComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       this.searchQuery = (params['keywords'] || '').trim();
       this.currentPage = params['page'] || 1;
+      this.selectedLocation = params['location'] || '';
+      this.selectedMinPrice = params['minPrice'] || '';
+      this.selectedMaxPrice = params['maxPrice'] || '';
+      this.selectedArea = params['minArea'] || '';
+      this.selectedRooms = params['roomCount'] || '';
+      this.selectedConstruction = params['construction'] || '';
+
+      this.onFilterSubmit();
       this.fetchEstates();
     });
   }
