@@ -125,6 +125,30 @@ export class CatalogComponent implements OnInit {
       queryParams: {
         page: currentPage,
         keywords: keywords.trim() !== '' ? keywords : null,
+        location:
+          this.filters && this.filters.location !== ''
+            ? this.filters.location
+            : null,
+        minPrice:
+          this.filters && this.filters.minPrice !== ''
+            ? this.filters.minPrice
+            : null,
+        maxPrice:
+          this.filters && this.filters.maxPrice !== ''
+            ? this.filters.maxPrice
+            : null,
+        minArea:
+          this.filters && this.filters.minArea !== ''
+            ? this.filters.minArea
+            : null,
+        roomCount:
+          this.filters && this.filters.roomCount !== ''
+            ? this.filters.roomCount
+            : null,
+        construction:
+          this.filters && this.filters.construction !== ''
+            ? this.filters.construction
+            : null,
       },
       queryParamsHandling: 'merge',
     });
