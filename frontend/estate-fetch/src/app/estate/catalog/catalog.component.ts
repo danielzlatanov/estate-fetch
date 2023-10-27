@@ -50,6 +50,16 @@ export class CatalogComponent implements OnInit {
   toggleFilter() {
     this.isFilterOpen = !this.isFilterOpen;
   }
+
+  onFilterReset() {
+    this.selectedMinPrice = '';
+    this.selectedMaxPrice = '';
+    this.selectedLocation = '';
+    this.selectedConstruction = '';
+    this.selectedArea = '';
+    this.selectedRooms = '';
+  }
+
   onFilterSubmit() {
     this.filters = {
       location: this.selectedLocation,
