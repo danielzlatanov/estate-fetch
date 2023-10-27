@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { IEstate } from '../shared/interfaces/estate';
 import { Observable } from 'rxjs';
 import { ICatalogResponse } from '../shared/interfaces/catalogResponse';
+import { IFilters } from '../shared/interfaces/filters';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +22,8 @@ export class EstateService {
   getEstates(
     page: number,
     perPage?: number,
-    query?: string
+    query?: string,
+    filters?: IFilters
   ): Observable<ICatalogResponse> {
     let params = new HttpParams().set('page', page.toString());
 
@@ -31,6 +33,15 @@ export class EstateService {
 
     if (query) {
       params = params.set('keywords', query);
+    }
+
+    if (filters) {
+      params = params.set('location', filters.location);
+      params = params.set('minPrice', filters.minPrice);
+      params = params.set('maxPrice', filters.maxPrice);
+      params = params.set('minArea', filters.minArea);
+      params = params.set('roomCount', filters.roomCount);
+      params = params.set('construction', filters.construction);
     }
 
     const url = query
