@@ -1,8 +1,11 @@
 <!--! search box -->
 <div
-  class="container max-w-7xl mx-auto flex justify-center items-center h-full overflow-hidden"
+  class="container mx-auto max-w-screen-lg flex justify-center items-center h-full overflow-hidden"
 >
-  <form class="mt-28 md:mt-40 w-1/2 relative" (ngSubmit)="fetchEstates(true)">
+  <form
+    class="flex mt-28 md:mt-40 mx-2 w-full sm:w-8/12 relative"
+    (ngSubmit)="fetchEstates(true)"
+  >
     <input
       type="search"
       class="p-3 rounded-md w-full text-sm bg-gray-50 border border-blue-600"
