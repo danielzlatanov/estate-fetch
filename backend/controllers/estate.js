@@ -28,9 +28,22 @@ const getAllEstates = async (req, res) => {
 	try {
 		const query = {};
 
-		let { page = 1, perPage = 9, keywords } = req.query;
+		let {
+			page = 1,
+			perPage = 9,
+			keywords,
+			location,
+			minPrice,
+			maxPrice,
+			minArea,
+			roomCount,
+			construction,
+		} = req.query;
 		page = Number(page);
 		perPage = Number(perPage);
+		minArea = Number(minArea);
+		minPrice = Number(minPrice);
+		maxPrice = Number(maxPrice);
 
 		if (keywords) {
 			query.$or = [
@@ -38,6 +51,25 @@ const getAllEstates = async (req, res) => {
 				{ location: new RegExp(keywords, 'i') },
 				{ description: new RegExp(keywords, 'i') },
 			];
+		}
+
+		if (location) {
+			query.location = { $regex: new RegExp(location, 'i') };
+		}
+		if (minPrice) {
+			query.price = { $gte: minPrice };
+		}
+		if (maxPrice) {
+			query.price = { ...query.price, $lte: maxPrice };
+		}
+		if (minArea) {
+			query.area = { $gte: minArea };
+		}
+		if (roomCount) {
+			query.title = { $regex: new RegExp(roomCount, 'i') };
+		}
+		if (construction) {
+			query.construction = { $regex: new RegExp(construction, 'i') };
 		}
 
 		const totalEstates = await Estate.countDocuments(query);
