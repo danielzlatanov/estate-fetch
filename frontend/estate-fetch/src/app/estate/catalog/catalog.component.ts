@@ -22,6 +22,13 @@ export class CatalogComponent implements OnInit {
   endPage!: number;
   selectPageNums!: number[];
   isFilterOpen = false;
+  selectedMinPrice = '';
+  selectedMaxPrice = '';
+  selectedLocation = '';
+  selectedConstruction = '';
+  selectedArea = '';
+  selectedRooms = '';
+  filters!: IFilters;
   @ViewChild('searchInput') searchInput!: ElementRef;
 
   constructor(
@@ -41,6 +48,16 @@ export class CatalogComponent implements OnInit {
 
   toggleFilter() {
     this.isFilterOpen = !this.isFilterOpen;
+  }
+  onFilterSubmit() {
+    this.filters = {
+      location: this.selectedLocation,
+      minPrice: this.selectedMinPrice,
+      maxPrice: this.selectedMaxPrice,
+      minArea: this.selectedArea,
+      roomCount: this.selectedRooms,
+      construction: this.selectedConstruction,
+    };
   }
   fetchEstates(isSearchInit = false): void {
     if (isSearchInit) {
