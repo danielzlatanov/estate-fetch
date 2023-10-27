@@ -59,7 +59,10 @@ export class CatalogComponent implements OnInit {
       roomCount: this.selectedRooms,
       construction: this.selectedConstruction,
     };
+    this.isFilterOpen = false;
+    this.fetchEstates();
   }
+
   fetchEstates(isSearchInit = false): void {
     if (isSearchInit) {
       this.currentPage = 1;
