@@ -50,7 +50,6 @@ export class CatalogComponent implements OnInit {
       this.selectedRooms = params['roomCount'] || '';
       this.selectedConstruction = params['construction'] || '';
 
-      this.onFilterSubmit();
       this.fetchEstates();
     });
   }
