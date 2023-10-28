@@ -29,6 +29,7 @@ export class CatalogComponent implements OnInit {
   selectedConstruction = '';
   selectedArea = '';
   selectedRooms = '';
+  filtersApplied = false;
   filters!: IFilters;
   @ViewChild('searchInput') searchInput!: ElementRef;
 
@@ -81,7 +82,7 @@ export class CatalogComponent implements OnInit {
       roomCount: this.selectedRooms,
       construction: this.selectedConstruction,
     };
-    this.isFilterOpen = false;
+    this.filtersApplied = Object.values(this.filters).some((x) => x != '');
   }
 
   fetchEstates(isInit = false): void {
@@ -108,7 +109,10 @@ export class CatalogComponent implements OnInit {
           );
           this.calculatePageRange(this.currentPage, this.totalPages);
 
-          if (this.searchQuery && this.estates.length === 0) {
+          if (
+            (this.searchQuery || this.filtersApplied) &&
+            this.estates.length === 0
+          ) {
             this.showNoMatchMsg = true;
           } else {
             this.showEmptyState = this.estates.length === 0;
