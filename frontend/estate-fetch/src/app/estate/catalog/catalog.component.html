@@ -5,6 +5,9 @@
   <form
     class="flex mt-28 md:mt-40 mx-2 w-full sm:w-8/12 relative"
     (ngSubmit)="fetchEstates(true)"
+    [ngClass]="{
+      'pointer-events-none opacity-50': showEmptyState === true
+    }"
   >
     <button
       class="inline-flex items-center px-3 text-sm border border-blue-600 border-r-0 rounded-l-md bg-gray-50 hover:bg-gray-100"
@@ -31,16 +34,10 @@
       #searchInput
       name="searchQuery"
       [(ngModel)]="searchQuery"
-      [ngClass]="{
-        'pointer-events-none opacity-50': showEmptyState === true
-      }"
     />
     <button
       type="submit"
       class="hidden lg:block absolute top-0 right-0 p-3 h-full text-white bg-blue-600 rounded-r-md hover:bg-blue-700"
-      [ngClass]="{
-        'pointer-events-none opacity-50': showEmptyState === true
-      }"
       [style.display]="searchQuery.length > 45 ? 'none' : ''"
     >
       <svg
