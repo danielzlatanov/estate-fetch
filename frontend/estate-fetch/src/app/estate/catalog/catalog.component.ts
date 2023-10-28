@@ -68,7 +68,11 @@ export class CatalogComponent implements OnInit {
   }
 
   onFilterSubmit() {
+    this.isFilterOpen = false;
     this.fetchEstates(true);
+  }
+
+  setFilters() {
     this.filters = {
       location: this.selectedLocation,
       minPrice: this.selectedMinPrice,
@@ -78,11 +82,11 @@ export class CatalogComponent implements OnInit {
       construction: this.selectedConstruction,
     };
     this.isFilterOpen = false;
-    this.fetchEstates();
   }
 
   fetchEstates(isInit = false): void {
-    if (isSearchInit) {
+    this.setFilters();
+
     if (isInit) {
       this.currentPage = 1;
     }
