@@ -30,6 +30,7 @@ export class CatalogComponent implements OnInit {
   selectedArea = '';
   selectedRooms = '';
   filtersApplied = false;
+  appliedFilterCount = 0;
   filters!: IFilters;
   @ViewChild('searchInput') searchInput!: ElementRef;
 
@@ -86,7 +87,10 @@ export class CatalogComponent implements OnInit {
       roomCount: this.selectedRooms,
       construction: this.selectedConstruction,
     };
-    this.filtersApplied = Object.values(this.filters).some((x) => x != '');
+    this.appliedFilterCount = Object.values(this.filters).filter(
+      (value) => value !== ''
+    ).length;
+    this.filtersApplied = this.appliedFilterCount > 0;
   }
 
   fetchEstates(isInit = false): void {
