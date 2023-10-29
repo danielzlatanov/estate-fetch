@@ -119,6 +119,10 @@
       <select
         class="px-3 py-3 rounded-md bg-gray-50 text-sm border"
         [(ngModel)]="selectedMinPrice"
+        [ngClass]="{
+          'border-2 border-violet-600 font-bold transition-all':
+            selectedMinPrice !== ''
+        }"
       >
         <option value="">Min price</option>
         <option value="10000">10 000 €</option>
@@ -136,6 +140,10 @@
       <select
         class="px-3 py-3 rounded-md bg-gray-50 text-sm border"
         [(ngModel)]="selectedMaxPrice"
+        [ngClass]="{
+          'border-2 border-violet-600 font-bold transition-all':
+            selectedMaxPrice !== ''
+        }"
       >
         <option value="">Max price</option>
         <option value="100000">100 000 €</option>
@@ -153,6 +161,10 @@
       <select
         class="px-3 py-3 rounded-md bg-gray-50 text-sm border"
         [(ngModel)]="selectedLocation"
+        [ngClass]="{
+          'border-2 border-violet-600 font-bold transition-all':
+            selectedLocation !== ''
+        }"
       >
         <option value="">Location</option>
         <option value="Благоевград">Благоевград</option>
@@ -187,6 +199,10 @@
       <select
         class="px-3 py-3 rounded-md bg-gray-50 text-sm border"
         [(ngModel)]="selectedConstruction"
+        [ngClass]="{
+          'border-2 border-violet-600 font-bold transition-all':
+            selectedConstruction !== ''
+        }"
       >
         <option value="">Construction</option>
         <option value="тухла">Тухла</option>
@@ -197,6 +213,10 @@
       <select
         class="px-3 py-3 rounded-md bg-gray-50 text-sm border"
         [(ngModel)]="selectedArea"
+        [ngClass]="{
+          'border-2 border-violet-600 font-bold transition-all':
+            selectedArea !== ''
+        }"
       >
         <option value="">Area size</option>
         <option value="10">10 m² and above</option>
@@ -214,6 +234,10 @@
       <select
         class="px-3 py-3 rounded-md bg-gray-50 text-sm border"
         [(ngModel)]="selectedRooms"
+        [ngClass]="{
+          'border-2 border-violet-600 font-bold transition-all':
+            selectedRooms !== ''
+        }"
       >
         <option value="">Rooms</option>
         <option value="1">1 room</option>
