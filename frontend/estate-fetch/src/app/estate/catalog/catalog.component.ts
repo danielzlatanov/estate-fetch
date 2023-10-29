@@ -71,6 +71,7 @@ export class CatalogComponent implements OnInit {
     this.selectedConstruction = '';
     this.selectedArea = '';
     this.selectedRooms = '';
+    this.onFilterSubmit();
   }
 
   onFilterSubmit() {
