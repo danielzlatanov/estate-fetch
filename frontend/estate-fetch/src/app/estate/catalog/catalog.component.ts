@@ -55,6 +55,10 @@ export class CatalogComponent implements OnInit {
     });
   }
 
+  clearSearchQuery() {
+    this.searchQuery = '';
+  }
+
   toggleFilter() {
     this.isFilterOpen = !this.isFilterOpen;
   }
