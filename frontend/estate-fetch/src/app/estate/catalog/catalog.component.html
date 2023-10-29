@@ -38,6 +38,7 @@
     <svg
       class="absolute p-4 top-0 right-0 lg:right-10 h-full cursor-pointer text-gray-600"
       (click)="clearSearchQuery()"
+      [style.display]="searchQuery.length > 25 ? 'none' : ''"
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
