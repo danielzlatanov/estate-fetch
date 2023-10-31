@@ -10,7 +10,20 @@
     }"
   >
     <button
-      class="relative inline-flex items-center px-3 text-sm border border-blue-600 border-r-0 rounded-l-md bg-gray-50 hover:bg-gray-100"
+      class="inline-flex items-center px-3 text-sm border border-blue-600 border-r-0 rounded-l-md bg-gray-50 hover:bg-gray-100"
+      type="button"
+    >
+      <span class="hidden md:flex">Sort</span>
+      <svg
+        class="w-4 h-4 md:ml-1.5"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 32 32"
+      >
+        <path
+          d="M10 26.586V2H8V26.586l-3.95-3.95L2.636 24.05l5.657 5.657a1 1 0 0 0 1.414 0l5.657-5.657L13.95 22.636zM29.364 7.95L23.707 2.293a1 1 0 0 0-1.414 0L16.636 7.95 18.05 9.364 22 5.414V30h2V5.414l3.95 3.95z"
+        ></path>
+      </svg>
+    </button>
       type="button"
       (click)="toggleFilter()"
     >
@@ -45,7 +58,7 @@
     <svg
       class="absolute p-4 top-0 right-0 lg:right-10 h-full cursor-pointer text-gray-600"
       (click)="clearSearchQuery()"
-      [style.display]="searchQuery.length > 25 ? 'none' : ''"
+      [style.display]="searchQuery.length > 20 ? 'none' : ''"
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
