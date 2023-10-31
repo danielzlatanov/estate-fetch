@@ -38,6 +38,8 @@ const getAllEstates = async (req, res) => {
 			minArea,
 			roomCount,
 			construction,
+			sortField,
+			sortOrder,
 		} = req.query;
 		page = Number(page);
 		perPage = Number(perPage);
@@ -72,6 +74,11 @@ const getAllEstates = async (req, res) => {
 			query.construction = { $regex: new RegExp(construction, 'i') };
 		}
 
+		const sort = {};
+		if (sortField) {
+			sort[sortField] = sortOrder === 'asc' ? 1 : -1;
+		}
+
 		const totalEstates = await Estate.countDocuments(query);
 		const totalPages = Math.ceil(totalEstates / perPage);
 
@@ -84,6 +91,7 @@ const getAllEstates = async (req, res) => {
 		}
 
 		const estates = await Estate.find(query)
+			.sort(sort)
 			.skip((page - 1) * perPage)
 			.limit(perPage)
 			.lean();
