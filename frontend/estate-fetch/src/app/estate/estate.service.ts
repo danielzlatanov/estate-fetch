@@ -23,7 +23,9 @@ export class EstateService {
     page: number,
     perPage?: number,
     query?: string,
-    filters?: IFilters
+    filters?: IFilters,
+    sortField?: string,
+    sortOrder?: string
   ): Observable<ICatalogResponse> {
     let params = new HttpParams().set('page', page.toString());
 
@@ -42,6 +44,11 @@ export class EstateService {
       params = params.set('minArea', filters.minArea);
       params = params.set('roomCount', filters.roomCount);
       params = params.set('construction', filters.construction);
+    }
+
+    if (sortField && sortOrder) {
+      params = params.set('sortField', sortField);
+      params = params.set('sortOrder', sortOrder);
     }
 
     const url = query
