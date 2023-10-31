@@ -54,6 +54,8 @@ export class CatalogComponent implements OnInit {
       this.selectedArea = params['minArea'] || '';
       this.selectedRooms = params['roomCount'] || '';
       this.selectedConstruction = params['construction'] || '';
+      this.sortField = params['sortField'] || '';
+      this.sortOrder = params['sortOrder'] || '';
 
       this.fetchEstates();
     });
