@@ -23,6 +23,8 @@ export class CatalogComponent implements OnInit {
   endPage!: number;
   selectPageNums!: number[];
   isSortOpen = false;
+  sortField!: string;
+  sortOrder!: string;
   isFilterOpen = false;
   selectedMinPrice = '';
   selectedMaxPrice = '';
@@ -68,6 +70,30 @@ export class CatalogComponent implements OnInit {
   toggleSort() {
     this.isSortOpen = !this.isSortOpen;
   }
+
+  onSortSubmit(sortOption: string) {
+    this.isSortOpen = false;
+    switch (sortOption) {
+      case 'price-asc':
+        this.sortField = 'price';
+        this.sortOrder = 'asc';
+        this.fetchEstates(true);
+        break;
+
+      case 'price-desc':
+        this.sortField = 'price';
+        this.sortOrder = 'desc';
+        this.fetchEstates(true);
+        break;
+
+      case 'most-rel':
+        this.sortField = '';
+        this.sortOrder = '';
+        this.fetchEstates(true);
+        break;
+    }
+  }
+
   onFilterReset() {
     this.selectedMinPrice = '';
     this.selectedMaxPrice = '';

@@ -35,6 +35,7 @@
           <button
             type="button"
             class="inline-flex w-full px-4 py-2 hover:bg-gray-100"
+            (click)="onSortSubmit('price-asc')"
           >
             Price Ascending
           </button>
@@ -43,6 +44,7 @@
           <button
             type="button"
             class="inline-flex w-full px-4 py-2 hover:bg-gray-100"
+            (click)="onSortSubmit('price-desc')"
           >
             Price Descending
           </button>
@@ -51,6 +53,7 @@
           <button
             type="button"
             class="inline-flex w-full px-4 py-2 hover:bg-gray-100"
+            (click)="onSortSubmit('most-rel')"
           >
             Most Relevant
           </button>
