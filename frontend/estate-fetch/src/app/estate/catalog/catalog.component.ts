@@ -22,6 +22,7 @@ export class CatalogComponent implements OnInit {
   startPage!: number;
   endPage!: number;
   selectPageNums!: number[];
+  isSortOpen = false;
   isFilterOpen = false;
   selectedMinPrice = '';
   selectedMaxPrice = '';
@@ -64,6 +65,9 @@ export class CatalogComponent implements OnInit {
     this.isFilterOpen = !this.isFilterOpen;
   }
 
+  toggleSort() {
+    this.isSortOpen = !this.isSortOpen;
+  }
   onFilterReset() {
     this.selectedMinPrice = '';
     this.selectedMaxPrice = '';
