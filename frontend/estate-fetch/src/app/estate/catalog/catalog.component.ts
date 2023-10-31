@@ -212,6 +212,8 @@ export class CatalogComponent implements OnInit {
           this.filters && this.filters.construction !== ''
             ? this.filters.construction
             : null,
+        sortField: this.sortField ? this.sortField : null,
+        sortOrder: this.sortOrder ? this.sortOrder : null,
       },
       queryParamsHandling: 'merge',
     });
