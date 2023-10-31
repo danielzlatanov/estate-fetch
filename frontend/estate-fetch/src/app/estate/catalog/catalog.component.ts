@@ -137,7 +137,14 @@ export class CatalogComponent implements OnInit {
     this.searchInput?.nativeElement?.blur();
 
     this.estateService
-      .getEstates(this.currentPage, undefined, this.searchQuery, this.filters)
+      .getEstates(
+        this.currentPage,
+        undefined,
+        this.searchQuery,
+        this.filters,
+        this.sortField,
+        this.sortOrder
+      )
       .subscribe({
         next: (data: ICatalogResponse) => {
           this.estates = data.estates;
