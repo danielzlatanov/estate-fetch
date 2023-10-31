@@ -25,6 +25,41 @@
         ></path>
       </svg>
     </button>
+    <!--* sort menu -->
+    <div
+      *ngIf="isSortOpen"
+      class="fixed top-40 md:top-52 z-50 bg-white rounded-b-md shadow w-40"
+    >
+      <ul class="text-sm">
+        <li>
+          <button
+            type="button"
+            class="inline-flex w-full px-4 py-2 hover:bg-gray-100"
+          >
+            Price Ascending
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            class="inline-flex w-full px-4 py-2 hover:bg-gray-100"
+          >
+            Price Descending
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            class="inline-flex w-full px-4 py-2 hover:bg-gray-100"
+          >
+            Most Relevant
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <button
+      class="relative inline-flex items-center px-3 text-sm border border-blue-600 border-r-0 bg-gray-50 hover:bg-gray-100"
       type="button"
       (click)="toggleFilter()"
     >
@@ -273,7 +308,7 @@
           >Page
           <select
             #topPageSelect
-            class="rounded-md text-md border-2 mx-1 px-2 py-1 border-blue-600 bg-white cursor-pointer text-rose-700 text-center"
+            class="rounded-md text-md border-2 mx-1 px-1 py-1 border-blue-600 bg-white cursor-pointer text-rose-700 text-center"
             [(ngModel)]="currentPage"
             (change)="handlePageChange(+topPageSelect.value)"
           >
