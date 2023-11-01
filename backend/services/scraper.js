@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 const { performance } = require('perf_hooks');
+const moment = require('moment');
 const lowMs = 1000;
 const mediumMs = 3000;
 const highMs = 5000;
@@ -74,7 +75,7 @@ async function getTotalPages(page) {
 function generatePageLinks(totalPages) {
 	const pageLinks = [];
 	for (let i = 1; i <= totalPages; i++) {
-		pageLinks.push(`https://www.imot.bg/pcgi/imot.cgi?act=3&slink=9vty6h&f1=${i}`);
+		pageLinks.push(`https://www.imot.bg/pcgi/imot.cgi?act=3&slink=9x0t6p&f1=${i}`);
 	}
 	return pageLinks;
 }
@@ -148,6 +149,21 @@ async function scrapeDataFromUrls(validListingUrls, page) {
 			const realtor = (await page.$eval('.AG .name', el => el.textContent)).trim();
 			const realtorLogo = (await page.$eval('.AG .logo img', el => el.src)).trim();
 			const realtorAddress = (await page.$eval('.AG .adress', el => el.textContent)).trim();
+			const info = (await page.$eval('.adPrice .info', el => el.textContent)).trim();
+
+			const infoSentences = info.split(/\.\s+/);
+			const dateSentence = infoSentences[0];
+			const dateAndTimePattern = /(\d+:\d+) на (\d+ [а-я]+, \d+ год)/;
+			const dateAndTimeMatches = dateSentence.match(dateAndTimePattern);
+			const time = dateAndTimeMatches[1];
+			const date = dateAndTimeMatches[2];
+			const dateStr = `${date} ${time}`;
+			moment.locale('bg');
+			const inputFormat = 'D MMMM, YYYY [год] HH:mm';
+			const parsedDate = moment(dateStr, inputFormat).toDate();
+
+			const viewsSentence = infoSentences[1];
+			const views = Number(viewsSentence.match(/\d+/));
 
 			description = description.replace('Виж по-малко... Виж повече', '');
 			description = removeEmojis(description).trim();
@@ -159,7 +175,7 @@ async function scrapeDataFromUrls(validListingUrls, page) {
 					.replace(/\s/g, '')
 					.trim()
 			);
-			
+
 			if (price.includes('лв')) {
 				priceNoCurrency /= exchangeRate;
 				priceNoCurrency = Math.ceil(priceNoCurrency);
@@ -206,6 +222,8 @@ async function scrapeDataFromUrls(validListingUrls, page) {
 				realtor,
 				realtorLogo,
 				realtorAddress,
+				date: parsedDate,
+				views,
 			};
 			console.log('DATA:', scrapedInfo);
 			pageData.push(scrapedInfo);
