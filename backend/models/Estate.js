@@ -54,6 +54,14 @@ const estateSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
+	date: {
+		type: Date,
+		required: true,
+	},
+	views: {
+		type: Number,
+		required: true,
+	},
 });
 
 const Estate = mongoose.model('Estate', estateSchema);
