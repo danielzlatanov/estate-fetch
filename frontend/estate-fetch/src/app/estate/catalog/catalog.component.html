@@ -43,6 +43,15 @@
           <button
             type="button"
             class="inline-flex w-full px-4 py-2 hover:bg-gray-100"
+            (click)="onSortSubmit('most-rel')"
+          >
+            Relevance
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            class="inline-flex w-full px-4 py-2 hover:bg-gray-100"
             (click)="onSortSubmit('price-asc')"
           >
             Price Ascending
@@ -61,9 +70,36 @@
           <button
             type="button"
             class="inline-flex w-full px-4 py-2 hover:bg-gray-100"
-            (click)="onSortSubmit('most-rel')"
+            (click)="onSortSubmit('newest-date')"
           >
-            Most Relevant
+            Newest Listings
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            class="inline-flex w-full px-4 py-2 hover:bg-gray-100 hover:rounded-b-md"
+            (click)="onSortSubmit('oldest-date')"
+          >
+            Oldest Listings
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            class="inline-flex w-full px-4 py-2 hover:bg-gray-100"
+            (click)="onSortSubmit('most-views')"
+          >
+            Most Views
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            class="inline-flex w-full px-4 py-2 hover:bg-gray-100"
+            (click)="onSortSubmit('least-views')"
+          >
+            Least Views
           </button>
         </li>
       </ul>
