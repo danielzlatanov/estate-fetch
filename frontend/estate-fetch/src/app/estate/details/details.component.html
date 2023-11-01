@@ -229,6 +229,23 @@
                 </p>
               </div>
             </div>
+
+            <div class="mt-4 sm:flex sm:justify-end">
+              <p
+                class="border-white border-2 w-max rounded-md p-1 font-medium mr-2"
+              >
+                <span class="text-yellow-300">{{ estate.views }}</span>
+                views
+              </p>
+              <p
+                class="mt-2 sm:mt-0 border-white border-2 w-max rounded-md p-1 font-medium"
+              >
+                Listed on
+                <span class="text-yellow-300">{{
+                  estate.date | date : "dd/MM/yyyy 'at' HH:mm"
+                }}</span>
+              </p>
+            </div>
           </div>
         </div>
       </div>
