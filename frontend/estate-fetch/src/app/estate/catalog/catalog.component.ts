@@ -76,6 +76,12 @@ export class CatalogComponent implements OnInit {
   onSortSubmit(sortOption: string) {
     this.isSortOpen = false;
     switch (sortOption) {
+      case 'most-rel':
+        this.sortField = '';
+        this.sortOrder = '';
+        this.fetchEstates(true);
+        break;
+
       case 'price-asc':
         this.sortField = 'price';
         this.sortOrder = 'asc';
@@ -88,9 +94,27 @@ export class CatalogComponent implements OnInit {
         this.fetchEstates(true);
         break;
 
-      case 'most-rel':
-        this.sortField = '';
-        this.sortOrder = '';
+      case 'most-views':
+        this.sortField = 'views';
+        this.sortOrder = 'desc';
+        this.fetchEstates(true);
+        break;
+
+      case 'least-views':
+        this.sortField = 'views';
+        this.sortOrder = 'asc';
+        this.fetchEstates(true);
+        break;
+
+      case 'newest-date':
+        this.sortField = 'date';
+        this.sortOrder = 'desc';
+        this.fetchEstates(true);
+        break;
+
+      case 'oldest-date':
+        this.sortField = 'date';
+        this.sortOrder = 'asc';
         this.fetchEstates(true);
         break;
     }
