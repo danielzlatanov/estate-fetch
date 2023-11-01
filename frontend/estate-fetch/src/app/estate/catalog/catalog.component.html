@@ -36,69 +36,76 @@
     ></div>
     <div
       *ngIf="isSortOpen"
-      class="fixed top-40 md:top-52 z-50 bg-white rounded-b-md shadow w-40"
+      class="fixed top-40 md:top-52 z-50 bg-white rounded-b-md shadow w-44"
     >
       <ul class="text-sm">
         <li>
           <button
             type="button"
-            class="inline-flex w-full px-4 py-2 hover:bg-gray-100"
+            class="inline-flex items-center w-full px-4 py-2 hover:bg-gray-100"
             (click)="onSortSubmit('most-rel')"
           >
+            <i class="fa-regular fa-star w-4 h-auto mr-2"></i>
             Relevance
           </button>
         </li>
         <li>
           <button
             type="button"
-            class="inline-flex w-full px-4 py-2 hover:bg-gray-100"
+            class="inline-flex items-center w-full px-4 py-2 hover:bg-gray-100"
             (click)="onSortSubmit('price-asc')"
           >
+            <i class="fa-solid fa-arrow-up-1-9 w-4 h-auto mr-2"></i>
             Price Ascending
           </button>
         </li>
         <li>
           <button
             type="button"
-            class="inline-flex w-full px-4 py-2 hover:bg-gray-100"
+            class="inline-flex items-center w-full px-4 py-2 hover:bg-gray-100"
             (click)="onSortSubmit('price-desc')"
           >
+            <i class="fa-solid fa-arrow-down-9-1 w-4 h-auto mr-2"></i>
             Price Descending
           </button>
         </li>
         <li>
           <button
             type="button"
-            class="inline-flex w-full px-4 py-2 hover:bg-gray-100"
+            class="inline-flex items-center w-full px-4 py-2 hover:bg-gray-100"
             (click)="onSortSubmit('newest-date')"
           >
+            <i class="fa-regular fa-clock w-4 h-auto mr-2"></i>
             Newest Listings
           </button>
         </li>
         <li>
           <button
             type="button"
-            class="inline-flex w-full px-4 py-2 hover:bg-gray-100 hover:rounded-b-md"
+            class="inline-flex items-center w-full px-4 py-2 hover:bg-gray-100"
             (click)="onSortSubmit('oldest-date')"
           >
+            <i class="fa-solid fa-history w-4 h-auto mr-2"></i>
             Oldest Listings
           </button>
         </li>
         <li>
           <button
             type="button"
-            class="inline-flex w-full px-4 py-2 hover:bg-gray-100"
+            class="inline-flex items-center w-full px-4 py-2 hover:bg-gray-100"
             (click)="onSortSubmit('most-views')"
           >
+            <i class="fa-solid fa-eye w-4 h-auto mr-2"></i>
             Most Views
           </button>
         </li>
         <li>
           <button
             type="button"
-            class="inline-flex w-full px-4 py-2 hover:bg-gray-100"
+            class="inline-flex items-center w-full px-4 py-2 hover:bg-gray-100 hover:rounded-b-md"
             (click)="onSortSubmit('least-views')"
           >
+            <i class="fa-solid fa-eye-slash w-4 h-auto mr-2"></i>
             Least Views
           </button>
         </li>
