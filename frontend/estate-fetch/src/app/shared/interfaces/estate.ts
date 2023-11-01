@@ -14,4 +14,6 @@ export interface IEstate {
   realtor: string;
   realtorLogo: string;
   realtorAddress: string;
+  date: Date;
+  views: number;
 }
