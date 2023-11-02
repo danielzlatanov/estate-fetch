@@ -1,6 +1,6 @@
 <!--! search box -->
 <div
-  class="container mx-auto max-w-screen-lg flex justify-center items-center h-full overflow-hidden"
+  class="container mx-auto max-w-screen-lg flex justify-center items-center h-full overflow-visible"
 >
   <form
     class="flex mt-28 md:mt-40 mx-2 w-full sm:w-8/12 relative"
@@ -36,7 +36,7 @@
     ></div>
     <div
       *ngIf="isSortOpen"
-      class="fixed top-40 md:top-52 z-50 bg-white rounded-b-md shadow w-44"
+      class="absolute top-12 z-50 bg-white rounded-b-md shadow w-44"
     >
       <ul class="text-sm">
         <li>
