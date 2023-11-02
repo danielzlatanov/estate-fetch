@@ -203,7 +203,7 @@
             </div>
           </div>
 
-          <div class="px-4 pt-3 pb-4 border-blue-300 bg-blue-300">
+          <div class="p-4 pr-3 border-blue-300 bg-blue-300">
             <div class="text-lg font-bold text-gray-600 tracking-wide">
               Realtor
             </div>
@@ -231,18 +231,14 @@
               </div>
             </div>
 
-            <div class="mt-4 sm:flex sm:justify-end">
-              <p
-                class="border-white border-2 w-max rounded-md p-1 font-medium mr-2"
-              >
-                <span class="text-yellow-300">{{ estate.views }}</span>
-                views
+            <div class="z-50 mt-4 flex gap-2 items-center sm:justify-end">
+              <p class="border-black border-2 w-fit rounded-md p-1 font-medium">
+                <i class="fa-solid fa-eye  h-auto mr-1"></i>
+                <span class="text-green-700">{{ estate.views }}</span>
               </p>
-              <p
-                class="mt-2 sm:mt-0 border-white border-2 w-max rounded-md p-1 font-medium"
-              >
-                Listed on
-                <span class="text-yellow-300">{{
+              <p class="border-black border-2 w-fit rounded-md p-1 font-medium">
+                <i class="fa-solid fa-calendar-days  h-auto mr-1"></i>
+                <span class="text-green-700">{{
                   estate.date | date : "dd/MM/yyyy 'at' HH:mm"
                 }}</span>
               </p>
