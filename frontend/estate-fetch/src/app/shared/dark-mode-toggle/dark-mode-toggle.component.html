@@ -1,8 +1,8 @@
-<button>toggle dark mode</button>
 <button
   type="button"
   (click)="onToggleDarkMode()"
   class="lg:hover:bg-gray-200 rounded-md text-sm p-2"
+  [title]="isDarkModeEnabled ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
 >
   <svg
     class="text-gray-700 w-8 h-8"
