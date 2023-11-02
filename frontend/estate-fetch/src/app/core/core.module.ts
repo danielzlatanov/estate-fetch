@@ -7,6 +7,7 @@ import { MobileMenuComponent } from './mobile-menu/mobile-menu.component';
 import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LoadingService } from '../shared/services/loading.service';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,7 @@ import { LoadingService } from '../shared/services/loading.service';
     MobileMenuComponent,
     PageNotFoundComponent,
   ],
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, SharedModule],
   providers: [LoadingService],
   exports: [
     HomeComponent,
