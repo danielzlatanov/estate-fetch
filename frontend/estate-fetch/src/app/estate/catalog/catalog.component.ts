@@ -77,47 +77,39 @@ export class CatalogComponent implements OnInit {
     this.isSortOpen = false;
     switch (sortOption) {
       case 'most-rel':
-        this.sortField = '';
-        this.sortOrder = '';
-        this.fetchEstates(true);
+        this.updateSortOptions('', '');
         break;
 
       case 'price-asc':
-        this.sortField = 'price';
-        this.sortOrder = 'asc';
-        this.fetchEstates(true);
+        this.updateSortOptions('price', 'asc');
         break;
 
       case 'price-desc':
-        this.sortField = 'price';
-        this.sortOrder = 'desc';
-        this.fetchEstates(true);
+        this.updateSortOptions('price', 'desc');
         break;
 
       case 'most-views':
-        this.sortField = 'views';
-        this.sortOrder = 'desc';
-        this.fetchEstates(true);
+        this.updateSortOptions('views', 'desc');
         break;
 
       case 'least-views':
-        this.sortField = 'views';
-        this.sortOrder = 'asc';
-        this.fetchEstates(true);
+        this.updateSortOptions('views', 'asc');
         break;
 
       case 'newest-date':
-        this.sortField = 'date';
-        this.sortOrder = 'desc';
-        this.fetchEstates(true);
+        this.updateSortOptions('date', 'desc');
         break;
 
       case 'oldest-date':
-        this.sortField = 'date';
-        this.sortOrder = 'asc';
-        this.fetchEstates(true);
+        this.updateSortOptions('date', 'asc');
         break;
     }
+  }
+
+  updateSortOptions(field: string, order: string) {
+    this.sortField = field;
+    this.sortOrder = order;
+    this.fetchEstates(true);
   }
 
   onFilterReset() {
