@@ -95,8 +95,10 @@
             </div>
           </div>
 
-          <div class="flex flex-col md:flex-row p-2 border-t border-gray-300">
-            <div class="flex-1 p-4 inline-flex md:flex items-center">
+          <div
+            class="flex flex-col md:flex-row md:items-center md:justify-between px-6 py-2 border-t border-gray-300"
+          >
+            <div class="py-4 inline-flex">
               <svg
                 class="h-auto w-8 md:w-10 mr-3"
                 xmlns="http://www.w3.org/2000/svg"
@@ -117,7 +119,7 @@
                 }}</span>
               </p>
             </div>
-            <div class="flex-1 p-4 inline-flex md:flex items-center">
+            <div class="py-4 inline-flex">
               <svg
                 class="h-auto w-8 md:w-10 mr-3"
                 viewBox="0 0 24 24"
@@ -139,7 +141,7 @@
                 }}</span>
               </p>
             </div>
-            <div class="flex-1 p-4 inline-flex md:flex items-center">
+            <div class="py-4 inline-flex">
               <svg
                 class="h-auto w-8 md:w-10 mr-3"
                 viewBox="0 0 24 24"
@@ -161,7 +163,7 @@
                 >
               </p>
             </div>
-            <div class="flex-1 p-4 inline-flex md:flex items-center">
+            <div class="py-4 inline-flex">
               <svg
                 class="h-auto w-8 md:w-10 mr-3"
                 viewBox="0 0 24 24"
@@ -233,11 +235,11 @@
 
             <div class="z-50 mt-4 flex gap-2 items-center sm:justify-end">
               <p class="border-black border-2 w-fit rounded-md p-1 font-medium">
-                <i class="fa-solid fa-eye  h-auto mr-1"></i>
+                <i class="fa-solid fa-eye h-auto mr-1"></i>
                 <span class="text-green-700">{{ estate.views }}</span>
               </p>
               <p class="border-black border-2 w-fit rounded-md p-1 font-medium">
-                <i class="fa-solid fa-calendar-days  h-auto mr-1"></i>
+                <i class="fa-solid fa-calendar-days h-auto mr-1"></i>
                 <span class="text-green-700">{{
                   estate.date | date : "dd/MM/yyyy 'at' HH:mm"
                 }}</span>
