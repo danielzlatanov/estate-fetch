@@ -11,7 +11,7 @@ async function scrapeRealEstateData() {
 		console.log('started scraping...');
 
 		// const browser = await puppeteer.launch({ headless: false, slowMo: 250 });
-		const browser = await puppeteer.launch({ headless: 'true' });
+		const browser = await puppeteer.launch({ headless: 'new' });
 		const page = await browser.newPage();
 
 		await page.goto('https://www.imot.bg/pcgi/imot.cgi');
@@ -37,20 +37,30 @@ async function scrapeRealEstateData() {
 		const pageLinks = generatePageLinks(dynamicUrl, totalPages);
 		console.log('page links constructed:', pageLinks);
 
-		let pageCount = 0;
+		const maxConcurrentRequests = 10;
 		const realEstateData = [];
 
-		for (const pageLink of pageLinks) {
-			pageCount++;
-			console.log(`scraping page ${pageCount} of ${totalPages} with link: ${pageLink}...`);
+		for (let i = 0; i < pageLinks.length; i += maxConcurrentRequests) {
+			const batch = pageLinks.slice(i, i + maxConcurrentRequests);
+			const batchResults = await Promise.all(
+				batch.map(async pageLink => {
+					const browser = await puppeteer.launch({ headless: true });
+					const page = await browser.newPage();
 
-			await page.goto(pageLink);
-			await delay(mediumMs);
+					await page.goto(pageLink);
+					await delay(mediumMs);
 
-			const listingUrls = await page.$$eval('a.lnk3', links => links.map(link => link.href));
-			const validListingUrls = listingUrls.filter(url => !url.startsWith('javascript:'));
-			const pageData = await scrapeDataFromUrls(validListingUrls, page);
-			realEstateData.push(...pageData);
+					const listingUrls = await page.$$eval('a.lnk3', links => links.map(link => link.href));
+					const validListingUrls = listingUrls.filter(url => !url.startsWith('javascript:'));
+					const pageData = await scrapeDataFromUrls(validListingUrls, page);
+
+					await browser.close();
+
+					return pageData;
+				})
+			);
+
+			realEstateData.push(...batchResults.flat());
 		}
 
 		await browser.close();
