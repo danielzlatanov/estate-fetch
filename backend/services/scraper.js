@@ -20,6 +20,13 @@ async function scrapeRealEstateData() {
 		await page.click('input[type="button"][value="Т Ъ Р С И"]');
 		await delay(mediumMs);
 
+		let dynamicUrl = page.url();
+		const f1Index = dynamicUrl.indexOf('&f1');
+		if (f1Index !== -1) {
+			dynamicUrl = dynamicUrl.substring(0, f1Index);
+			console.log('dynamic url:', dynamicUrl);
+		}
+
 		const totalPages = await getTotalPages(page);
 		console.log(`${totalPages} total pages will be scraped:`);
 		if (totalPages === 0) {
@@ -27,7 +34,7 @@ async function scrapeRealEstateData() {
 			return null;
 		}
 
-		const pageLinks = generatePageLinks(totalPages);
+		const pageLinks = generatePageLinks(dynamicUrl, totalPages);
 		console.log('page links constructed:', pageLinks);
 
 		let pageCount = 0;
@@ -72,10 +79,10 @@ async function getTotalPages(page) {
 	return 0;
 }
 
-function generatePageLinks(totalPages) {
+function generatePageLinks(dynamicUrl, totalPages) {
 	const pageLinks = [];
 	for (let i = 1; i <= totalPages; i++) {
-		pageLinks.push(`https://www.imot.bg/pcgi/imot.cgi?act=3&slink=9x0t6p&f1=${i}`);
+		pageLinks.push(`${dynamicUrl}&f1=${i}`);
 	}
 	return pageLinks;
 }
