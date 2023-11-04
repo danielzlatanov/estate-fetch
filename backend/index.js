@@ -19,11 +19,10 @@ mongoose
 		useNewUrlParser: true,
 	})
 	.then(() => {
-		console.log('Database connection established.');
+		console.log('database connection established.');
 	})
 	.catch(err => {
-		console.error('Error connecting to MongoDB Atlas:');
-		console.error(err.message);
+		console.error('error connecting to MongoDB Atlas:', err.message);
 		process.exit(1);
 	});
 
@@ -35,7 +34,7 @@ const estateRoutes = require('./routes/estateRoutes.js');
 app.use('/api', estateRoutes);
 
 app.listen(port, () => {
-	console.log(`Server is running on http://localhost:${port}/`);
+	console.log(`server is running on http://localhost:${port}/`);
 });
 
 module.exports = app;

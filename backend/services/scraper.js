@@ -1,3 +1,4 @@
+const chalk = require('chalk');
 const puppeteer = require('puppeteer');
 const { performance } = require('perf_hooks');
 const moment = require('moment');
@@ -8,7 +9,7 @@ const highMs = 5000;
 async function scrapeRealEstateData() {
 	try {
 		const start = performance.now();
-		console.log('started scraping...');
+		console.log(chalk.blue('started scraping...'));
 
 		// const browser = await puppeteer.launch({ headless: false, slowMo: 250 });
 		const browser = await puppeteer.launch({ headless: 'new' });
@@ -24,18 +25,19 @@ async function scrapeRealEstateData() {
 		const f1Index = dynamicUrl.indexOf('&f1');
 		if (f1Index !== -1) {
 			dynamicUrl = dynamicUrl.substring(0, f1Index);
-			console.log('dynamic url:', dynamicUrl);
+			console.log(chalk.blue('dynamic URL retrieved:', dynamicUrl));
+		} else {
+			throw new Error(chalk.red(`dynamic URL not retrieved, cannot continue...`));
 		}
 
 		const totalPages = await getTotalPages(page);
-		console.log(`${totalPages} total pages will be scraped:`);
+		console.log(chalk.blue(`${totalPages} total pages will be scraped...`));
+
 		if (totalPages === 0) {
-			console.error("total pages weren't retrieved");
-			return null;
+			throw new Error(chalk.red(`${totalPages} total pages, cannot continue...`));
 		}
 
 		const pageLinks = generatePageLinks(dynamicUrl, totalPages);
-		console.log('page links constructed:', pageLinks);
 
 		const maxConcurrentRequests = 10;
 		const realEstateData = [];
@@ -69,12 +71,14 @@ async function scrapeRealEstateData() {
 		const remainingSeconds = ((end - start) % 60000) / 1000;
 
 		console.log(
-			`finished scraping:\nscraping took ${totalTimeInMinutes} minutes and ${remainingSeconds.toFixed(2)} seconds`
+			chalk.blue(
+				`finished:\nscraping took ${totalTimeInMinutes} minutes and ${remainingSeconds.toFixed(2)} seconds`
+			)
 		);
 
 		return realEstateData;
 	} catch (error) {
-		console.error('error scraping real estate data:', error);
+		console.error(chalk.red('error scraping data from pageLinks:', error));
 		return null;
 	}
 }
@@ -109,7 +113,7 @@ async function scrapeDataFromUrls(validListingUrls, page) {
 			});
 
 			if (isPriceUnavailable) {
-				console.log(`price unavailable, skipping...`);
+				console.log(chalk.yellow('price unavailable, skipping...'));
 				continue;
 			}
 
@@ -129,13 +133,13 @@ async function scrapeDataFromUrls(validListingUrls, page) {
 				if (imgUrl !== '../images/picturess/nophoto_660x495.svg') {
 					images.push(imgUrl);
 				} else {
-					console.log('default no photo image, skipping...');
+					console.log(chalk.yellow('default no photo image, skipping...'));
 					continue;
 				}
 			}
 
 			if (images.length == 0) {
-				console.log(`image/s unavailable, skipping...`);
+				console.log(chalk.yellow('image/s unavailable, skipping...'));
 				continue;
 			}
 
@@ -201,7 +205,7 @@ async function scrapeDataFromUrls(validListingUrls, page) {
 			if (construction.includes(':')) {
 				construction = construction.split(':')[1].trim();
 				if (construction.length <= 2) {
-					console.log(`construction unavailable, skipping...`);
+					console.log(chalk.yellow('construction unavailable, skipping...'));
 					continue;
 				}
 			}
@@ -217,7 +221,7 @@ async function scrapeDataFromUrls(validListingUrls, page) {
 			if (floor.includes(':')) {
 				floor = floor.split(':')[1].trim();
 				if (floor.length <= 2) {
-					console.log(`floor unavailable, skipping...`);
+					console.log(chalk.yellow('floor unavailable, skipping...'));
 					continue;
 				}
 			}
@@ -242,10 +246,13 @@ async function scrapeDataFromUrls(validListingUrls, page) {
 				date: parsedDate,
 				views,
 			};
-			console.log('DATA:', scrapedInfo);
+
+			//! console.log('DATA:', scrapedInfo);
+
+			console.log(chalk.blue('scraped successfully:', url));
 			pageData.push(scrapedInfo);
 		} catch (error) {
-			console.error(`error scraping pageData for listing: ${url}`, error);
+			console.error(chalk.red(`error scraping pageData from URL: ${url}`, error));
 		}
 	}
 	return pageData;
@@ -260,19 +267,20 @@ async function scrapeDataWithRetry() {
 			const realEstateData = await scrapeRealEstateData();
 
 			if (realEstateData) {
-				console.log(`data scraped at attempt ${++retryCount}`);
+				console.log(chalk.blue(`data scraped at attempt ${++retryCount}`));
 				return realEstateData;
 			} else {
 				retryCount++;
 			}
 		} catch (error) {
-			console.error(`error scraping real estate data (attempt ${retryCount + 1}):`, error);
+			console.error(chalk.red(`error while retrying to scrape data (attempt ${retryCount + 1}):`, error));
+
 			retryCount++;
 			await delay(mediumMs);
 		}
 	}
 
-	console.error('max retries reached, scraping failed...');
+	console.error(chalk.red('max retries reached, scraping failed...'));
 	return null;
 }
 
