@@ -1,3 +1,4 @@
+require('events').EventEmitter.defaultMaxListeners = 15;
 require('dotenv').config();
 
 const express = require('express');
