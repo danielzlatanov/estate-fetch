@@ -21,14 +21,8 @@ async function scrapeRealEstateData() {
 		await page.click('input[type="button"][value="Т Ъ Р С И"]');
 		await delay(mediumMs);
 
-		let dynamicUrl = page.url();
-		const f1Index = dynamicUrl.indexOf('&f1');
-		if (f1Index !== -1) {
-			dynamicUrl = dynamicUrl.substring(0, f1Index);
-			console.log(chalk.blue('dynamic URL retrieved:', dynamicUrl));
-		} else {
-			throw new Error(chalk.red(`dynamic URL not retrieved, cannot continue...`));
-		}
+		let dynamicUrl = getDynamicUrl(page);
+		console.log(chalk.blue('dynamic URL retrieved:', dynamicUrl));
 
 		const totalPages = await getTotalPages(page);
 		console.log(chalk.blue(`${totalPages} total pages will be scraped...`));
@@ -99,6 +93,17 @@ function generatePageLinks(dynamicUrl, totalPages) {
 		pageLinks.push(`${dynamicUrl}&f1=${i}`);
 	}
 	return pageLinks;
+}
+
+function getDynamicUrl(page) {
+	let url = page.url();
+	const f1Index = url.indexOf('&f1');
+	if (f1Index !== -1) {
+		url = url.substring(0, f1Index);
+		return url;
+	} else {
+		throw new Error(chalk.red(`dynamic URL not retrieved, cannot continue...`));
+	}
 }
 
 async function scrapeDataFromUrls(validListingUrls, page) {
