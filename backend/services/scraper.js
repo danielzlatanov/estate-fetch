@@ -148,22 +148,6 @@ async function scrapeDataFromUrls(validListingUrls, page) {
 				continue;
 			}
 
-			await Promise.all([
-				page.waitForSelector('.advHeader .title', { timeout: lowMs }),
-				page.waitForSelector('.location', { timeout: lowMs }),
-				page.waitForSelector('#cena', { timeout: lowMs }),
-				page.waitForSelector('#bigPictureCarousel', { timeout: highMs }),
-				page.waitForSelector('.phone', { timeout: lowMs }),
-				page.waitForSelector('.adParams div:first-child', { timeout: lowMs }),
-				page.waitForSelector('.adParams div:nth-child(2)', { timeout: lowMs }),
-				page.waitForSelector('.adParams div:nth-child(3)', { timeout: lowMs }),
-				page.waitForSelector('#description_div', { timeout: lowMs }),
-				page.waitForSelector('.AG', { timeout: lowMs }),
-				page.waitForSelector('.AG .name', { timeout: lowMs }),
-				page.waitForSelector('.AG .logo img', { timeout: mediumMs }),
-				page.waitForSelector('.AG .adress', { timeout: lowMs }),
-			]);
-
 			const title = (await page.$eval('.advHeader .title', el => el.textContent)).trim();
 			const location = (await page.$eval('.location', el => el.textContent)).trim();
 			const price = (await page.$eval('#cena', el => el.textContent)).trim();
