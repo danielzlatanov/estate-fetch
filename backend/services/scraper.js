@@ -112,16 +112,6 @@ async function scrapeDataFromUrls(validListingUrls, page) {
 		try {
 			await page.goto(url);
 
-			const isPriceUnavailable = await page.evaluate(() => {
-				const textToCheck = 'При запитване';
-				return document.body.textContent.includes(textToCheck);
-			});
-
-			if (isPriceUnavailable) {
-				console.log(chalk.yellow('price unavailable, skipping...'));
-				continue;
-			}
-
 			const images = [];
 
 			const hasMultipleImages = await page.evaluate(() => {
