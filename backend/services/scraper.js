@@ -27,7 +27,7 @@ async function scrapeRealEstateData() {
 		const totalPages = await getTotalPages(page);
 		console.log(chalk.blue(`${totalPages} total pages will be scraped...`));
 
-		if (totalPages === 0) {
+		if (totalPages && totalPages === 0) {
 			throw new Error(chalk.red(`${totalPages} total pages, cannot continue...`));
 		}
 
@@ -81,7 +81,7 @@ async function getTotalPages(page) {
 	await page.waitForSelector('.pageNumbersInfo');
 	const pagesInfo = (await page.$eval('.pageNumbersInfo', el => el.textContent)).trim();
 
-	if (pagesInfo.includes('от')) {
+	if (pagesInfo && pagesInfo.includes('от')) {
 		return Number(pagesInfo.split('от')[1].trim());
 	}
 	return 0;
@@ -125,7 +125,7 @@ async function scrapeDataFromUrls(validListingUrls, page) {
 			} else {
 				const imgUrl = (await page.$eval('#bigPictureCarousel', el => el.src)).trim();
 
-				if (imgUrl !== '../images/picturess/nophoto_660x495.svg') {
+				if (imgUrl && imgUrl !== '../images/picturess/nophoto_660x495.svg') {
 					images.push(imgUrl);
 				} else {
 					console.log(chalk.yellow('default no photo image, skipping...'));
@@ -133,7 +133,7 @@ async function scrapeDataFromUrls(validListingUrls, page) {
 				}
 			}
 
-			if (images.length == 0) {
+			if (images && images.length == 0) {
 				console.log(chalk.yellow('image/s unavailable, skipping...'));
 				continue;
 			}
@@ -176,12 +176,12 @@ async function scrapeDataFromUrls(validListingUrls, page) {
 					.trim()
 			);
 
-			if (price.includes('лв')) {
+			if (price && price.includes('лв')) {
 				priceNoCurrency /= exchangeRate;
 				priceNoCurrency = Math.ceil(priceNoCurrency);
 			}
 
-			if (construction.includes(':')) {
+			if (construction && construction.includes(':')) {
 				construction = construction.split(':')[1].trim();
 				if (construction.length <= 2) {
 					console.log(chalk.yellow('construction unavailable, skipping...'));
@@ -189,7 +189,7 @@ async function scrapeDataFromUrls(validListingUrls, page) {
 				}
 			}
 
-			if (area.includes(':')) {
+			if (area && area.includes(':')) {
 				const areaParts = area.split(':');
 				if (areaParts.length >= 2) {
 					const numericPart = areaParts[1].trim().split(' ')[0];
@@ -197,7 +197,7 @@ async function scrapeDataFromUrls(validListingUrls, page) {
 				}
 			}
 
-			if (floor.includes(':')) {
+			if (floor && floor.includes(':')) {
 				floor = floor.split(':')[1].trim();
 				if (floor.length <= 2) {
 					console.log(chalk.yellow('floor unavailable, skipping...'));
