@@ -160,6 +160,10 @@ async function scrapeDataFromUrls(validLinks) {
 			const realtorInfo = $('.AG .adress').text().trim();
 			const info = $('.adPrice .info').text().trim();
 
+			if (!title || !location || !price || !phone || !area || !floor || !construction || !description || !info) {
+				console.log(chalk.yellow('main data unavailable, skipping...'));
+				continue;
+			}
 			const infoSentences = info.split(/\.\s+/);
 			const dateSentence = infoSentences[0];
 			const dateAndTimePattern = /(\d+:\d+) на (\d+ [а-я]+, \d+ год)/;
