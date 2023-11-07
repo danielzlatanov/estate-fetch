@@ -1,6 +1,9 @@
 const chalk = require('chalk');
 const puppeteer = require('puppeteer');
 const { performance } = require('perf_hooks');
+const cheerio = require('cheerio');
+const iconv = require('iconv-lite');
+const axios = require('axios');
 const moment = require('moment');
 const lowMs = 1000;
 const mediumMs = 3000;
@@ -48,7 +51,7 @@ async function scrapeRealEstateData() {
 
 					const listingUrls = await page.$$eval('a.lnk3', links => links.map(link => link.href));
 					const validListingUrls = listingUrls.filter(url => !url.startsWith('javascript:'));
-					const pageData = await scrapeDataFromUrls(validListingUrls, page);
+					const pageData = await scrapeDataFromUrls(validListingUrls);
 
 					await browser.close();
 
@@ -106,24 +109,26 @@ function getDynamicUrl(page) {
 	}
 }
 
-async function scrapeDataFromUrls(validListingUrls, page) {
+async function scrapeDataFromUrls(validListingUrls) {
 	const pageData = [];
 	for (const url of validListingUrls) {
 		try {
-			await page.goto(url);
+			const response = await axios.get(url, { responseType: 'arraybuffer' });
+			const htmlBuffer = response.data;
+			const encoding = 'windows-1251';
+			const html = iconv.decode(htmlBuffer, encoding);
+
+			const $ = cheerio.load(html);
 
 			const images = [];
-
-			const hasMultipleImages = await page.evaluate(() => {
-				const divIm = document.querySelector('div.im');
-				return divIm !== null;
-			});
-
+			const hasMultipleImages = $('div.im').length > 0;
 			if (hasMultipleImages) {
-				const imageSelectors = await page.$$eval('div.im a', els => els.map(el => el.dataset.link));
-				images.push(...imageSelectors.map(imgUrl => imgUrl.trim()));
+				$('div.im a').each((i, el) => {
+					const imgUrl = $(el).attr('data-link').trim();
+					images.push(imgUrl);
+				});
 			} else {
-				const imgUrl = (await page.$eval('#bigPictureCarousel', el => el.src)).trim();
+				const imgUrl = $('#bigPictureCarousel').attr('src').trim();
 
 				if (imgUrl && imgUrl !== '../images/picturess/nophoto_660x495.svg') {
 					images.push(imgUrl);
@@ -133,23 +138,23 @@ async function scrapeDataFromUrls(validListingUrls, page) {
 				}
 			}
 
-			if (images && images.length == 0) {
+			if (images.length == 0) {
 				console.log(chalk.yellow('image/s unavailable, skipping...'));
 				continue;
 			}
 
-			const title = (await page.$eval('.advHeader .title', el => el.textContent)).trim();
-			const location = (await page.$eval('.location', el => el.textContent)).trim();
-			const price = (await page.$eval('#cena', el => el.textContent)).trim();
-			const phone = (await page.$eval('.phone', el => el.textContent)).trim();
-			let area = (await page.$eval('.adParams div:first-child', el => el.textContent)).trim();
-			let floor = (await page.$eval('.adParams div:nth-child(2)', el => el.textContent)).trim();
-			let construction = (await page.$eval('.adParams div:nth-child(3)', el => el.textContent)).trim();
-			let description = await page.$eval('#description_div', el => el.textContent);
-			const realtor = (await page.$eval('.AG .name', el => el.textContent)).trim();
-			const realtorLogo = (await page.$eval('.AG .logo img', el => el.src)).trim();
-			const realtorAddress = (await page.$eval('.AG .adress', el => el.textContent)).trim();
-			const info = (await page.$eval('.adPrice .info', el => el.textContent)).trim();
+			const title = $('.advHeader .title').text().trim();
+			const location = $('.location').text().trim();
+			const price = $('#cena').text().trim();
+			const phone = $('.phone').text().trim();
+			let area = $('.adParams div:first-child').text().trim();
+			let floor = $('.adParams div:nth-child(2)').text().trim();
+			let construction = $('.adParams div:nth-child(3)').text().trim();
+			let description = $('#description_div').text();
+			const realtor = $('.AG .name').text().trim();
+			const realtorLogo = $('.AG .logo img').attr('src').trim();
+			const realtorInfo = $('.AG .adress').text().trim();
+			const info = $('.adPrice .info').text().trim();
 
 			const infoSentences = info.split(/\.\s+/);
 			const dateSentence = infoSentences[0];
@@ -221,12 +226,12 @@ async function scrapeDataFromUrls(validListingUrls, page) {
 				url,
 				realtor,
 				realtorLogo,
-				realtorAddress,
+				realtorInfo,
 				date: parsedDate,
 				views,
 			};
 
-			//! console.log('DATA:', scrapedInfo);
+			// console.log('DATA:', scrapedInfo);
 
 			console.log(chalk.blue('scraped successfully:', url));
 			pageData.push(scrapedInfo);
