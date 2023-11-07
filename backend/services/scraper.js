@@ -155,15 +155,31 @@ async function scrapeDataFromUrls(validLinks) {
 			let floor = $('.adParams div:nth-child(2)').text().trim();
 			let construction = $('.adParams div:nth-child(3)').text().trim();
 			let description = $('#description_div').text();
-			const realtor = $('.AG .name').text().trim();
-			const realtorLogo = $('.AG .logo img').attr('src').trim();
-			const realtorInfo = $('.AG .adress').text().trim();
 			const info = $('.adPrice .info').text().trim();
 
 			if (!title || !location || !price || !phone || !area || !floor || !construction || !description || !info) {
 				console.log(chalk.yellow('main data unavailable, skipping...'));
 				continue;
 			}
+
+			let realtor = '';
+			let realtorLogo = '';
+			let realtorInfo = '';
+
+			const realtorElementsExist =
+				$('.AG').find('.name').length > 0 &&
+				$('.AG').find('.logo').length > 0 &&
+				$('.AG').find('.adress').length > 0;
+
+			if (realtorElementsExist) {
+				realtor = $('.AG .name').text().trim();
+				realtorLogo = $('.AG .logo img').attr('src')?.trim();
+				realtorInfo = $('.AG .adress').text().trim();
+			} else {
+				console.log(chalk.yellow('full realtor data unavailable, skipping...'));
+				continue;
+			}
+
 			const infoSentences = info.split(/\.\s+/);
 			const dateSentence = infoSentences[0];
 			const dateAndTimePattern = /(\d+:\d+) на (\d+ [а-я]+, \d+ год)/;
