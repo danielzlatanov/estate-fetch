@@ -31,7 +31,7 @@ async function scrapeRealEstateData() {
 		console.log(chalk.blue(`${totalPages} total pages will be scraped...`));
 
 		if (totalPages === 0) {
-			throw new Error(chalk.red(`total pages not available, cannot continue...`));
+			throw new Error('total pages not available, cannot continue...');
 		}
 
 		const pageLinks = generatePageLinks(dynamicUrl, totalPages);
@@ -109,7 +109,7 @@ function getDynamicUrl(page) {
 		url = url.substring(0, f1Index);
 		return url;
 	} else {
-		throw new Error(chalk.red(`dynamic URL not retrieved, cannot continue...`));
+		throw new Error('dynamic URL not retrieved, cannot continue...');
 	}
 }
 
