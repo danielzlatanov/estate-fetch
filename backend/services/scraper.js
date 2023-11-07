@@ -30,8 +30,8 @@ async function scrapeRealEstateData() {
 		const totalPages = await getTotalPages(page);
 		console.log(chalk.blue(`${totalPages} total pages will be scraped...`));
 
-		if (totalPages && totalPages === 0) {
-			throw new Error(chalk.red(`${totalPages} total pages, cannot continue...`));
+		if (totalPages === 0) {
+			throw new Error(chalk.red(`total pages not available, cannot continue...`));
 		}
 
 		const pageLinks = generatePageLinks(dynamicUrl, totalPages);
@@ -43,7 +43,7 @@ async function scrapeRealEstateData() {
 			const batch = pageLinks.slice(i, i + maxConcurrentRequests);
 			const batchResults = await Promise.all(
 				batch.map(async pageLink => {
-					const browser = await puppeteer.launch({ headless: true });
+					const browser = await puppeteer.launch({ headless: 'new' });
 					const page = await browser.newPage();
 
 					await page.goto(pageLink);
@@ -186,12 +186,12 @@ async function scrapeDataFromUrls(validListingUrls) {
 				priceNoCurrency = Math.ceil(priceNoCurrency);
 			}
 
-			if (construction && construction.includes(':')) {
-				construction = construction.split(':')[1].trim();
-				if (construction.length <= 2) {
-					console.log(chalk.yellow('construction unavailable, skipping...'));
-					continue;
-				}
+			const constructionMatch = construction.match(/Строителство:\s*(.*)/i);
+			if (constructionMatch && constructionMatch.length > 1) {
+				construction = constructionMatch[1].trim();
+			} else {
+				console.log(chalk.yellow('construction unavailable, skipping...'));
+				continue;
 			}
 
 			if (area && area.includes(':')) {
