@@ -49,9 +49,13 @@ async function scrapeRealEstateData() {
 					await page.goto(pageLink);
 					await delay(mediumMs);
 
-					const listingUrls = await page.$$eval('a.lnk3', links => links.map(link => link.href));
-					const validListingUrls = listingUrls.filter(url => !url.startsWith('javascript:'));
-					const pageData = await scrapeDataFromUrls(validListingUrls);
+					const validLinks = await page.evaluate(() => {
+						const links = Array.from(document.querySelectorAll('a.lnk3'));
+						const validLinks = links.map(link => link.href).filter(url => !url.startsWith('javascript:'));
+						return validLinks;
+					});
+
+					const pageData = await scrapeDataFromUrls(validLinks);
 
 					await browser.close();
 
@@ -109,9 +113,9 @@ function getDynamicUrl(page) {
 	}
 }
 
-async function scrapeDataFromUrls(validListingUrls) {
+async function scrapeDataFromUrls(validLinks) {
 	const pageData = [];
-	for (const url of validListingUrls) {
+	for (const url of validLinks) {
 		try {
 			const response = await axios.get(url, { responseType: 'arraybuffer' });
 			const htmlBuffer = response.data;
