@@ -13,7 +13,7 @@ export interface IEstate {
   url: string;
   realtor: string;
   realtorLogo: string;
-  realtorAddress: string;
+  realtorInfo: string;
   date: Date;
   views: number;
 }
