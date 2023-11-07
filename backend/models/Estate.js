@@ -50,7 +50,7 @@ const estateSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	realtorAddress: {
+	realtorInfo: {
 		type: String,
 		required: true,
 	},
