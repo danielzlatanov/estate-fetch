@@ -12,7 +12,8 @@ import { LoadingService } from 'src/app/shared/services/loading.service';
 export class DetailsComponent implements OnInit {
   estate: IEstate | undefined;
   realtorAddress!: string;
-  realtorAgencyInfo!: string;
+  realtorInfo!: string;
+  splitIndex = -1;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,15 +31,34 @@ export class DetailsComponent implements OnInit {
           this.estate = data;
 
           const realtorInfo = this.estate.realtorInfo;
-          const agencyIndex = realtorInfo.indexOf('Агенция');
-          this.realtorAddress =
-            agencyIndex !== -1
-              ? realtorInfo.substring(0, agencyIndex).trim()
-              : realtorInfo;
-          this.realtorAgencyInfo =
-            agencyIndex !== -1
-              ? realtorInfo.substring(agencyIndex).toLowerCase().trim()
-              : '';
+          const keywords = [
+            'агенция',
+            'строителна',
+            'банка',
+            'инвеститор',
+            'чси',
+          ];
+
+          for (const keyword of keywords) {
+            const regex = new RegExp(keyword, 'i');
+            const match = realtorInfo.match(regex);
+
+            if (match) {
+              this.splitIndex = realtorInfo.indexOf(match[0]);
+              break;
+            }
+          }
+
+          if (this.splitIndex !== -1) {
+            this.realtorAddress =
+              this.splitIndex !== -1
+                ? realtorInfo.substring(0, this.splitIndex).trim()
+                : realtorInfo;
+            this.realtorInfo =
+              this.splitIndex !== -1
+                ? realtorInfo.substring(this.splitIndex).trim()
+                : '';
+          }
 
           this.loadingService.isLoading = false;
         },

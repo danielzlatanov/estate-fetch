@@ -227,9 +227,12 @@
                   Call {{ estate.phone }}
                 </a>
 
-                <ul class="ml-4 list-disc text-sm text-gray-700">
+                <ul
+                  *ngIf="splitIndex !== -1"
+                  class="ml-4 list-disc text-sm text-gray-700"
+                >
                   <li>{{ realtorAddress }}</li>
-                  <li>{{ realtorAgencyInfo }}</li>
+                  <li>{{ realtorInfo }}</li>
                 </ul>
               </div>
             </div>
