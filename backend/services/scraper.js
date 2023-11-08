@@ -113,6 +113,18 @@ function getDynamicUrl(page) {
 	}
 }
 
+function parseBulgarianDate(dateSentence) {
+	const dateAndTimePattern = /(\d+:\d+) на (\d+ [а-я]+, \d+ год)/;
+	const dateAndTimeMatches = dateSentence.match(dateAndTimePattern);
+	const time = dateAndTimeMatches[1];
+	const date = dateAndTimeMatches[2];
+	const dateStr = `${date} ${time}`;
+	const inputFormat = 'D MMMM, YYYY [год] HH:mm';
+
+	moment.locale('bg');
+	return moment(dateStr, inputFormat).toDate();
+}
+
 async function scrapeDataFromUrls(validLinks) {
 	const pageData = [];
 	for (const url of validLinks) {
@@ -182,14 +194,7 @@ async function scrapeDataFromUrls(validLinks) {
 
 			const infoSentences = info.split(/\.\s+/);
 			const dateSentence = infoSentences[0];
-			const dateAndTimePattern = /(\d+:\d+) на (\d+ [а-я]+, \d+ год)/;
-			const dateAndTimeMatches = dateSentence.match(dateAndTimePattern);
-			const time = dateAndTimeMatches[1];
-			const date = dateAndTimeMatches[2];
-			const dateStr = `${date} ${time}`;
-			moment.locale('bg');
-			const inputFormat = 'D MMMM, YYYY [год] HH:mm';
-			const parsedDate = moment(dateStr, inputFormat).toDate();
+			const parsedDate = parseBulgarianDate(dateSentence);
 
 			const viewsSentence = infoSentences[1];
 			const views = Number(viewsSentence.match(/\d+/));
