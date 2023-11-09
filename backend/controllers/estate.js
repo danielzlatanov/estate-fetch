@@ -6,20 +6,21 @@ const scrapeAndSaveEstateData = async (req, res) => {
 		const realEstateData = await scraper.scrapeDataWithRetry();
 
 		if (realEstateData == null) {
-			throw new Error('Scraped data is not an array');
+			throw new Error('scraped data is not an array');
 		}
 
-		//! DB save
-		// const savedEstates = await Promise.all(
-		// 	realEstateData.map(async estateData => {
-		// 		const estate = new Estate(estateData);
-		// 		return await estate.save();
-		// 	})
-		// );
+		await Estate.deleteMany({});
+
+		const savedEstates = await Promise.all(
+			realEstateData.map(async estateData => {
+				const estate = new Estate(estateData);
+				return await estate.save();
+			})
+		);
 
 		res.json({ message: 'Real estate data scraped and saved successfully.', savedEstates });
 	} catch (err) {
-		console.error('Error scraping and saving real estate data:', err);
+		console.error('error saving scraped data to DB:', err);
 		res.status(500).json({ error: 'Internal server error' });
 	}
 };
