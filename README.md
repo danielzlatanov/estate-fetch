@@ -114,6 +114,9 @@ To run the scraper **locally**, follow these steps:
 
 6.  Once the server is running and your database is connected, make a **GET** request to http://localhost:8000/api/scrape with your chosen API client (e.g., cURL or Postman) and include the **SECRET_TOKEN** in the request header. Ensure that the header is named `x-secret-token`.
 
+#### Scraper Demo
+https://github.com/danielzlatanov/estate-fetch/assets/110429874/551cb009-d45a-4bcd-9560-fda80d551785
+
 #### Note: The scraping functionality is designed for personal and educational use. Please be responsible and do not misuse it. Be mindful of the legal considerations associated with web scraping.
 
 ### Frontend Functionality
