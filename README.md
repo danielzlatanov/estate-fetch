@@ -115,6 +115,7 @@ To run the scraper **locally**, follow these steps:
 6.  Once the server is running and your database is connected, make a **GET** request to http://localhost:8000/api/scrape with your chosen API client (e.g., cURL or Postman) and include the **SECRET_TOKEN** in the request header. Ensure that the header is named `x-secret-token`.
 
 #### Scraper Demo
+
 https://github.com/danielzlatanov/estate-fetch/assets/110429874/551cb009-d45a-4bcd-9560-fda80d551785
 
 #### Note: The scraping functionality is designed for personal and educational use. Please be responsible and do not misuse it. Be mindful of the legal considerations associated with web scraping.
@@ -122,7 +123,7 @@ https://github.com/danielzlatanov/estate-fetch/assets/110429874/551cb009-d45a-4b
 ### Frontend Functionality
 
 -   Users can perform partial searches by keywords that match the **title**, **location**, and **description** fields to find listings matching their criteria.
--   The frontend displays property details, including keen-slider image carousel, title, price, location, description, floor, construction type, square meters price, area, and realtor information.
+-   The frontend displays property details, including keen-slider image carousel, ng-gallery for image lightbox functionality, title, price, location, description, floor, construction type, square meters price, area, and realtor information.
 -   Catalog page displays property previews, including thumbnails, prices, descriptions, and buttons for viewing details/accessing external listings.
 
 #### Search Filters
@@ -193,6 +194,7 @@ https://github.com/danielzlatanov/estate-fetch/assets/110429874/551cb009-d45a-4b
 -   No registration or payment is required to access all features.
 -   The app is designed to be user-friendly and intuitive for quick real estate searches.
 -   It is fully responsive across all devices, thanks to Tailwind CSS.
+-   Optimized for dark mode using darkreader, with a switch available in the header to toggle between dark and light modes.
 
 ###### [Back to Top](#estate-fetch)
 
@@ -203,9 +205,11 @@ The app relies on the following technologies and libraries:
 -   **Frontend:** Angular
 -   **HTTP Requests:** Angular’s HttpClient
 -   **Image Carousel:** keen-slider
+-   **Image Lightbox:** ng-gallery
 -   **Styling:** Tailwind CSS
+-   **Dark Mode:** darkreader
 -   **Backend:** Node.js with Express
--   **Web Scraping:** Puppeteer
+-   **Web Scraping:** Puppeteer and Cheerio
 -   **CORS Handling:** cors
 -   **Data Storage:** MongoDB Atlas
 -   **Deployment Platform:** Vercel
