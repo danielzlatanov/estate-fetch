@@ -5,6 +5,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import { NAV_LINKS } from 'src/app/shared/helpers/navLinks';
 
 @Component({
   selector: 'app-mobile-menu',
@@ -12,6 +13,7 @@ import {
   styleUrls: ['./mobile-menu.component.css'],
 })
 export class MobileMenuComponent {
+  navLinks = NAV_LINKS;
   @Input() finalRoute: string | null = null;
   @Output() isMobileMenuOpenChange = new EventEmitter<boolean>();
 

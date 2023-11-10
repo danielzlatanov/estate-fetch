@@ -6,6 +6,7 @@ import {
   Output,
 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { NAV_LINKS } from 'src/app/shared/helpers/navLinks';
 import { scrollToTop } from 'src/app/shared/helpers/scrollToTop';
 import { LoadingService } from 'src/app/shared/services/loading.service';
 
@@ -21,6 +22,7 @@ export class HeaderComponent implements OnInit {
   showBackToTop = false;
   showBurgerBtn = false;
   showCta = false;
+  navLinks = NAV_LINKS;
   @Output() finalRouteChange = new EventEmitter<string>();
 
   @HostListener('window:scroll', [])
