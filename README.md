@@ -93,6 +93,29 @@ Here are all of the available API routes for interacting with the backend server
 -   Data is processed and stored, including property details and realtor information.
 -   The backend serves as a central data repository for the frontend.
 
+#### Local Scraper Setup
+
+To run the scraper **locally**, follow these steps:
+
+1.  Copy the contents of the `.env.example` file to a new file named `.env` in the `backend` directory.
+
+2.  Set your MongoDB connection string in the `MONGODB_URL` variable.
+
+3.  Customize the `SECRET_TOKEN` in the `.env` file. This token is used to authenticate requests to initiate the scraping process.
+
+4.  Open your terminal and navigate to the `backend` directory.
+
+5.  Run the following commands to install dependencies and start the local server:
+
+    ```bash
+    npm install
+    npm run dev
+    ```
+
+6.  Once the server is running and your database is connected, make a **GET** request to http://localhost:8000/api/scrape with your chosen API client (e.g., cURL or Postman) and include the **SECRET_TOKEN** in the request header. Ensure that the header is named `x-secret-token`.
+
+#### Note: The scraping functionality is designed for personal and educational use. Please be responsible and do not misuse it. Be mindful of the legal considerations associated with web scraping.
+
 ### Frontend Functionality
 
 -   Users can perform partial searches by keywords that match the **title**, **location**, and **description** fields to find listings matching their criteria.
