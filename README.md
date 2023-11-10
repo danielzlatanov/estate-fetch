@@ -99,6 +99,64 @@ Here are all of the available API routes for interacting with the backend server
 -   The frontend displays property details, including keen-slider image carousel, title, price, location, description, floor, construction type, square meters price, area, and realtor information.
 -   Catalog page displays property previews, including thumbnails, prices, descriptions, and buttons for viewing details/accessing external listings.
 
+#### Search Filters
+
+-   Price Range:
+
+    -   Finds properties within the specified minimum and maximum price range (can be used separately or together).
+
+-   Location:
+
+    -   Provides a list of cities across Bulgaria to filter by.
+
+-   Construction Type:
+
+    -   Filters properties based on available construction types.
+
+-   Area Size:
+
+    -   Defines the minimum area size of properties.
+
+-   Number of Rooms:
+
+    -   Specifies the number of rooms.
+
+-   **Apply / Reset Filters:**
+
+    -   Click the **Apply** button to activate your selected filters _**or**_ use the **Reset** button to clear all filters.
+
+#### Sort Options
+
+-   Relevance:
+
+    -   Properties based on relevance.
+
+-   Price Ascending:
+
+    -   Properties from the lowest to the highest price.
+
+-   Price Descending:
+
+    -   Properties from the highest to the lowest price.
+
+-   Newest Listings:
+
+    -   Latest property listings.
+
+-   Oldest Listings:
+
+    -   Earliest property listings.
+
+-   Most Views:
+
+    -   Properties based on the highest number of views.
+
+-   Least Views:
+
+    -   Properties based on the lowest number of views.
+
+#### **The chosen filters/sorting preferences are encoded in the URL, allowing for sharing of searches with others.**
+
 ### Home Page
 
 -   Home page includes a hero section, scraper overview, features section, frequently asked questions (FAQ), and data origins section.
