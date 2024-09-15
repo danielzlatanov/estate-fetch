@@ -12,42 +12,85 @@ const highMs = 5000;
 async function scrapeRealEstateData() {
 	try {
 		const start = performance.now();
-		console.log(chalk.blue('started scraping...'));
+		console.log(chalk.blue('init scraper..'));
 
 		// const browser = await puppeteer.launch({ headless: false, slowMo: 250 });
-		const browser = await puppeteer.launch({ headless: 'new' });
-		const page = await browser.newPage();
+		const browser = await puppeteer.launch({
+			headless: 'new',
+			args: [
+				'--no-sandbox',
+				'--disable-setuid-sandbox',
+				'--disable-dev-shm-usage',
+				'--disable-gpu',
+				'--no-first-run',
+			],
+		});
 
-		await page.goto('https://www.imot.bg/pcgi/imot.cgi');
-		await page.click('.fc-button-label');
-		await page.click('.mapBtnProdajbi');
-		await page.click('input[type="button"][value="Т Ъ Р С И"]');
-		await delay(mediumMs);
+		// const browser = await puppeteer.launch({
+		// 	headless: false,
+		// 	slowMo: 250,
+		// 	// args: [
+		// 	// 	'--start-maximized',
+		// 	// 	'--window-size=1920,1080',
+		// 	// 	'--disable-gpu',
+		// 	// 	'--disable-dev-shm-usage',
+		// 	// 	'--disable-setuid-sandbox',
+		// 	// 	'--no-first-run',
+		// 	// 	'--no-sandbox',
+		// 	// 	'--no-zygote',
+		// 	// 	'--deterministic-fetch',
+		// 	// 	'--disable-features=IsolateOrigins',
+		// 	// 	'--disable-site-isolation-trials',
+		// 	// 	// '--single-process',
+		// 	// ],
+		// 	// defaultViewport: null,
+		// });
 
-		let dynamicUrl = getDynamicUrl(page);
-		console.log(chalk.blue('dynamic URL retrieved:', dynamicUrl));
+		// const page = await browser.newPage();
+		const [initPage] = await browser.pages();
 
-		const totalPages = await getTotalPages(page);
-		console.log(chalk.blue(`${totalPages} total pages will be scraped...`));
+		// await page.setViewport({ width: 1920, height: 1080 });
+
+		await initPage.goto('https://www.imot.bg/pcgi/imot.cgi');
+		await initPage.click('.fc-button-label');
+		await initPage.click('.mapBtnProdajbi');
+		await initPage.click('input[type="button"][value="Т Ъ Р С И"]');
+		await delay(lowMs);
+
+		let dynamicUrl = getDynamicUrl(initPage);
+		// console.log(chalk.blue('dynamic URL retrieved:', dynamicUrl));
+
+		const totalPages = await getTotalPages(initPage); //! actual total pages
+		// const totalPages = 1; //! testing
+
+
+		// console.log(chalk.blue(`${totalPages} total pages will be scraped...`));
 
 		if (totalPages === 0) {
 			throw new Error('total pages not available, cannot continue...');
 		}
 
+		// await page.close();
+
 		const pageLinks = generatePageLinks(dynamicUrl, totalPages);
 
-		const maxConcurrentRequests = 10;
+		// console.log('pageLinks',pageLinks);
+
+		const maxConcurrentRequests = 25;
+		// const maxConcurrentRequests = 10;
+		// const maxConcurrentRequests = 1;
 		const realEstateData = [];
 
 		for (let i = 0; i < pageLinks.length; i += maxConcurrentRequests) {
 			const batch = pageLinks.slice(i, i + maxConcurrentRequests);
 			const batchResults = await Promise.all(
 				batch.map(async pageLink => {
-					const browser = await puppeteer.launch({ headless: 'new' });
+					// const browser = await puppeteer.launch({ headless: false, slowMo: 250 });
+					// const browser = await puppeteer.launch({ headless: 'new' });
 					const page = await browser.newPage();
 
 					await page.goto(pageLink);
-					await delay(mediumMs);
+					// await delay(mediumMs);
 
 					const validLinks = await page.evaluate(() => {
 						const links = Array.from(document.querySelectorAll('a.lnk3'));
@@ -55,9 +98,10 @@ async function scrapeRealEstateData() {
 						return validLinks;
 					});
 
-					const pageData = await scrapeDataFromUrls(validLinks);
+					// await browser.close();
+					await page.close();
 
-					await browser.close();
+					const pageData = await scrapeDataFromUrls(validLinks);
 
 					return pageData;
 				})
@@ -71,11 +115,7 @@ async function scrapeRealEstateData() {
 		const totalTimeInMinutes = Math.floor((end - start) / 60000);
 		const remainingSeconds = ((end - start) % 60000) / 1000;
 
-		console.log(
-			chalk.blue(
-				`finished:\nscraping took ${totalTimeInMinutes} minutes and ${remainingSeconds.toFixed(2)} seconds`
-			)
-		);
+		console.log(chalk.blue(`time: ${totalTimeInMinutes}m and ${remainingSeconds.toFixed(2)}s`));
 
 		return realEstateData;
 	} catch (error) {
@@ -149,13 +189,13 @@ async function scrapeDataFromUrls(validLinks) {
 				if (imgUrl && imgUrl !== '../images/picturess/nophoto_660x495.svg') {
 					images.push(imgUrl);
 				} else {
-					console.log(chalk.yellow('default no photo image, skipping...'));
+					// console.log(chalk.yellow('default no photo image, skipping...'));
 					continue;
 				}
 			}
 
 			if (images.length == 0) {
-				console.log(chalk.yellow('image/s unavailable, skipping...'));
+				// console.log(chalk.yellow('image/s unavailable, skipping...'));
 				continue;
 			}
 
@@ -170,7 +210,7 @@ async function scrapeDataFromUrls(validLinks) {
 			const info = $('.adPrice .info').text().trim();
 
 			if (!title || !location || !price || !phone || !area || !floor || !construction || !description || !info) {
-				console.log(chalk.yellow('main data unavailable, skipping...'));
+				// console.log(chalk.yellow('main data unavailable, skipping...'));
 				continue;
 			}
 
@@ -188,7 +228,7 @@ async function scrapeDataFromUrls(validLinks) {
 				realtorLogo = $('.AG .logo img').attr('src')?.trim();
 				realtorInfo = $('.AG .adress').text().trim();
 			} else {
-				console.log(chalk.yellow('full realtor data unavailable, skipping...'));
+				// console.log(chalk.yellow('full realtor data unavailable, skipping...'));
 				continue;
 			}
 
@@ -219,7 +259,7 @@ async function scrapeDataFromUrls(validLinks) {
 			if (constructionMatch && constructionMatch.length > 1) {
 				construction = constructionMatch[1].trim();
 			} else {
-				console.log(chalk.yellow('construction unavailable, skipping...'));
+				// console.log(chalk.yellow('construction unavailable, skipping...'));
 				continue;
 			}
 
@@ -234,7 +274,7 @@ async function scrapeDataFromUrls(validLinks) {
 			if (floor && floor.includes(':')) {
 				floor = floor.split(':')[1].trim();
 				if (floor.length <= 2) {
-					console.log(chalk.yellow('floor unavailable, skipping...'));
+					// console.log(chalk.yellow('floor unavailable, skipping...'));
 					continue;
 				}
 			}
@@ -262,8 +302,8 @@ async function scrapeDataFromUrls(validLinks) {
 
 			// console.log('DATA:', scrapedInfo);
 
-			console.log(chalk.blue('scraped successfully:', url));
 			pageData.push(scrapedInfo);
+			console.log(chalk.green('✔', url));
 		} catch (error) {
 			console.error(chalk.red(`error scraping pageData from URL: ${url}`, error));
 		}
@@ -280,16 +320,16 @@ async function scrapeDataWithRetry() {
 			const realEstateData = await scrapeRealEstateData();
 
 			if (realEstateData) {
-				console.log(chalk.blue(`data scraped at attempt ${++retryCount}`));
+				console.log(chalk.blue(`scraper: ${++retryCount} attempt`));
 				return realEstateData;
 			} else {
 				retryCount++;
 			}
 		} catch (error) {
-			console.error(chalk.red(`error while retrying to scrape data (attempt ${retryCount + 1}):`, error));
+			console.error(chalk.red(`error on scrape retry (${retryCount + 1} attempt):`, error));
 
 			retryCount++;
-			await delay(mediumMs);
+			// await delay(mediumMs);
 		}
 	}
 
