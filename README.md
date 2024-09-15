@@ -116,7 +116,7 @@ To run the scraper **locally**, follow these steps:
 
 #### Scraper Demo
 
-https://github.com/danielzlatanov/estate-fetch/assets/110429874/551cb009-d45a-4bcd-9560-fda80d551785
+https://github.com/user-attachments/assets/f1b4bbc7-7b32-43f6-bda7-12a929476416
 
 #### Note: The scraping functionality is designed for personal and educational use. Please be responsible and do not misuse it. Be mindful of the legal considerations associated with web scraping.
 
